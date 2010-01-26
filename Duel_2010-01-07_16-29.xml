@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="windows-1250"?>
+<record>
+<world><id>56</id><name>Duel</name><start></start><width>8</width><height>8</height><limit>2</limit><speed></speed><map></map></world>
+<wmod><id>1</id><name>classic</name><peace>24:00:00</peace><type>dual</type><timelimit></timelimit><mapvisafter></mapvisafter><speed>4</speed><prodef>1</prodef><startturns>15</startturns><startnectar>500</startnectar><rating>3</rating><jumping>1</jumping><flags>1</flags><unitspeedbonus>0</unitspeedbonus><friendarmy>0</friendarmy></wmod>
+<fieldtypes>
+<fieldtype><id>1</id><name>normální</name><armyvisible>0</armyvisible><produce>12</produce><lookout>1</lookout><attbonus>0</attbonus><defbonus>0</defbonus><reachability>1</reachability></fieldtype>
+<fieldtype><id>2</id><name>bažina</name><armyvisible>0</armyvisible><produce>7</produce><lookout>1</lookout><attbonus>0</attbonus><defbonus>2</defbonus><reachability>1</reachability></fieldtype>
+<fieldtype><id>3</id><name>skála</name><armyvisible>0</armyvisible><produce>5</produce><lookout>1</lookout><attbonus>0</attbonus><defbonus>0</defbonus><reachability>1</reachability></fieldtype>
+<fieldtype><id>4</id><name>Nedobytné</name><armyvisible>0</armyvisible><produce>0</produce><lookout>1</lookout><attbonus>0</attbonus><defbonus>0</defbonus><reachability>0</reachability></fieldtype>
+</fieldtypes>
+<map>
+<f>2</f><f>1</f><f>2</f><f>1</f><f>1</f><f>1</f><f>1</f><f>2</f><f>1</f><f>1</f><f>2</f><f>1</f><f>1</f><f>2</f><f>2</f><f>1</f><f>2</f><f>1</f><f>2</f><f>1</f><f>1</f><f>1</f><f>2</f><f>1</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>1</f><f>1</f><f>2</f><f>1</f><f>1</f><f>1</f><f>1</f><f>1</f><f>2</f><f>1</f><f>2</f><f>1</f><f>1</f><f>2</f><f>1</f><f>1</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>2</f><f>1</f><f>2</f><f>2</f><f>2</f><f>1</f><f>1</f><f>2</f>
+</map>
+<units>
+<unit><id>4</id><name>Beruška</name><desc>Jednotka s vyváženými vlastnostmi, ale pro svoji krásu získala dotace z EU a je tedy levnější.</desc><att>5</att><def>3</def><cost>7</cost><turnsatt>5</turnsatt><turnsmove>1</turnsmove><lobonus>0</lobonus></unit>
+<unit><id>2</id><name>Hovado</name><desc>Silný a nebezpečný útočník, ideální pro rychlý útok a stažení do zálohy.</desc><att>9</att><def>1</def><cost>10</cost><turnsatt>5</turnsatt><turnsmove>1</turnsmove><lobonus>0</lobonus></unit>
+<unit><id>1</id><name>Komár</name><desc>Malý lítý bojovník s vyváženou silou obrany a útoku.</desc><att>1</att><def>1</def><cost>2</cost><turnsatt>5</turnsatt><turnsmove>1</turnsmove><lobonus>0</lobonus></unit>
+<unit><id>3</id><name>Šváb</name><desc>Silný bojovník, ideální pro obranu normálních polí.</desc><att>1</att><def>16</def><cost>17</cost><turnsatt>5</turnsatt><turnsmove>1</turnsmove><lobonus>0</lobonus></unit>
+</units>
+<utypes>
+<utype><id>1</id><name>louka</name></utype>
+<utype><id>2</id><name>les</name></utype>
+</utypes>
+<players>
+<player><id>66</id><nick>asu</nick><type>2</type><ali></ali><regdate>2005-03-06 19:27:08</regdate></player>
+<player><id>149</id><nick>jaku</nick><type>1</type><ali></ali><regdate>2009-05-04 22:28:48</regdate></player>
+</players>
+<events>
+<chq><t>2010-01-07 16:13:18</t><pl>66</pl><p>C2</p><typ></typ></chq>
+<chq><t>2010-01-07 16:29:59</t><pl>149</pl><p>F5</p><typ></typ></chq>
+<ws><t>2010-01-07 16:29:59</t></ws>
+<buy><t>2010-01-07 16:30:07</t><p>F5</p><ut>2</ut><c>35</c></buy>
+<att><t>2010-01-07 16:30:12</t><p1>F5</p1><p2>E5</p2><ca>35</ca><ta>2</ta><cd>2</cd><td>3</td><r>1</r><s>34</s></att>
+<att><t>2010-01-07 16:30:16</t><p1>E5</p1><p2>D5</p2><ca>34</ca><ta>2</ta><cd>2</cd><td>2</td><r>1</r><s>34</s></att>
+<rct><t>2010-01-07 17:02:02</t></rct>
+<rct><t>2010-01-07 17:02:02</t></rct>
+<att><t>2010-01-07 17:02:50</t><p1>D5</p1><p2>D4</p2><ca>34</ca><ta>2</ta><cd>5</cd><td>4</td><r>1</r><s>34</s></att>
+<buy><t>2010-01-07 17:11:05</t><p>C2</p><ut>2</ut><c>41</c></buy>
+<att><t>2010-01-07 17:11:09</t><p1>C2</p1><p2>B2</p2><ca>41</ca><ta>2</ta><cd>3</cd><td>2</td><r>1</r><s>41</s></att>
+<att><t>2010-01-07 17:11:16</t><p1>B2</p1><p2>B1</p2><ca>41</ca><ta>2</ta><cd>5</cd><td>4</td><r>1</r><s>41</s></att>
+<mov><t>2010-01-07 17:11:26</t><p1>B1</p1><p2>C2</p2><c>41</c></mov>
+<att><t>2010-01-07 17:11:30</t><p1>C2</p1><p2>D2</p2><ca>41</ca><ta>2</ta><cd>2</cd><td>4</td><r>1</r><s>41</s></att>
+<rct><t>2010-01-07 18:02:02</t></rct>
+<rct><t>2010-01-07 18:02:02</t></rct>
+<att><t>2010-01-07 18:02:09</t><p1>D2</p1><p2>E2</p2><ca>41</ca><ta>2</ta><cd>2</cd><td>3</td><r>1</r><s>40</s></att>
+<att><t>2010-01-07 18:22:15</t><p1>D4</p1><p2>C4</p2><ca>34</ca><ta>2</ta><cd>4</cd><td>4</td><r>1</r><s>34</s></att>
+<rct><t>2010-01-07 19:02:02</t></rct>
+<rct><t>2010-01-07 19:02:02</t></rct>
+<att><t>2010-01-07 19:03:30</t><p1>E2</p1><p2>F2</p2><ca>40</ca><ta>2</ta><cd>4</cd><td>2</td><r>1</r><s>40</s></att>
+<rct><t>2010-01-07 20:02:01</t></rct>
+<rct><t>2010-01-07 20:02:01</t></rct>
+<att><t>2010-01-07 20:38:42</t><p1>C4</p1><p2>B4</p2><ca>34</ca><ta>2</ta><cd>3</cd><td>1</td><r>1</r><s>34</s></att>
+<att><t>2010-01-07 20:38:49</t><p1>B4</p1><p2>A4</p2><ca>34</ca><ta>2</ta><cd>5</cd><td>1</td><r>1</r><s>34</s></att>
+<rct><t>2010-01-07 21:02:02</t></rct>
+<rct><t>2010-01-07 21:02:02</t></rct>
+<rct><t>2010-01-07 22:02:06</t></rct>
+<rct><t>2010-01-07 22:02:06</t></rct>
+<att><t>2010-01-07 22:44:56</t><p1>A4</p1><p2>A5</p2><ca>34</ca><ta>2</ta><cd>1</cd><td>3</td><r>1</r><s>34</s></att>
+<rct><t>2010-01-07 23:02:02</t></rct>
+<rct><t>2010-01-07 23:02:02</t></rct>
+<att><t>2010-01-07 23:04:42</t><p1>F2</p1><p2>F3</p2><ca>40</ca><ta>2</ta><cd>4</cd><td>4</td><r>1</r><s>40</s></att>
+<att><t>2010-01-07 23:04:49</t><p1>F3</p1><p2>G3</p2><ca>40</ca><ta>2</ta><cd>4</cd><td>3</td><r>1</r><s>39</s></att>
+<att><t>2010-01-07 23:04:55</t><p1>A5</p1><p2>B5</p2><ca>34</ca><ta>2</ta><cd>4</cd><td>3</td><r>1</r><s>33</s></att>
+<att><t>2010-01-07 23:04:55</t><p1>G3</p1><p2>G4</p2><ca>39</ca><ta>2</ta><cd>3</cd><td>2</td><r>1</r><s>39</s></att>
+<rct><t>2010-01-08 00:02:02</t></rct>
+<rct><t>2010-01-08 00:02:02</t></rct>
+<att><t>2010-01-08 00:13:32</t><p1>B5</p1><p2>C5</p2><ca>33</ca><ta>2</ta><cd>3</cd><td>2</td><r>1</r><s>33</s></att>
+<att><t>2010-01-08 00:33:59</t><p1>G4</p1><p2>F4</p2><ca>39</ca><ta>2</ta><cd>3</cd><td>3</td><r>1</r><s>38</s></att>
+<rct><t>2010-01-08 01:02:04</t></rct>
+<rct><t>2010-01-08 01:02:04</t></rct>
+<rct><t>2010-01-08 02:02:01</t></rct>
+<rct><t>2010-01-08 02:02:01</t></rct>
+<rct><t>2010-01-08 03:02:02</t></rct>
+<rct><t>2010-01-08 03:02:02</t></rct>
+<rct><t>2010-01-08 04:02:01</t></rct>
+<rct><t>2010-01-08 04:02:01</t></rct>
+<rct><t>2010-01-08 05:02:02</t></rct>
+<rct><t>2010-01-08 05:02:02</t></rct>
+<rct><t>2010-01-08 06:02:01</t></rct>
+<rct><t>2010-01-08 06:02:01</t></rct>
+<rct><t>2010-01-08 07:02:01</t></rct>
+<rct><t>2010-01-08 07:02:01</t></rct>
+<mov><t>2010-01-08 07:47:31</t><p1>C5</p1><p2>D4</p2><c>33</c></mov>
+<att><t>2010-01-08 07:47:41</t><p1>D4</p1><p2>E4</p2><ca>33</ca><ta>2</ta><cd>3</cd><td>4</td><r>1</r><s>33</s></att>
+<att><t>2010-01-08 07:47:47</t><p1>E4</p1><p2>E3</p2><ca>33</ca><ta>2</ta><cd>4</cd><td>2</td><r>1</r><s>33</s></att>
+<att><t>2010-01-08 07:47:52</t><p1>E3</p1><p2>D3</p2><ca>33</ca><ta>2</ta><cd>3</cd><td>4</td><r>1</r><s>33</s></att>
+<cfd><t>2010-01-08 07:48:03</t><p>B5</p><nt>1</nt></cfd>
+<rct><t>2010-01-08 08:02:02</t></rct>
+<rct><t>2010-01-08 08:02:02</t></rct>
+<rct><t>2010-01-08 09:02:11</t></rct>
+<rct><t>2010-01-08 09:02:11</t></rct>
+<rct><t>2010-01-08 10:02:01</t></rct>
+<rct><t>2010-01-08 10:02:01</t></rct>
+<rct><t>2010-01-08 11:02:01</t></rct>
+<rct><t>2010-01-08 11:02:01</t></rct>
+<buy><t>2010-01-08 11:31:40</t><p>F5</p><ut>1</ut><c>750</c></buy>
+<buy><t>2010-01-08 11:31:52</t><p>E4</p><ut>3</ut><c>25</c></buy>
+<rct><t>2010-01-08 12:02:03</t></rct>
+<rct><t>2010-01-08 12:02:03</t></rct>
+<rct><t>2010-01-08 13:02:02</t></rct>
+<rct><t>2010-01-08 13:02:02</t></rct>
+<rct><t>2010-01-08 14:02:02</t></rct>
+<rct><t>2010-01-08 14:02:02</t></rct>
+<rct><t>2010-01-08 15:02:04</t></rct>
+<rct><t>2010-01-08 15:02:04</t></rct>
+<rct><t>2010-01-08 16:02:02</t></rct>
+<rct><t>2010-01-08 16:02:02</t></rct>
+<cfd><t>2010-01-08 16:02:35</t><p>F5</p><nt>2</nt></cfd>
+<buy><t>2010-01-08 16:02:47</t><p>D4</p><ut>3</ut><c>20</c></buy>
+<buy><t>2010-01-08 16:02:54</t><p>E5</p><ut>3</ut><c>20</c></buy>
+<buy><t>2010-01-08 16:03:01</t><p>E3</p><ut>1</ut><c>49</c></buy>
+<cfd><t>2010-01-08 16:13:59</t><p>C2</p><nt>2</nt></cfd>
+<buy><t>2010-01-08 16:14:20</t><p>C2</p><ut>1</ut><c>800</c></buy>
+<att><t>2010-01-08 16:30:01</t><p1>F4</p1><p2>E4</p2><ca>38</ca><ta>2</ta><cd>25</cd><td>3</td><r>1</r><s>2</s></att>
+<att><t>2010-01-08 16:30:13</t><p1>D3</p1><p2>D2</p2><ca>33</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>33</s></att>
+<att><t>2010-01-08 16:30:22</t><p1>E4</p1><p2>D4</p2><ca>2</ca><ta>2</ta><cd>20</cd><td>3</td><r>0</r><s>20</s></att>
+<att><t>2010-01-08 16:30:41</t><p1>D2</p1><p2>E2</p2><ca>33</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>33</s></att>
+<buy><t>2010-01-08 16:30:48</t><p>F3</p><ut>3</ut><c>28</c></buy>
+<att><t>2010-01-08 16:30:52</t><p1>E2</p1><p2>F2</p2><ca>33</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>33</s></att>
+<buy><t>2010-01-08 16:31:01</t><p>E4</p><ut>2</ut><c>34</c></buy>
+<att><t>2010-01-08 16:31:03</t><p1>F2</p1><p2>F3</p2><ca>33</ca><ta>2</ta><cd>28</cd><td>3</td><r>0</r><s>17</s></att>
+<att><t>2010-01-08 16:31:07</t><p1>E4</p1><p2>E5</p2><ca>34</ca><ta>2</ta><cd>20</cd><td>3</td><r>0</r><s>14</s></att>
+<att><t>2010-01-08 16:31:20</t><p1>C2</p1><p2>D2</p2><ca>8</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>8</s></att>
+<att><t>2010-01-08 16:31:25</t><p1>D2</p1><p2>E2</p2><ca>8</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>8</s></att>
+<att><t>2010-01-08 16:31:31</t><p1>E2</p1><p2>F2</p2><ca>8</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>8</s></att>
+<mov><t>2010-01-08 16:31:47</t><p1>F3</p1><p2>E2</p2><c>17</c></mov>
+<att><t>2010-01-08 16:32:13</t><p1>E3</p1><p2>E2</p2><ca>5</ca><ta>1</ta><cd>17</cd><td>3</td><r>0</r><s>17</s></att>
+<att><t>2010-01-08 16:33:20</t><p1>E3</p1><p2>F3</p2><ca>1</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>1</s></att>
+<att><t>2010-01-08 16:33:26</t><p1>F3</p1><p2>G3</p2><ca>1</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>1</s></att>
+<att><t>2010-01-08 16:33:31</t><p1>G3</p1><p2>G4</p2><ca>1</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>1</s></att>
+<rct><t>2010-01-08 17:02:01</t></rct>
+<rct><t>2010-01-08 17:02:01</t></rct>
+<rct><t>2010-01-08 18:02:02</t></rct>
+<rct><t>2010-01-08 18:02:02</t></rct>
+<rct><t>2010-01-08 19:02:01</t></rct>
+<rct><t>2010-01-08 19:02:01</t></rct>
+<buy><t>2010-01-08 19:20:36</t><p>F4</p><ut>2</ut><c>26</c></buy>
+<att><t>2010-01-08 19:20:40</t><p1>F4</p1><p2>F5</p2><ca>26</ca><ta>2</ta><cd>750</cd><td>1</td><r>0</r><s>736</s></att>
+<rct><t>2010-01-08 20:02:02</t></rct>
+<rct><t>2010-01-08 20:02:02</t></rct>
+<rct><t>2010-01-08 21:02:01</t></rct>
+<rct><t>2010-01-08 21:02:01</t></rct>
+<buy><t>2010-01-08 21:34:47</t><p>F3</p><ut>2</ut><c>50</c></buy>
+<att><t>2010-01-08 21:34:52</t><p1>F3</p1><p2>F2</p2><ca>50</ca><ta>2</ta><cd>8</cd><td>1</td><r>1</r><s>50</s></att>
+<att><t>2010-01-08 21:35:01</t><p1>F2</p1><p2>E2</p2><ca>50</ca><ta>2</ta><cd>17</cd><td>3</td><r>1</r><s>21</s></att>
+<att><t>2010-01-08 21:35:08</t><p1>E2</p1><p2>D2</p2><ca>21</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>21</s></att>
+<ret><t>2010-01-08 21:35:20</t><p>D2</p><c>21</c></ret>
+<att><t>2010-01-08 21:35:29</t><p1>E3</p1><p2>E4</p2><ca>1</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>1</s></att>
+<buy><t>2010-01-08 21:35:40</t><p>F2</p><ut>3</ut><c>20</c></buy>
+<rct><t>2010-01-08 22:02:01</t></rct>
+<rct><t>2010-01-08 22:02:01</t></rct>
+<buy><t>2010-01-08 22:17:11</t><p>F5</p><ut>1</ut><c>136</c></buy>
+<rct><t>2010-01-08 23:02:02</t></rct>
+<rct><t>2010-01-08 23:02:02</t></rct>
+<buy><t>2010-01-08 23:56:12</t><p>F4</p><ut>2</ut><c>25</c></buy>
+<att><t>2010-01-08 23:56:16</t><p1>F4</p1><p2>F3</p2><ca>25</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>25</s></att>
+<att><t>2010-01-08 23:56:21</t><p1>F3</p1><p2>F2</p2><ca>25</ca><ta>2</ta><cd>20</cd><td>3</td><r>0</r><s>4</s></att>
+<att><t>2010-01-08 23:56:26</t><p1>C2</p1><p2>D3</p2><ca>792</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>792</s></att>
+<att><t>2010-01-08 23:56:30</t><p1>D3</p1><p2>D4</p2><ca>792</ca><ta>1</ta><cd>20</cd><td>3</td><r>1</r><s>324</s></att>
+<att><t>2010-01-08 23:56:34</t><p1>D4</p1><p2>D5</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<att><t>2010-01-08 23:56:38</t><p1>D5</p1><p2>C5</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<att><t>2010-01-08 23:56:42</t><p1>C5</p1><p2>B5</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<att><t>2010-01-08 23:56:46</t><p1>B5</p1><p2>A5</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<att><t>2010-01-08 23:56:51</t><p1>A5</p1><p2>A4</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<rct><t>2010-01-09 00:02:02</t></rct>
+<rct><t>2010-01-09 00:02:02</t></rct>
+<att><t>2010-01-09 00:02:52</t><p1>A4</p1><p2>B4</p2><ca>324</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>324</s></att>
+<rct><t>2010-01-09 01:02:01</t></rct>
+<rct><t>2010-01-09 01:02:01</t></rct>
+<rct><t>2010-01-09 02:02:02</t></rct>
+<rct><t>2010-01-09 02:02:02</t></rct>
+<rct><t>2010-01-09 03:02:02</t></rct>
+<rct><t>2010-01-09 03:02:02</t></rct>
+<rct><t>2010-01-09 04:02:02</t></rct>
+<rct><t>2010-01-09 04:02:02</t></rct>
+<rct><t>2010-01-09 05:02:02</t></rct>
+<rct><t>2010-01-09 05:02:02</t></rct>
+<buy><t>2010-01-09 05:13:30</t><p>C4</p><ut>2</ut><c>50</c></buy>
+<att><t>2010-01-09 05:13:36</t><p1>C4</p1><p2>D4</p2><ca>50</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>50</s></att>
+<att><t>2010-01-09 05:13:42</t><p1>D4</p1><p2>D5</p2><ca>50</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>50</s></att>
+<att><t>2010-01-09 05:13:48</t><p1>D5</p1><p2>C5</p2><ca>50</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>50</s></att>
+<att><t>2010-01-09 05:13:54</t><p1>C5</p1><p2>B5</p2><ca>50</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>50</s></att>
+<att><t>2010-01-09 05:14:00</t><p1>B5</p1><p2>B4</p2><ca>50</ca><ta>2</ta><cd>324</cd><td>1</td><r>1</r><s>10</s></att>
+<att><t>2010-01-09 05:14:18</t><p1>B4</p1><p2>A4</p2><ca>10</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>10</s></att>
+<rct><t>2010-01-09 06:02:03</t></rct>
+<rct><t>2010-01-09 06:02:03</t></rct>
+<rct><t>2010-01-09 07:02:01</t></rct>
+<rct><t>2010-01-09 07:02:01</t></rct>
+<att><t>2010-01-09 07:25:51</t><p1>A4</p1><p2>A5</p2><ca>10</ca><ta>2</ta><cd>0</cd><td></td><r>1</r><s>10</s></att>
+<ret><t>2010-01-09 07:26:01</t><p>A5</p><c>10</c></ret>
+<buy><t>2010-01-09 07:26:18</t><p>D4</p><ut>3</ut><c>30</c></buy>
+<rct><t>2010-01-09 08:02:01</t></rct>
+<rct><t>2010-01-09 08:02:01</t></rct>
+<rct><t>2010-01-09 09:02:16</t></rct>
+<rct><t>2010-01-09 09:02:16</t></rct>
+<rct><t>2010-01-09 10:02:01</t></rct>
+<rct><t>2010-01-09 10:02:01</t></rct>
+<rct><t>2010-01-09 11:02:02</t></rct>
+<rct><t>2010-01-09 11:02:02</t></rct>
+<buy><t>2010-01-09 11:07:50</t><p>D2</p><ut>1</ut><c>1</c></buy>
+<att><t>2010-01-09 11:07:55</t><p1>D2</p1><p2>C2</p2><ca>1</ca><ta>1</ta><cd>0</cd><td></td><r>1</r><s>1</s></att>
+</events>
+</record>

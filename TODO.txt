@@ -1,0 +1,26 @@
+Stručný popis jedné partie hry: hra se odehrává na čtverečkové síti
+omezených rozměrů, každé pole má svůj typ. Hráči jsou rozděleni do
+několika (nejčastěji dvou) týmů, každý hráč má ne jednom poli "velení",
+každé pole při přepočtu (každou hodinu) produkuje určené množství
+"nektaru" (platidlo ve hře), a při přepočtu každý hráč dostane určité
+množství tahů. Kdykoliv může provést akce: nákup jednotek, prodej
+jednotek, přesun jednotek, útok, nebo změnu typu pole. Každá akce stojí
+určitý počet tahů. Hráč je vyřazen ze hry, když je mu dobyto velení.
+Partie končí ve chvíli, kdy zůstanou pouze hráči jednoho týmu.
+
+Hra generuje po skončení každé partie záznam se všemi akcemi, které
+během hry proběhly (založení velení, nákupy, přesuny, přepočty, ...) a
+všemi parametry hry (tahy/přepočet, typy polí, typy jednotek, doba
+hájení, ...)
+
+Můj program tedy má načíst a zobrazit záznam, vygenerovaný ze hry.
+(formát XML, specifikaci nemám, místo toho spoustu vygenerovaných záznamů).
+
+Má umožnit procházení celou partií po jednotlivých akcích, příp. po N
+akcích, stejně jako po časových úsecích. Umožnit skok na některé
+významné body partie (konec doby hájení, odkrytí mapy (dosud není ve hře
+implementováno, ale záznamy s tím počítají)).
+
+Zobrazení má vypadat tak, jako se hráčům ukazuje ve hře, případně má mít
+možnost zobrazení celé mapy (hráči ve hře nevidí všechna, pole, jen svá
+a nejbližší okolí)

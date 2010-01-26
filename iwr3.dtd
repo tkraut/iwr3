@@ -1,0 +1,161 @@
+<!-- DTD pro IWR zaznamy verze 3 (produkovano az od IW2) -->
+<!ELEMENT record (world, wmod, fieldtypes, map, units, players, events)>
+
+  <!ELEMENT world (id, name, start, end?, width, height, limit, speed?, map, winner)>
+    <!ELEMENT id (#PCDATA)>
+    <!ELEMENT name (#PCDATA)>
+    <!ELEMENT start (#PCDATA)>
+    <!ELEMENT end (#PCDATA)> <!-- obecne asi k nicemu, svet konci posledni akci, v zaznamech zatim neni-->
+    <!ELEMENT width (#PCDATA)>
+    <!ELEMENT height (#PCDATA)>
+    <!ELEMENT limit (#PCDATA)>
+    <!ELEMENT speed (#PCDATA)> <!-- asi redundantni, ale je tu; brat radeji tu z WMOD elementu-->
+    <!ELEMENT map (#PCDATA)>
+    <!ELEMENT winner (#PCDATA)> <!-- string nazvu vitezneho typu -->
+
+  
+  <!ELEMENT wmod (id, name, peace, type, timelimit, mapvisafter, speed, prodef, startturns, startnectar, rating, jumping, flags, unitspeedbonus, friendarmy) >
+	<!ELEMENT id (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT peace (#PCDATA)> <!-- doba neutoceni format 24:00:00-->
+	<!ELEMENT type (#PCDATA)> <!-- jedina pripustna hodnota je zatim "dual", vyhledove "ctf", "deathmatch", atd-->
+	<!ELEMENT timelimit (#PCDATA)> <!-- cas automatickeho konce sveta, v typu "dual" k nicemu, format 24:00:00 -->
+	<!ELEMENT mapvisafter (#PCDATA)> <!-- odkryti cele mapy vsem po dane dobe - format 24:00:00; prazdna hodnota = nikdy -->
+	<!ELEMENT speed (#PCDATA)>
+	<!ELEMENT prodef (#PCDATA)> <!-- koeficient nasobeni produkce (float >= 0), default 1 -->
+	<!ELEMENT startturns (#PCDATA)>
+	<!ELEMENT startnectar (#PCDATA)>
+	<!ELEMENT rating (#PCDATA)>
+	<!ELEMENT jumping (#PCDATA)> <!-- zda je povoleno skakat (tedy utocit dal nez na sousedni pole) (1 == ano)-->
+	<!ELEMENT flags (#PCDATA)> <!-- zatim k nicemu, ale priznak pro CFT mod; -->
+	<!ELEMENT unitspeedbonus (#PCDATA)> <!-- default 0, zatim neaktivni -->
+	<!ELEMENT friendarmy (#PCDATA)> <!-- default 0, jinak 1 - boolean zda je dovolena na policku armada spoluhrace -->
+
+  <!ELEMENT fieldtypes (fieldtype+)>
+	
+  <!ELEMENT fieldtype (id, name, armyvisible, produce, lookout, attbonus, defbonus, reachability) >
+	<!ELEMENT id (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT armyvisible (#PCDATA)> <!-- zatim porad nula -->
+	<!ELEMENT produce (#PCDATA)> <!-- tady byla az do 24. 12. 2009 chyba a uzaviraci tag byl nikoli /produce ale /id ... asi bude lepsi reseni hromadna oprava -->
+	<!ELEMENT lookout (#PCDATA)> <!-- jak daleko jednotka vidi, default 1 -->
+	<!ELEMENT attbonus (#PCDATA)>
+	<!ELEMENT defbonus (#PCDATA)>
+	<!ELEMENT reachability (#PCDATA)> <!-- priznak dobytelnosti pole... zatim neni v zaznamech -->
+	
+  <!ELEMENT map (f+)> 
+  
+  <!-- tady chybi info o pripadnych vychozich jednotkach a do budoucna i vlajkach -->
+  <!-- bud to resit jako atributy tagu f (uspora mista), nebo se zacit vic zanorovat a vystacit si jen s tagama -->
+  <!-- druhy pristup by byl asi takto: map/f/(idft,ut,uc,flag) ... id typu pole, unit type, unit count, flag ... u atributu by to bylo obdobne -->
+  <!ELEMENT f (#PCDATA)> <!-- id typu policka -->
+
+  <!ELEMENT units (unit+)>
+
+  <!ELEMENT unit (id, name, desc, att, def, cost, turnsatt, turnsmove, lobonus)>
+	<!ELEMENT id (#PCDATA)>
+	<!ELEMENT name (#PCDATA)>
+	<!ELEMENT desc (#PCDATA)>
+	<!ELEMENT att (#PCDATA)>
+	<!ELEMENT def (#PCDATA)>
+	<!ELEMENT cost (#PCDATA)>
+	<!ELEMENT turnsatt (#PCDATA)>
+	<!ELEMENT turnsmove (#PCDATA)>
+	<!ELEMENT lobonus (#PCDATA)>
+	
+  <!ELEMENT players (player+)>
+  
+  <!ELEMENT player (id, nick, type, ali, regdate)>
+	<!ELEMENT id (#PCDATA)>
+	<!ELEMENT nick (#PCDATA)>
+	<!ELEMENT type (#PCDATA)> <!-- string typu (les/louka) -->
+	<!ELEMENT ali (#PCDATA)> <!-- ciselne ID aliance, pokud maji 2 hraci neprazdnou shodnou hodnotu, jsou spolu v alianci (prozatim k nicmu, mod classic to nepodporuje)-->
+	<!ELEMENT regdate (#PCDATA)> <!-- format: 2007-02-08 21:42:06 -->
+
+  <!ELEMENT events (ws, chq+, rhq*, att+, mov*, ret*, buy+, trn*, trb*, cfd*)>
+	<!-- vsechny elementy t obsahuji cas ve formatu 2007-02-08 21:42:06 -->
+	
+	<!-- world start -->
+	<!ELEMENT ws (t)>
+      <!ELEMENT t (#PCDATA)>
+
+    <!-- create headquarter -->
+    <!-- time, player's id, pos, type -->
+    <!ELEMENT chq (t, pl, p, type)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT pl (#PCDATA)>
+      <!ELEMENT p (#PCDATA)>
+      <!ELEMENT type (#PCDATA)> <!-- zatim bez vyznamu, ted ani nevim na co to melo bejt -->
+
+	<!-- remove headquarter -->
+    <!-- time, player's id, pos -->
+    <!ELEMENT chq (t, pl, p)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT pl (#PCDATA)>
+      <!ELEMENT p (#PCDATA)>
+
+    <!-- attack -->
+    <!-- time, pos1, pos2, attcount, atttype, defcount, deftype, result, survive -->
+    <!ELEMENT att (t, p1, p2, ca, ta, cd, td, r, s)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT p1 (#PCDATA)>
+      <!ELEMENT p2 (#PCDATA)>
+      <!ELEMENT ca (#PCDATA)>
+      <!ELEMENT ta (#PCDATA)>
+      <!ELEMENT cd (#PCDATA)>
+      <!ELEMENT td (#PCDATA)>
+      <!ELEMENT r (#PCDATA)>	<!-- 1==vyhrat utok -->
+      <!ELEMENT s (#PCDATA)> 	<!-- kolik prezilo jednotek -->
+
+    <!-- move -->
+    <!-- time, pos1, pos2, count -->
+    <!ELEMENT mov (t, p1, p2, c)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT p1 (#PCDATA)>
+      <!ELEMENT p2 (#PCDATA)>
+      <!ELEMENT c (#PCDATA)>
+
+    <!-- retreat -->
+    <!-- time, pos, count -->
+    <!ELEMENT ret (t, p, c)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT p (#PCDATA)>
+      <!ELEMENT c (#PCDATA)>
+
+    <!-- buy -->
+    <!-- time, pos, unit type (ID), count -->
+    <!ELEMENT buy (t, p, ut, c)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT p (#PCDATA)>
+      <!ELEMENT ut (#PCDATA)>
+      <!ELEMENT c (#PCDATA)>
+
+    <!-- trade classic -->
+    <!-- time, p1's ID, p2's ID, nectar -->
+    <!ELEMENT trn (t, pl1, pl2, c)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT pl1 (#PCDATA)>
+      <!ELEMENT pl2 (#PCDATA)>
+      <!ELEMENT c (#PCDATA)>
+
+    <!-- trade to buy ally defense on HQ -->
+    <!-- time, p1's name, p2's name, count nectar, count created units, unit type ID -->
+    <!ELEMENT trb (t, pl1, pl2, cn, cu, ut*)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT pl1 (#PCDATA)>
+      <!ELEMENT pl2 (#PCDATA)>
+      <!ELEMENT cn (#PCDATA)>
+      <!ELEMENT cu (#PCDATA)>
+      <!ELEMENT ut (#PCDATA)> <!-- pokud chybi, chovat se jako by se koupily jednotky co uz na veleni prijemce byly, pokud bylo prazdno, tak komari -->
+
+    <!-- convert field -->
+    <!-- time, pos, new type ID -->
+    <!ELEMENT cfd (t, p, nt)>
+      <!ELEMENT t (#PCDATA)>
+      <!ELEMENT p (#PCDATA)>
+      <!ELEMENT nt (#PCDATA)>
+
+    <!-- probehl prepocet -->
+    <!-- time -->
+    <!ELEMENT rct (t)>
+      <!ELEMENT t (#PCDATA)>
