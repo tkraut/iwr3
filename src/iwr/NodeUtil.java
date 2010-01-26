@@ -1,10 +1,8 @@
 package iwr;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Node;
 
 public class NodeUtil {

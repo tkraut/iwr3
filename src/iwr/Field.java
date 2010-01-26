@@ -1,6 +1,5 @@
 package iwr;
 
-import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -19,14 +18,14 @@ public class Field {
 	
 	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes) {
 		int initTypeId = Integer.parseInt(fieldNode.getFirstChild().getTextContent());
-		armyHistory = new TimeArray<Army>(null);
-		ownerHistory = new TimeArray<Player>(null);
-		typeHistory = new TimeArray<FieldType>(fieldTypes.get(initTypeId));
+		armyHistory = new TimeMap<Army>(null);
+		ownerHistory = new TimeMap<Player>(null);
+		typeHistory = new TimeMap<FieldType>(fieldTypes.get(initTypeId));
 	}
 	
-	TimeArray<FieldType> typeHistory;
-	TimeArray<Player> ownerHistory;
-	TimeArray<Army> armyHistory;
+	TimeLine<FieldType> typeHistory;
+	TimeLine<Player> ownerHistory;
+	TimeLine<Army> armyHistory;
 	
 	/**
 	 * Zaznamená změnu typu pole

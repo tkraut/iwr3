@@ -1,11 +1,8 @@
 package iwr;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.ImageObserver;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -72,7 +69,7 @@ public class MapPane extends JPanel {
 	@Override
 	public Dimension getPreferredSize() {
 		if (map == null) return super.getPreferredSize();
-		return new Dimension(width()+3*fWidth, height()+3*fHeight);
+		return new Dimension(width(), height());
 	}
 
 }
