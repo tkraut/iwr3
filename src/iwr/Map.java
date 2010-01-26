@@ -26,6 +26,14 @@ public class Map {
 	public Field fieldAt(int x, int y) {
 		return fields.get(y*width+x);
 	}
+	
+	public String getCoords(int x, int y) {
+		return ('A'+x)+""+y;
+	}
+	
+	public String getCoords(int ord) {
+		return getCoords(ord%width, ord/width);
+	}
 	public Field fieldAt(String coords) {
 		int x, y;
 		y = Integer.parseInt(coords.substring(1));
