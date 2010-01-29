@@ -16,16 +16,18 @@ import org.w3c.dom.Node;
  */
 public class Field {
 	
-	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes) {
+	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, String c) {
 		int initTypeId = Integer.parseInt(fieldNode.getFirstChild().getTextContent());
 		armyHistory = new TimeMap<Army>(null);
 		ownerHistory = new TimeMap<Player>(null);
 		typeHistory = new TimeMap<FieldType>(fieldTypes.get(initTypeId));
+		coords = c;
 	}
 	
 	TimeLine<FieldType> typeHistory;
 	TimeLine<Player> ownerHistory;
 	TimeLine<Army> armyHistory;
+	String coords;
 	
 	/**
 	 * Zaznamená změnu typu pole
@@ -42,6 +44,19 @@ public class Field {
 	
 	public void changeArmyAt(Army newArmy, int time) {
 		armyHistory.changeLoadAt(newArmy, time);
+	}
+	
+	public void addArmyAt(Army newArmy, int time) {
+		armyHistory.changeLoadAt(newArmy.add(armyAt(time)), time);
+	}
+
+	public void addArmyAt(int count, int time) { //assuming there is army
+		armyHistory.changeLoadAt(armyAt(time).add(count), time);
+	}
+
+	public void removeArmyAt(int count, int time) { //assuming there is army
+		if (armyAt(time) == null) return;
+		armyHistory.changeLoadAt(armyAt(time).remove(count), time);
 	}
 	
 	
@@ -70,10 +85,26 @@ public class Field {
 		ArrayList<ImageIcon> list = new ArrayList<ImageIcon>(); 
 		list.add(typeAt(time).getImg());
 		Army army = armyAt(time); 
-		if (army != null && army.count != 0) list.add(new ImageIcon("img/a.gif"));
-		if (player == ownerAt(time)) {
-			//list.add
+		Player owner = ownerAt(time);
+		if (owner != null) {
+			if (player == owner) {
+				list.add(Images.get(Images.P_OWN));
+			} else {
+				if (owner.type.name.equals(Type.LOUKA)) {
+					list.add(Images.get(Images.T_LOUKA));
+				} else if (owner.type.name.equals(Type.LES)) {
+					list.add(Images.get(Images.T_LES));
+				}
+				if (player != null) {
+					if (player.type == owner.type) {
+						list.add(Images.get(Images.P_ALLY));
+					} else {
+						list.add(Images.get(Images.P_ENEMY));
+					}
+				}
+			}
 		}
+		if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY));
 		return list;
 	}
 

@@ -35,6 +35,9 @@ public class Player {
 	 */
 	protected Date regdate;
 	
+	public void setHq(Field hq) {
+	}
+	
 	public Player(Node playerNode, TreeMap<Integer, Type> playerTypes) {
 		for (Node child = playerNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {

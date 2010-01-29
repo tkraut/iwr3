@@ -17,6 +17,11 @@ public class FieldType {
 		return id;
 	}
 	
+	@Override
+	public String toString() {
+		return name;
+	}
+	
 	protected ImageIcon img;
 	
 	public ImageIcon getImg() {
@@ -52,7 +57,8 @@ public class FieldType {
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
 			} else if (child.getNodeName().equals("name")) {
 				name = child.getFirstChild().getTextContent();
-				img = new ImageIcon("img/f_"+name+".png");
+				//img = new ImageIcon("img/f_"+name+".png");
+				img = Images.get("f_"+name);
 			} else if (child.getNodeName().equals("armyvisible")) {
 				armyvisible = Integer.parseInt(child.getFirstChild().getTextContent());
 			} else if (child.getNodeName().equals("produce")) {

@@ -8,6 +8,8 @@ import org.w3c.dom.Node;
  *
  */
 public class Type {
+	final static public String LOUKA = "louka";
+	final static public String LES = "les";
 	int id;
 	String name;
 	public Type(Node typeNode) {

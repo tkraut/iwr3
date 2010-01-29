@@ -4,7 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.util.SortedMap;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -38,7 +38,7 @@ public class UI implements Runnable {
 		mapPane.setTime(time);
 		setPlayers(game.getPlayers());
 		totalTime = game.length;
-		moves.setText(time+"/"+totalTime);
+		moves.setText(time+"/"+totalTime+((time>0)?(":"+game.events.get(time-1)):""));
 		mainFrame.repaint();
 	}
 	
@@ -75,10 +75,10 @@ public class UI implements Runnable {
 		
 	}
 	
-	public void setPlayers(List<Player> players) {
+	public void setPlayers(SortedMap<Integer, Player> map) {
 		playersChooser.removeAllItems();
-		if (players == null) return;
-		for (Player player : players) {
+		if (map == null) return;
+		for (Player player:map.values()) {
 			playersChooser.addItem(player);
 		}
 	}

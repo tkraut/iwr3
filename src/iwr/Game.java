@@ -3,7 +3,7 @@ package iwr;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -23,26 +23,31 @@ import org.xml.sax.SAXException;
 public class Game {
 
 	GameMode mode;
-	List<Player> players;
-	List<Player> getPlayers() {
+	SortedMap<Integer, Player> players;
+	SortedMap<Integer, Player> getPlayers() {
 		return players;
 	}
 	ArrayList<Event> events;
 	TreeMap<Integer, FieldType> fieldTypes;
 	TreeMap<Integer, Type> playerTypes;
 	TreeMap<Integer, Unit> unitTypes;
-	Map map;
+	iwr.Map map;
 	int length;
+	int width, height;
 	
 	public void fromNode(Node gameNode){
 		for (Node child = gameNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+			//TODO: zarucit poradi
 			String name = child.getNodeName();
 			if (name.equals("map")) {
-				map = new Map(child, 8,8, fieldTypes); // TODO nevycucavat cisla z prstu
+				map = new iwr.Map(child, width, height, fieldTypes); 
 			} else if (name.equals("players")) {
-				players = new ArrayList<Player>();
+				players = new TreeMap<Integer, Player>();
 				for (Node player = child.getFirstChild(); player != null; player = player.getNextSibling()) {
-					if (player.getNodeName().equals("player")) players.add(new Player(player, playerTypes));
+					if (player.getNodeName().equals("player")) {
+						Player p = new Player(player, playerTypes);
+						players.put(p.id, p);
+					}
 				}
 			} else if (name.equals("units")) {
 				unitTypes = new TreeMap<Integer, Unit>();
@@ -58,22 +63,21 @@ public class Game {
 					fieldTypes.put(ft.getId(), ft);
 				}
 			} else if (name.equals("world")) {
-				
+				for (Node world = child.getFirstChild(); world != null; world = world.getNextSibling()) {
+					String wName = world.getNodeName();
+					if (wName.equals("height")) {
+						height = NodeUtil.getInt(world);
+					} else if (wName.equals("width")) {
+						width = NodeUtil.getInt(world);
+					}
+				}
 			} else if (name.equals("wmod")) {
 				mode = new GameMode(child);
 			} else if (name.equals("events")) {
 				events = new ArrayList<Event>();
-				int now = 0;
 				for (Node event = child.getFirstChild(); event != null; event = event.getNextSibling()) {
 					if (event.getNodeType() == Node.ELEMENT_NODE) {
-						Event newEvent = null;
-						String eventName = event.getNodeName();
-						if (eventName.equals("cfd")) {
-							newEvent = new ConvertEvent(event, map, fieldTypes, now++);
-						}
-						
-						
-						
+						Event newEvent = Event.parseNode(event, this);
 						if (newEvent != null) {
 							newEvent.apply();
 							events.add(newEvent);
@@ -84,7 +88,7 @@ public class Game {
 			} else if (name.equals("utypes")){
 				playerTypes = new TreeMap<Integer, Type>();
 				for (Node type = child.getFirstChild(); type != null; type = type.getNextSibling()) {
-					if (type.getNodeName().equals("utype")) {
+					if (type.getNodeName().equals("usertype")) {
 						Type newType = new Type(type);
 						playerTypes.put(newType.id, newType);
 					}

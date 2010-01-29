@@ -11,6 +11,14 @@ public class NodeUtil {
 		return Integer.parseInt(node.getFirstChild().getTextContent());
 	}
 	
+	static int getMaybeInt(Node node) {
+		try {
+			return Integer.parseInt(node.getFirstChild().getTextContent());
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+	
 	static boolean getBool(Node node) {
 		return node.getFirstChild().getTextContent().equals("1");
 	}
