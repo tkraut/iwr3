@@ -4,21 +4,25 @@ import java.util.Date;
 
 import org.w3c.dom.Node;
 
-public class CreateHQEvent extends Event {
+public class RemoveHQEvent extends Event {
 
 	Date timestamp;
 	int time;
 	Field field;
 	Player player;
 	
-	public CreateHQEvent(Node chqNode, Map map, java.util.Map<Integer, Player> players, int t) {
+	public RemoveHQEvent(Node chqNode, Map map, java.util.Map<Integer, Player> players, int t) {
 		time = t;
 		for (Node child = chqNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
 			if (name.equals("t")) {
 				timestamp = NodeUtil.getDate(child);
 			} else if (name.equals("p")) {
-				field = map.fieldAt(NodeUtil.getString(child));
+				try {
+					field = map.fieldAt(NodeUtil.getString(child));
+				} catch (NullPointerException e) {
+					field = player.getHq(t);
+				}
 			} else if (name.equals("pl")) {
 				player = players.get(NodeUtil.getInt(child));
 			}
@@ -28,13 +32,13 @@ public class CreateHQEvent extends Event {
 	
 	@Override
 	void apply() {
-		field.changeOwnerAt(player, time);
-		player.setHq(field, time);
+		field.changeOwnerAt(null, time);
+		player.setHq(null, time);
 	}
 	
 	@Override
 	public String toString() {
-		return "Hráč " + player + "založil velení na pozici " + field;
+		return "Hráč " + player + "odstranil velení z pozice " + field;
 	}
 
 }

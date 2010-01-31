@@ -39,4 +39,9 @@ public class Unit {
 	int turnsPerAttack;
 	int turnsPerMove;
 	int lookoutBonus;
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

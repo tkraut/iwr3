@@ -27,6 +27,11 @@ public class RetreatEvent extends Event {
 		//field.ownerAt(time).addNeqAt(field.armyAt(time).unit.cost*count/2, time); 
 		field.removeArmyAt(count, time);
 	}
+	
+	@Override
+	public String toString() {
+		return "Hráč " + field.ownerAt(time) + " propustil " + count + " jednotek typu " + field.armyAt(time).unit + " z pole " + field; 
+	}
 
 
 }

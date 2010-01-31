@@ -12,6 +12,21 @@ import org.w3c.dom.Node;
  *
  */
 public class Player {
+	class Resources {
+		public Resources(GameMode mode) {
+			movesHistory = new TimeMap<Integer>(mode.initialMoves);
+			nectarHistory = new TimeMap<Integer>(mode.initialNectar);
+			hqHistory = new TimeMap<Field>(null);
+			receivedNeqHistory= new TimeMap<Integer>(0);
+			destroyedHistory = new TimeMap<Integer>(0);
+		}
+		TimeLine<Integer> movesHistory;
+		TimeLine<Integer> nectarHistory;
+		TimeLine<Field> hqHistory;
+		TimeLine<Integer> receivedNeqHistory;
+		TimeLine<Integer> destroyedHistory;
+	}
+	
 	
 	/**
 	 * Jmeno hrace <nick>
@@ -35,10 +50,18 @@ public class Player {
 	 */
 	protected Date regdate;
 	
-	public void setHq(Field hq) {
+	protected Resources resources;
+	
+	public void setHq(Field hq, int time) {
+		resources.hqHistory.changeLoadAt(hq, time);
 	}
 	
-	public Player(Node playerNode, TreeMap<Integer, Type> playerTypes) {
+	public Field getHq(int time) {
+		return resources.hqHistory.loadAt(time);
+	}
+	
+	public Player(Node playerNode, TreeMap<Integer, Type> playerTypes, GameMode mode) {
+		resources = new Resources(mode);
 		for (Node child = playerNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {
 				id = Integer.parseInt(child.getFirstChild().getTextContent());

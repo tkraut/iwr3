@@ -32,7 +32,7 @@ public class Game {
 	TreeMap<Integer, Type> playerTypes;
 	TreeMap<Integer, Unit> unitTypes;
 	iwr.Map map;
-	int length;
+	int length, start = -1;
 	int width, height;
 	
 	public void fromNode(Node gameNode){
@@ -45,7 +45,7 @@ public class Game {
 				players = new TreeMap<Integer, Player>();
 				for (Node player = child.getFirstChild(); player != null; player = player.getNextSibling()) {
 					if (player.getNodeName().equals("player")) {
-						Player p = new Player(player, playerTypes);
+						Player p = new Player(player, playerTypes, mode);
 						players.put(p.id, p);
 					}
 				}

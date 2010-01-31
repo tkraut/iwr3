@@ -29,5 +29,10 @@ public class MoveEvent extends Event {
 		dest.addArmyAt(new Army(sa.unit, count), time);
 		src.removeArmyAt(count, time);
 	}
+	
+	@Override
+	public String toString() {
+		return "Hráč " + src.ownerAt(time) + " přesunul " + count + " jednotek typu " + src.armyAt(time).unit + " z pole " + src + " na pole " + dest;
+	}
 
 }

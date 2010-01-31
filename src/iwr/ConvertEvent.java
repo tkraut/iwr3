@@ -32,6 +32,6 @@ public class ConvertEvent extends Event {
 	}
 	@Override
 	public String toString() {
-		return "Geologie: " + field.coords + " " + field.typeAt(time-1) + " -> " + type;
+		return "Hráč " + field.ownerAt(time)+ "změnil typ pole " + field + " z " + field.typeAt(time-1) + " na " + type;
 	}
 }

@@ -50,4 +50,14 @@ public class AttackEvent extends Event {
 		src.removeArmyAt(attCount, time);
 	}
 
+	@Override
+	public String toString() {
+		//TODO
+		if (result) {
+			return "Hráč " + src.ownerAt(time) + " dobyl hráči " + dest.ownerAt(time-1) + " pole " + dest; 
+		} else {
+			return "Hráč " + src.ownerAt(time) + " nedobyl hráči " + dest.ownerAt(time-1) + " pole " + dest;
+		}
+	}
+	
 }

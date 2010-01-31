@@ -21,6 +21,7 @@ public class BuyEvent extends Event {
 				timestamp = NodeUtil.getDate(child);
 			} else if (name.equals("p")) {
 				field = map.fieldAt(NodeUtil.getString(child));
+				player = field.ownerAt(t);
 			} else if (name.equals("ut")) {
 				unit = unitTypes.get(NodeUtil.getInt(child));
 			} else if (name.equals("c")) {
@@ -35,5 +36,9 @@ public class BuyEvent extends Event {
 		field.addArmyAt(army, time);
 
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Hráč "+ player + "nakoupil na pole" + field + " " + army.count + "jednotek typu " + army.unit; 
+	}
 }

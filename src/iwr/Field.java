@@ -107,5 +107,10 @@ public class Field {
 		if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY));
 		return list;
 	}
+	
+	@Override
+	public String toString() {
+		return coords;
+	}
 
 }
