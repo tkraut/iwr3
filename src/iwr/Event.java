@@ -40,7 +40,8 @@ abstract public class Event {
 			newEvent = new TradeEvent(node, game.players, time);
 		} else if (eventName.equals("trb")) {
 			newEvent = new TradeBuyEvent(node, game.players, game.unitTypes, time);
-		} else if (eventName.equals("rct") && game.start != -1 && game.start < time) {
+		} else if (eventName.equals("rct") && game.start != -1 && game.start < time &&
+				!node.isEqualNode(node.getPreviousSibling().getPreviousSibling())) { //TODO zrusit az v zaznamech nebudou duplicitni prepocty (nebo nerusit??)
 			newEvent = new RecountEvent(node, game, time);
 		}
 		return newEvent;

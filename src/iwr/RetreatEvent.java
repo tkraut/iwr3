@@ -30,7 +30,7 @@ public class RetreatEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Hráč " + field.ownerAt(time) + " propustil " + count + " jednotek typu " + field.armyAt(time).unit + " z pole " + field; 
+		return "Hráč " + field.ownerAt(time) + " propustil " + count + " jednotek typu " + field.armyAt(time-1).unit + " z pole " + field; 
 	}
 
 

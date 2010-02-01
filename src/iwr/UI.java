@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.SortedMap;
 
 import javax.swing.*;
@@ -27,6 +29,7 @@ public class UI implements Runnable {
 	MapPane mapPane;
 	
 	Game game;
+	Player activePlayer;
 	
 	int time;
 	int totalTime;
@@ -72,6 +75,15 @@ public class UI implements Runnable {
 		playersChooser = new JComboBox();
 		
 		players.add(playersChooser);
+		
+		playersChooser.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				activePlayer = ((Player)arg0.getItem());
+				
+			}
+		});
 		
 	}
 	

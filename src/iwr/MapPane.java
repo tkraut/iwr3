@@ -69,7 +69,7 @@ public class MapPane extends JPanel {
 	@Override
 	public Dimension getPreferredSize() {
 		if (map == null) return super.getPreferredSize();
-		return new Dimension(width(), height());
+		return new Dimension((int) (width()*1.1), (int) (height()*1.1));
 	}
 
 }

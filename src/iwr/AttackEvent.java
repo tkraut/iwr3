@@ -45,14 +45,16 @@ public class AttackEvent extends Event {
 			dest.changeOwnerAt(src.ownerAt(time), time);
 			dest.changeArmyAt(new Army(attType, survived), time);
 		} else {
-			dest.changeArmyAt(new Army(defType, survived), time);
+			if (dest.ownerAt(time)!=null) {
+				dest.changeArmyAt(new Army(defType, survived), time);
+			}
 		}
 		src.removeArmyAt(attCount, time);
 	}
 
 	@Override
 	public String toString() {
-		//TODO
+		//TODO dobyti prazdneho pole
 		if (result) {
 			return "Hráč " + src.ownerAt(time) + " dobyl hráči " + dest.ownerAt(time-1) + " pole " + dest; 
 		} else {
