@@ -34,6 +34,7 @@ public class BuyEvent extends Event {
 	@Override
 	void apply() {
 		player.removeMovesAt(1, time);
+		player.removeNectarAt(army.cost(), time);
 		field.addArmyAt(army, time);
 	}
 	

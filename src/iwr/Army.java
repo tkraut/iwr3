@@ -26,4 +26,7 @@ public class Army {
 	public String toString() {
 		return count + " jednotek typu " + unit;
 	}
+	public int cost() {
+		return count * unit.cost;
+	}
 }

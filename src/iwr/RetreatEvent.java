@@ -24,7 +24,7 @@ public class RetreatEvent extends Event {
 	@Override
 	void apply() {
 		try {
-			field.ownerAt(time).addNectarAt(field.armyAt(time).unit.cost*count/2, time);
+			field.ownerAt(time).addNectarAt(field.armyAt(time).cost()/2, time);
 		} catch (Exception e) {
 			//Do nothing
 		}
