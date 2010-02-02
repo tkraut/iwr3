@@ -28,6 +28,7 @@ public class ConvertEvent extends Event {
 
 	@Override
 	public void apply() {
+		field.ownerAt(time).removeMovesAt(1, time);
 		field.convertToAt(type, time);
 	}
 	@Override

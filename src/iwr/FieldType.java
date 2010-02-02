@@ -55,10 +55,10 @@ public class FieldType {
 		for (Node child = ftNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
+				img = Images.get("f_"+id);
 			} else if (child.getNodeName().equals("name")) {
 				name = child.getFirstChild().getTextContent();
 				//img = new ImageIcon("img/f_"+name+".png");
-				img = Images.get("f_"+name);
 			} else if (child.getNodeName().equals("armyvisible")) {
 				armyvisible = Integer.parseInt(child.getFirstChild().getTextContent());
 			} else if (child.getNodeName().equals("produce")) {

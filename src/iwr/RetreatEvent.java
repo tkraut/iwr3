@@ -23,8 +23,11 @@ public class RetreatEvent extends Event {
 	
 	@Override
 	void apply() {
-		// TODO prace s nektarem
-		//field.ownerAt(time).addNeqAt(field.armyAt(time).unit.cost*count/2, time); 
+		try {
+			field.ownerAt(time).addNectarAt(field.armyAt(time).unit.cost*count/2, time);
+		} catch (Exception e) {
+			//Do nothing
+		}
 		field.removeArmyAt(count, time);
 	}
 	

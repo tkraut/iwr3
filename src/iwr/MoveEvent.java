@@ -26,6 +26,8 @@ public class MoveEvent extends Event {
 	@Override
 	void apply() {
 		Army sa = src.armyAt(time);
+		float distance = 1; //TODO
+		dest.ownerAt(time).removeMovesAt(costOfAction(sa.unit.turnsPerMove, distance ), count);
 		dest.addArmyAt(new Army(sa.unit, count), time);
 		src.removeArmyAt(count, time);
 	}

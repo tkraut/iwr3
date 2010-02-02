@@ -88,5 +88,59 @@ public class Player {
 	public String toString() {
 		return nick+" ("+type+")";
 	}
+
+	public void recountAt(int nectar, int moves, int time) {
+		addMovesAt(moves, time);
+		addNectarAt(nectar, time);
+	}
+
+	public void addNectarAt(int nectar, int time) {
+		resources.nectarHistory.changeLoadAt(resources.nectarHistory.loadAt(time) + nectar, time);
+	}
+	
+	public void removeNectarAt(int nectar, int time) {
+		addNectarAt(-nectar, time);
+	}
+
+	public void addMovesAt(int moves, int time) {
+		resources.movesHistory.changeLoadAt(resources.movesHistory.loadAt(time) + moves, time);
+	}
+	
+	public void removeMovesAt(int moves, int time) {
+		addMovesAt(-moves, time);
+	}
+	
+	public void killed(int time) {
+		setHq(null, time);
+		resources.movesHistory.changeLoadAt(0, time);
+		resources.nectarHistory.changeLoadAt(0, time);
+	}
+
+	public void acceptNectarAt(int nectar, int time) { //jen info o prijeti, neprida nektar
+		resources.receivedNeqHistory.changeLoadAt(resources.receivedNeqHistory.loadAt(time)+nectar, time);
+		
+	}
+
+	public int nectarAt(int time) {
+		return resources.nectarHistory.loadAt(time);
+	}
+
+	public int movesAt(int time) {
+		return resources.movesHistory.loadAt(time);
+	}
+
+	public int receivedAt(int time) {
+		return resources.receivedNeqHistory.loadAt(time);
+	}
+
+	public int fragsAt(int time) {
+		return resources.destroyedHistory.loadAt(time);
+	}
+
+	public void frag(int time) {
+		resources.destroyedHistory.changeLoadAt(resources.destroyedHistory.loadAt(time)+1, time);
+	}
+	
+	
 	
 }

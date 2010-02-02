@@ -41,4 +41,5 @@ public class Map {
 		x = Character.getNumericValue(coords.charAt(0))-Character.getNumericValue('a');
 		return fieldAt(x, y);
 	}
+	
 }

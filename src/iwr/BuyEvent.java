@@ -33,8 +33,8 @@ public class BuyEvent extends Event {
 
 	@Override
 	void apply() {
+		player.removeMovesAt(1, time);
 		field.addArmyAt(army, time);
-
 	}
 	
 	@Override

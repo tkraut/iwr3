@@ -7,10 +7,10 @@ import javax.swing.ImageIcon;
 
 public class Images {
 	protected static Map<String, ImageIcon> map = new HashMap<String, ImageIcon>();
-	final public static String F_NORMAL = "f_normální"; 
-	final public static String F_SWAMP = "f_bažina"; 
-	final public static String F_ROCK= "f_skála"; 
-	final public static String F_VOID = "f_Nedobytné";
+	final public static String F_NORMAL = "f_1"; 
+	final public static String F_SWAMP = "f_2"; 
+	final public static String F_ROCK= "f_3"; 
+	final public static String F_VOID = "f_4";
 	final public static String F_INVISIBLE = "inv";
 	
 	final public static String P_OWN = "my";

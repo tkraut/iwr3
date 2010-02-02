@@ -22,6 +22,7 @@ public class UI implements Runnable {
 	
 	JPanel players;
 	JComboBox playersChooser;
+	PlayerPane playerInfo;
 	JTextField jumpCount;
 	
 	JLabel moves;
@@ -39,7 +40,6 @@ public class UI implements Runnable {
 		if (game == null) return;
 		setMap(game.map); //TODO efektivita
 		mapPane.setTime(time);
-		setPlayers(game.getPlayers());
 		totalTime = game.length;
 		moves.setText(time+"/"+totalTime+((time>0)?(":"+game.events.get(time-1)):""));
 		mainFrame.repaint();
@@ -53,7 +53,7 @@ public class UI implements Runnable {
 		
 		JPanel pane = new JPanel(new BorderLayout());
 		
-		pane.add(new JScrollPane(getField()), BorderLayout.CENTER);
+		pane.add(/*new JScrollPane(*/getField()/*)*/, BorderLayout.CENTER);
 		pane.add(getControls(), BorderLayout.SOUTH);
 		
 		moves = new JLabel();
@@ -71,19 +71,25 @@ public class UI implements Runnable {
 	
 	private void createPlayers() {
 		players = new JPanel();
+		players.setLayout(new BorderLayout());
 		
 		playersChooser = new JComboBox();
 		
-		players.add(playersChooser);
+		players.add(playersChooser, BorderLayout.NORTH);
 		
 		playersChooser.addItemListener(new ItemListener() {
 			
 			@Override
 			public void itemStateChanged(ItemEvent arg0) {
 				activePlayer = ((Player)arg0.getItem());
-				
+				mapPane.setPlayer(activePlayer);
+				playerInfo.setPlayer(activePlayer);
+				repaint();
 			}
 		});
+		
+		playerInfo = new PlayerPane();
+		players.add(playerInfo, BorderLayout.CENTER);
 		
 	}
 	
@@ -134,14 +140,14 @@ public class UI implements Runnable {
 	}
 	
 	protected void next() {
-		time = time+Integer.parseInt(jumpCount.getText());
-		if (time > totalTime) time = totalTime;
+		setTime(time+Integer.parseInt(jumpCount.getText()));
+		if (time > totalTime) setTime(totalTime);
 		repaint();
 	}
 	
 	protected void prev() {
-		time = time-Integer.parseInt(jumpCount.getText());
-		if (time < 0) time = 0;
+		setTime(time-Integer.parseInt(jumpCount.getText()));
+		if (time < 0) setTime(0);
 		repaint();
 	}
 
@@ -161,6 +167,7 @@ public class UI implements Runnable {
 						game = new Game(chooser.getSelectedFile());
 						setTime(0);
 						setMap(game.map);
+						setPlayers(game.getPlayers());
 						mainFrame.pack();
 						repaint();
 			        } else {
@@ -193,6 +200,8 @@ public class UI implements Runnable {
 	
 	protected void setTime(int t) {
 		time = t;
+		mapPane.setTime(time);
+		playerInfo.setTime(time);
 	}
 
 

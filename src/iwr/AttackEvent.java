@@ -11,8 +11,11 @@ public class AttackEvent extends Event {
 	Field src, dest;
 	int attCount, defCount, survived;
 	Unit attType, defType;
-	boolean result;
+	iwr.Map map;
+	boolean result, hqDown = false;
+	Player formerOwner;
 	public AttackEvent(Node attNode, Map<Integer, Unit> units, iwr.Map map, int t) {
+		this.map = map;
 		time = t;
 		for (Node child = attNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
@@ -40,26 +43,62 @@ public class AttackEvent extends Event {
 	
 	@Override
 	void apply() {
-		
+		formerOwner = dest.ownerAt(time-1);
+		float distance = 1;  // TODO
 		if (result) {
+			if (formerOwner != null && formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
+				hqDown = true;
+				formerOwner.killed(time);
+				for(Field f:map.fields) {
+					if (f.ownerAt(time-1)==formerOwner) { //smaze vsechna pole puvodniho majitele
+						f.changeOwnerAt(null, time); 
+						f.changeArmyAt(null, time);
+					}
+				}
+				src.ownerAt(time).frag(time);
+			}
+			
 			dest.changeOwnerAt(src.ownerAt(time), time);
 			dest.changeArmyAt(new Army(attType, survived), time);
 		} else {
-			if (dest.ownerAt(time)!=null) {
+			if (dest.armyAt(time) != null) {
 				dest.changeArmyAt(new Army(defType, survived), time);
 			}
 		}
 		src.removeArmyAt(attCount, time);
+		src.ownerAt(time).removeMovesAt(costOfAction(src.armyAt(time-1).unit.turnsPerAttack, distance), time);
 	}
 
 	@Override
 	public String toString() {
-		//TODO dobyti prazdneho pole
-		if (result) {
-			return "Hráč " + src.ownerAt(time) + " dobyl hráči " + dest.ownerAt(time-1) + " pole " + dest; 
+		String pl;
+		String maybeNot = "";
+		String rest = ", z nichž přežilo " + survived;
+		String defense;
+		String hqd = "";
+		if (formerOwner != null) {
+			pl = "hráči " + formerOwner;
 		} else {
-			return "Hráč " + src.ownerAt(time) + " nedobyl hráči " + dest.ownerAt(time-1) + " pole " + dest;
+			pl = "volné";
 		}
+		if (result) {
+			if (hqDown) {
+				hqd = ", a tím ho vyřadil ze světa";
+			}
+		} else {
+			maybeNot = "ne";
+		}
+		if (defCount != 0) {
+			defense = "bránilo " + defCount + " jednotek typu " + defType + (result?"":rest);
+		} else {
+			defense = "nebylo bráněné";
+		}
+		return "Hráč " + src.ownerAt(time) + " "
+			+ maybeNot + "dobyl " + pl + " pole " + dest
+			+ ", které " + defense 
+			+ hqd
+			+ ". Útok byl veden " + attCount + " jednotkami typu " + attType + (result?rest:"") + ".";
+		
 	}
 	
 }

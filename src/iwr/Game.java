@@ -3,6 +3,8 @@ package iwr;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -121,6 +123,23 @@ public class Game {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	public void recount(int time) {
+		Map<Player, Integer> production = new HashMap<Player, Integer>();
+		for (Player p:players.values()) {
+			production.put(p, 0);
+		}
+		for (Field f:map.fields) {
+			Player owner = f.ownerAt(time);
+			if (owner != null) {
+				production.put(owner, production.get(owner) + f.typeAt(time).produce);
+			}
+		}
+		for(Player p:players.values()) {
+			p.recountAt(production.get(p), mode.speed, time);
+		}
+		
 	}
 	
 	

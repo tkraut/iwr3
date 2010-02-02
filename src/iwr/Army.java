@@ -21,4 +21,9 @@ public class Army {
 		if ((count - c) <= 0) return null; 
 		return new Army(unit, count-c);
 	}
+	
+	@Override
+	public String toString() {
+		return count + " jednotek typu " + unit;
+	}
 }
