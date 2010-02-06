@@ -1,5 +1,6 @@
 package iwr;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -63,6 +64,14 @@ public class PlayerPane extends JPanel {
 	public void setTime(int t) {
 		time = t;
 	}
+	
+	/*@Override
+	public Dimension getPreferredSize() {
+		if (player != null) {
+			return new Dimension(super.getPreferredSize().width, neq.getPreferredSize().height*6);
+		}
+		return super.getPreferredSize();
+	}*/
 
 	
 }

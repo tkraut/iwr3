@@ -1,6 +1,7 @@
 package iwr;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,6 +78,7 @@ public class UI implements Runnable {
 		
 		players.add(playersChooser, BorderLayout.NORTH);
 		
+		
 		playersChooser.addItemListener(new ItemListener() {
 			
 			@Override
@@ -89,8 +91,9 @@ public class UI implements Runnable {
 		});
 		
 		playerInfo = new PlayerPane();
-		players.add(playerInfo, BorderLayout.CENTER);
-		
+
+		players.add(playerInfo, BorderLayout.SOUTH);
+		//players.add(playerInfo);
 	}
 	
 	public void setPlayers(SortedMap<Integer, Player> map) {

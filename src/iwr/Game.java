@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
+import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -114,14 +115,13 @@ public class Game {
 			game = doc.getFirstChild();
 			fromNode(game);
 		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Chyba v záznamu: "+e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null,"Chyba při načítání záznamu: "+e.getMessage(), "", JOptionPane.ERROR_MESSAGE);
+			//e.printStackTrace();
 		}
 	}
 
