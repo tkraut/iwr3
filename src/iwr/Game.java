@@ -43,7 +43,7 @@ public class Game {
 			//TODO: zarucit poradi
 			String name = child.getNodeName();
 			if (name.equals("map")) {
-				map = new iwr.Map(child, width, height, fieldTypes); 
+				map = new iwr.Map(child, width, height, fieldTypes, unitTypes); 
 			} else if (name.equals("players")) {
 				players = new TreeMap<Integer, Player>();
 				for (Node player = child.getFirstChild(); player != null; player = player.getNextSibling()) {

@@ -53,7 +53,12 @@ public class Images {
 		
 	}
 	public static ImageIcon get(String s) {
-		return map.get(s);
+		ImageIcon result = map.get(s);
+		if (result == null) {
+			result = new ImageIcon(PREFIX + s);
+			map.put(s, result);
+		}
+		return result;
 	}
 	public static void put(String s, ImageIcon i) {
 		map.put(s, i);

@@ -13,15 +13,16 @@ public class Map {
 	/**
 	 * Načtení z XML uzlu <map>
 	 * @param mapNode
+	 * @param unitTypes 
 	 */
-	public Map(Node mapNode, int w, int h, TreeMap<Integer, FieldType> fieldTypes) {
+	public Map(Node mapNode, int w, int h, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes) {
 		width = w;
 		height = h;
 		fields = new ArrayList<Field>();
 		int i=0;
 		for (Node fieldNode = mapNode.getFirstChild(); fieldNode != null; fieldNode = fieldNode.getNextSibling()) {
 			if (fieldNode.getNodeName().equals("f"))
-				fields.add(new Field(fieldNode, fieldTypes, getCoords(i++)));
+				fields.add(new Field(fieldNode, fieldTypes, unitTypes, getCoords(i++)));
 		}
 	}
 	public Field fieldAt(int x, int y) {

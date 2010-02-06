@@ -16,9 +16,28 @@ import org.w3c.dom.Node;
  */
 public class Field {
 	
-	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, String c) {
-		int initTypeId = Integer.parseInt(fieldNode.getFirstChild().getTextContent());
-		armyHistory = new TimeMap<Army>(null);
+	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, String c) {
+		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
+		for (Node child = fieldNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+			String name = child.getNodeName();
+			if (name.equals("t")) {
+				typeNode = child;
+			} else if (name.equals("at")) {
+				armyTypeNode = child;
+			} else if (name.equals("ac")) {
+				armyCountNode = child;
+			} else if (name.equals("flag")) {
+				//Do something with flags
+			}
+		}
+		int initTypeId = NodeUtil.getInt(typeNode);
+		Army army = null;
+		if (armyCountNode != null && armyTypeNode != null) {
+			int armyCount = NodeUtil.getInt(armyCountNode);
+			Unit armyType = unitTypes.get(NodeUtil.getInt(armyTypeNode));
+			army = new Army(armyType, armyCount);
+		}
+		armyHistory = new TimeMap<Army>(army);
 		ownerHistory = new TimeMap<Player>(null);
 		typeHistory = new TimeMap<FieldType>(fieldTypes.get(initTypeId));
 		coords = c;
