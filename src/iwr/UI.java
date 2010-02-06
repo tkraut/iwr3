@@ -3,10 +3,13 @@ package iwr;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.SortedMap;
 
 import javax.swing.*;
@@ -213,7 +216,23 @@ public class UI implements Runnable {
 	}
 	
 	private MapPane getField() {
-		return (mapPane = new MapPane());
+		mapPane = new MapPane();
+		mapPane.setToolTipText("Mapa");
+		
+		mapPane.addMouseMotionListener(new MouseMotionListener() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				mapPane.setActiveField(e.getPoint());
+			}
+			
+			@Override
+			public void mouseDragged(MouseEvent arg0) {
+				
+			}
+		});
+		
+		return mapPane;
 	}
 	
 	@Override

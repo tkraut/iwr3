@@ -22,7 +22,7 @@ public class FieldType {
 		return name;
 	}
 	
-	protected ImageIcon img;
+	protected ImageIcon img = null;
 	
 	public ImageIcon getImg() {
 		return img;
@@ -55,7 +55,7 @@ public class FieldType {
 		for (Node child = ftNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
-				//img = Images.get("f_"+id);
+				if (img==null) img = Images.get("f_"+id);
 			} else if (child.getNodeName().equals("name")) {
 				name = child.getFirstChild().getTextContent();
 			} else if (child.getNodeName().equals("picture")) {
@@ -75,4 +75,5 @@ public class FieldType {
 			}
 		}
 	}
+	
 }

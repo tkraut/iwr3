@@ -3,6 +3,7 @@ package iwr;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -18,7 +19,8 @@ public class MapPane extends JPanel {
 	private Map map;
 	private Player player;
 	private int time;
-	
+	protected Field activeField, selectedField;
+
 	private int width() {
 		return fWidth * map.width;
 	}
@@ -46,6 +48,31 @@ public class MapPane extends JPanel {
 		}
 	}
 	
+	protected void setActiveField(Point coords) {
+		if (map == null) return;
+		int x = coords.x/fWidth;
+		int y = coords.y/fHeight;
+		if (x >= map.width || y >= map.height) {
+			activeField = null;
+			setToolTipText("");
+		} else {
+			activeField = map.fieldAt(x, y);
+			String text = activeField.coords + ", " + activeField.typeAt(time);
+			if (activeField.ownerAt(time) != null) {
+				text += ", " + activeField.ownerAt(time);
+				if (activeField.ownerAt(time).getHq(time) == activeField) {
+					text += ", velení";
+				}
+			}
+			if (activeField.armyAt(time) != null) {
+				text += ", " + activeField.armyAt(time);
+			}
+			setToolTipText(text);
+		}
+	}
+	
+
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -71,5 +98,7 @@ public class MapPane extends JPanel {
 		if (map == null) return super.getPreferredSize();
 		return new Dimension(width()+5*fWidth, height()+5*fHeight);
 	}
+	
+	
 
 }

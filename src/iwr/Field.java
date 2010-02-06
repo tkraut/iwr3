@@ -30,6 +30,9 @@ public class Field {
 				//Do something with flags
 			}
 		}
+		if (typeNode == null) { // zpetna kompatibilita
+			typeNode = fieldNode;
+		}
 		int initTypeId = NodeUtil.getInt(typeNode);
 		Army army = null;
 		if (armyCountNode != null && armyTypeNode != null) {
