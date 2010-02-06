@@ -1,19 +1,29 @@
 package iwr;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
+import java.io.File;
 import java.util.SortedMap;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 /**
  * Hlavní program
@@ -39,6 +49,15 @@ public class UI implements Runnable {
 	int time;
 	int totalTime;
 	
+	File load = null;
+	
+	public UI(String[] args) {
+		if (args.length > 0) {
+			load = new File(args[0]);
+		}
+	}
+
+
 	public void repaint()
 	{
 		if (game == null) return;
@@ -71,6 +90,10 @@ public class UI implements Runnable {
 		mainFrame.pack();
 		//mainFrame.setSize(800, 600);
 		mainFrame.setVisible(true);
+		if (load != null) {
+			loadGame(load);
+			load = null;
+		}
 	}
 	
 	private void createPlayers() {
@@ -157,7 +180,15 @@ public class UI implements Runnable {
 		repaint();
 	}
 
-
+	protected void loadGame(File file) {
+		game = new Game(file);
+		setTime(0);
+		setMap(game.map);
+		setPlayers(game.getPlayers());
+		mainFrame.pack();
+		repaint();
+	}
+	
 	private JMenuBar getMenu() {
 		JMenuBar bar = new JMenuBar();
 		JMenu file = new JMenu("Soubor");
@@ -170,12 +201,7 @@ public class UI implements Runnable {
 				chooser.setFileFilter(new FileNameExtensionFilter("IWR záznamy", "iwr", "xml"));
 				int returnVal = chooser.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-						game = new Game(chooser.getSelectedFile());
-						setTime(0);
-						setMap(game.map);
-						setPlayers(game.getPlayers());
-						mainFrame.pack();
-						repaint();
+						loadGame(chooser.getSelectedFile());
 			        } else {
 			            System.out.println("Open command cancelled by user.");
 			        }
