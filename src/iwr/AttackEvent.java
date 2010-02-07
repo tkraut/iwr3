@@ -44,7 +44,7 @@ public class AttackEvent extends Event {
 	@Override
 	void apply() {
 		formerOwner = dest.ownerAt(time-1);
-		float distance = 1;  // TODO
+		double distance = dest.distanceFrom(src);  // TODO
 		if (result) {
 			if (formerOwner != null && formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
 				hqDown = true;

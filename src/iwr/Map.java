@@ -21,26 +21,52 @@ public class Map {
 		fields = new ArrayList<Field>();
 		int i=0;
 		for (Node fieldNode = mapNode.getFirstChild(); fieldNode != null; fieldNode = fieldNode.getNextSibling()) {
-			if (fieldNode.getNodeName().equals("f"))
-				fields.add(new Field(fieldNode, fieldTypes, unitTypes, getCoords(i++)));
+			if (fieldNode.getNodeName().equals("f")) {
+				int x = getX(i);
+				int y = getY(i++);
+				fields.add(new Field(fieldNode, fieldTypes, unitTypes, x, y));
+			}
 		}
 	}
+	
+	public Field fieldAt(Coords c) {
+		return fieldAt(c.getX(), c.getY());
+	}
+	
 	public Field fieldAt(int x, int y) {
 		return fields.get(y*width+x);
 	}
 	
-	public String getCoords(int x, int y) {
-		return Character.toString((char) ('A'+x))+""+y;
+	/**
+	 * Prevede souradnice na odpovidajici retezec
+	 * @param x souradnice sirky (max 701)
+	 * @param y vyskova souradnice
+	 * @return retezec reprezentujici dane souradnice
+	 */
+	public static String getSCoords(int x, int y) {
+		String sx = "";
+		if (x>25) {
+			sx += (char) ('A'+x/26-1);
+		}
+		sx += (char) ('A'+x%26);
+		return sx + y;
 	}
 	
-	public String getCoords(int ord) {
-		return getCoords(ord%width, ord/width);
+	public int getX(int ord) {
+		return ord%width;
 	}
-	public Field fieldAt(String coords) {
-		int x, y;
-		y = Integer.parseInt(coords.substring(1));
-		x = Character.getNumericValue(coords.charAt(0))-Character.getNumericValue('a');
-		return fieldAt(x, y);
+	
+	public int getY(int ord) {
+		return ord/width;
+	}
+	
+	public String getSCoords(int ord) {
+		return getSCoords(getX(ord), getY(ord));
+	}
+	
+	
+	public Field fieldAt(String sCoords) {
+		return fieldAt(new Coords(sCoords));
 	}
 	
 }

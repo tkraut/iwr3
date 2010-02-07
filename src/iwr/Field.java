@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
  */
 public class Field {
 	
-	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, String c) {
+	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, int x_c, int y_c) {
 		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
 		for (Node child = fieldNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
@@ -43,13 +43,14 @@ public class Field {
 		armyHistory = new TimeMap<Army>(army);
 		ownerHistory = new TimeMap<Player>(null);
 		typeHistory = new TimeMap<FieldType>(fieldTypes.get(initTypeId));
-		coords = c;
+		x = x_c;
+		y = y_c;
 	}
 	
 	TimeLine<FieldType> typeHistory;
 	TimeLine<Player> ownerHistory;
 	TimeLine<Army> armyHistory;
-	String coords;
+	int x, y;
 	
 	/**
 	 * Zaznamená změnu typu pole
@@ -132,9 +133,20 @@ public class Field {
 		return list;
 	}
 	
+	
+	public String getSCoords() {
+		return Map.getSCoords(x, y);
+	}
+	
 	@Override
 	public String toString() {
-		return coords;
+		return getSCoords();
+	}
+	
+	public double distanceFrom(Field other) {
+		int dx = x - other.x;
+		int dy = y - other.y;
+		return Math.sqrt(dx*dx + dy*dy);
 	}
 
 }

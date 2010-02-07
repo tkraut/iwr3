@@ -1,5 +1,6 @@
 package iwr;
 
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,6 +32,8 @@ public class Images {
 	final public static String GIF = ".gif";
 	
 	static {
+		
+		
 		put(F_NORMAL);
 		put(F_SWAMP);
 		put(F_ROCK);
@@ -50,10 +53,12 @@ public class Images {
 		putGif(O_HQ);
 		putGif(O_FLAG);
 		
-		
 	}
 	public static ImageIcon get(String s) {
 		ImageIcon result = map.get(s);
+		if (result == null) {
+			result = getImage(s);
+		} 
 		if (result == null) {
 			result = new ImageIcon(PREFIX + s);
 			map.put(s, result);
@@ -77,5 +82,11 @@ public class Images {
 	}
 	public static void put(String s, String p, String suf) {
 		put(s, new ImageIcon(PREFIX+p+suf));
+	}
+	private static ImageIcon getImage(String pathName)
+	{
+		URL url = Images.class.getResource(pathName);
+		if (url == null) return null;
+		return new ImageIcon(url);
 	}
 }

@@ -47,8 +47,8 @@ abstract public class Event {
 		return newEvent;
 	}
 	
-	public static int costOfAction(int basicCost, float distance) {
-		return (int) Math.floor(basicCost*distance);
+	public static int costOfAction(int basicCost, double distance) {
+		return (int) (basicCost*distance);
 	}
 	
 }

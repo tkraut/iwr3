@@ -57,7 +57,7 @@ public class MapPane extends JPanel {
 			setToolTipText("");
 		} else {
 			activeField = map.fieldAt(x, y);
-			String text = activeField.coords + ", " + activeField.typeAt(time);
+			String text = activeField.getSCoords() + ", " + activeField.typeAt(time);
 			if (activeField.ownerAt(time) != null) {
 				text += ", " + activeField.ownerAt(time);
 				if (activeField.ownerAt(time).getHq(time) == activeField) {
