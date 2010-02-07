@@ -1,5 +1,6 @@
 package iwr;
 
+import java.awt.MediaTracker;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -8,61 +9,64 @@ import javax.swing.ImageIcon;
 
 public class Images {
 	protected static Map<String, ImageIcon> map = new HashMap<String, ImageIcon>();
-	final public static String F_NORMAL = "f_1"; 
-	final public static String F_SWAMP = "f_2"; 
-	final public static String F_ROCK= "f_3"; 
-	final public static String F_VOID = "f_4";
-	final public static String F_INVISIBLE = "inv";
+	final public static String F_NORMAL = "f_1.png"; 
+	final public static String F_SWAMP = "f_2.png"; 
+	final public static String F_ROCK= "f_3.png"; 
+	final public static String F_VOID = "f_4.png";
+	final public static String F_INVISIBLE = "inv.gif";
 	
-	final public static String P_OWN = "my";
-	final public static String P_ALLY = "aly";
-	final public static String P_ENEMY = "ene";
+	final public static String P_OWN = "my.png";
+	final public static String P_ALLY = "aly.png";
+	final public static String P_ENEMY = "ene.png";
 	
-	final public static String T_LOUKA = "ut_1";
-	final public static String T_LES = "ut_2";
+	final public static String T_LOUKA = "ut_1.gif";
+	final public static String T_LES = "ut_2.gif";
 	
-	final public static String A_ARMY = "a";
-	final public static String A_FRIENDARMY = "fa";
+	final public static String A_ARMY = "a.gif";
+	final public static String A_FRIENDARMY = "fa.gif";
 
-	final public static String O_HQ = "hq";
-	final public static String O_FLAG = "flag";
+	final public static String O_HQ = "hq.gif";
+	final public static String O_FLAG = "flag.gif";
 	
-	final public static String PREFIX = "img/";
-	final public static String SUFFIX = ".png";
-	final public static String GIF = ".gif";
 	
 	static {
 		
-		
+		/* lazy nacitani obrazku
 		put(F_NORMAL);
 		put(F_SWAMP);
 		put(F_ROCK);
 		put(F_VOID);
-		putGif(F_INVISIBLE);
+		put(F_INVISIBLE);
 
 		put(P_OWN);
 		put(P_ALLY);
 		put(P_ENEMY);
 		
-		putGif(T_LES);
-		putGif(T_LOUKA);
+		put(T_LES);
+		put(T_LOUKA);
 		
-		putGif(A_ARMY);
-		putGif(A_FRIENDARMY);
+		put(A_ARMY);
+		put(A_FRIENDARMY);
 		
-		putGif(O_HQ);
-		putGif(O_FLAG);
-		
+		put(O_HQ);
+		put(O_FLAG);
+		*/
 	}
+	
+	protected static ImageIcon create(String s) {
+		ImageIcon result = new ImageIcon(s);
+		if (result == null || result.getImageLoadStatus() != MediaTracker.COMPLETE) {
+			result = getImage(s);
+		}
+		return result;
+	}
+	
 	public static ImageIcon get(String s) {
 		ImageIcon result = map.get(s);
 		if (result == null) {
-			result = getImage(s);
-		} 
-		if (result == null) {
-			result = new ImageIcon(PREFIX + s);
+			result = create(s);
 			map.put(s, result);
-		}
+		} 
 		return result;
 	}
 	public static void put(String s, ImageIcon i) {
@@ -71,17 +75,8 @@ public class Images {
 	public static void put(String s) {
 		put(s, s);
 	}
-	public static void putGif(String s) {
-		putGif(s, s);
-	}
 	public static void put(String s, String p) {
-		put(s, p, SUFFIX);
-	}
-	public static void putGif(String s, String p) {
-		put(s, p, GIF);
-	}
-	public static void put(String s, String p, String suf) {
-		put(s, new ImageIcon(PREFIX+p+suf));
+		put(s, create(p));
 	}
 	private static ImageIcon getImage(String pathName)
 	{

@@ -115,7 +115,9 @@ public class Field {
 				if (player.getHq(time) == this) list.add(Images.get(Images.O_HQ));
 				if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY));
 			} else {
-				if (owner.type.name.equals(Type.LOUKA)) {
+				if (owner.type.icon != null) {
+					list.add(owner.type.icon);
+				} else if (owner.type.name.equals(Type.LOUKA)) { // zpetna kompatibilita se starymi zaznamy
 					list.add(Images.get(Images.T_LOUKA));
 				} else if (owner.type.name.equals(Type.LES)) {
 					list.add(Images.get(Images.T_LES));
