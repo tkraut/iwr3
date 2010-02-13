@@ -113,7 +113,6 @@ public class Field {
 			if (player == owner) {
 				list.add(Images.get(Images.P_OWN));
 				if (player.getHq(time) == this) list.add(Images.get(Images.O_HQ));
-				if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY));
 			} else {
 				if (owner.type.icon != null) {
 					list.add(owner.type.icon);
@@ -132,6 +131,7 @@ public class Field {
 				}
 			}
 		}
+		if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY)); //ukazujeme armadu vsude
 		return list;
 	}
 	

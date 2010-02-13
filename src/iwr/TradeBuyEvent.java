@@ -40,7 +40,7 @@ public class TradeBuyEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Hráč " + donor + " poslal hráči " + acceptor + " " + count + "ml nektaru. Ty byly přeměněny na " + count + " jednotek typu " + unit + "na jeho velení";
+		return "Hráč " + donor + " poslal hráči " + acceptor + " " + nectar + "ml nektaru. Ty byly přeměněny na " + count + " jednotek typu " + unit + "na jeho velení";
 	}
 
 }
