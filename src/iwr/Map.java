@@ -1,7 +1,9 @@
 package iwr;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.w3c.dom.Node;
@@ -24,7 +26,7 @@ public class Map {
 			if (fieldNode.getNodeName().equals("f")) {
 				int x = getX(i);
 				int y = getY(i++);
-				fields.add(new Field(fieldNode, fieldTypes, unitTypes, x, y));
+				fields.add(new Field(fieldNode, fieldTypes, unitTypes, this, x, y));
 			}
 		}
 	}
@@ -67,6 +69,24 @@ public class Map {
 	
 	public Field fieldAt(String sCoords) {
 		return fieldAt(new Coords(sCoords));
+	}
+	
+	public Set<Field> exportFieldsAsSet() {
+		return new HashSet<Field>(fields);
+	}
+	
+	public Set<Field> squareOfFields(Coords center, int size) {
+		Set<Field> fields = new HashSet<Field>();
+		for (int i = Math.max(0, center.x - size); i <= Math.min(width-1, center.x + size); ++i) {
+			for (int j = Math.max(0, center.y - size); j <= Math.min(height-1, center.y + size); ++j) {
+				fields.add(fieldAt(i, j));
+			}
+		}
+		return fields;
+	}
+	
+	public Set<Field> squareOfFields(Field center, int size) {
+		return squareOfFields(center.getCoords(), size);
 	}
 	
 }

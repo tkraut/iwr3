@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -16,10 +18,13 @@ public class MapPane extends JPanel {
 	private static final long serialVersionUID = -83643453752262620L;
 	private static final int fHeight = 30;
 	private static final int fWidth = 30;
+	private Game game;
 	private Map map;
 	private Player player;
 	private int time;
 	protected Field activeField, selectedField;
+	private boolean obeyVisibilityRules;
+	private Set<Field> visibility;
 
 	private int width() {
 		return fWidth * map.width;
@@ -29,8 +34,9 @@ public class MapPane extends JPanel {
 		return fHeight * map.height;
 	}
 	
-	public void setMap(Map m) {
-		map = m;
+	public void setGame(Game g) {
+		game = g;
+		map = g.map;
 	}
 	
 	public void setPlayer(Player p) {
@@ -41,9 +47,17 @@ public class MapPane extends JPanel {
 		time = t;
 	}
 	
+	public void setObeyVisibilityRules(boolean obeyVisibilityRules) {
+		this.obeyVisibilityRules = obeyVisibilityRules;
+	}
+
+	public boolean obeysVisibilityRules() {
+		return obeyVisibilityRules;
+	}
+
 	protected void paintCell(Graphics2D g, int i, int j) {
 		Field f = map.fieldAt(i, j);
-		for (ImageIcon img:f.imageForAt(player, time)) {
+		for (ImageIcon img:f.imageForAt(player, time, obeysVisibilityRules(), visibility)) {
 			g.drawImage(img.getImage(), i*fWidth, j*fHeight, img.getImageObserver());
 		}
 	}
@@ -80,6 +94,7 @@ public class MapPane extends JPanel {
 		if (map==null) {
 			clearMap(gr);
 		} else {
+			if (obeysVisibilityRules()) countVisibility();
 			for (int i = 0; i < map.width; ++i) {
 				for (int j = 0; j < map.height; ++j) {
 					paintCell(gr, i, j);
@@ -88,6 +103,16 @@ public class MapPane extends JPanel {
 		}
 	}
 	
+	private void countVisibility() {
+		visibility = new HashSet<Field>();
+		for (Player p:game.players.values()) {
+			if (p.type == player.type) {
+				visibility.addAll(p.visibleFieldsAt(time));
+			}
+		}
+		
+	}
+
 	protected void clearMap(Graphics2D g) {
 		g.setColor(getBackground());
 		g.fillRect(0, 0, getWidth(), getHeight());

@@ -2,6 +2,7 @@ package iwr;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
@@ -16,7 +17,7 @@ import org.w3c.dom.Node;
  */
 public class Field {
 	
-	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, int x_c, int y_c) {
+	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, Map map, int x_c, int y_c) {
 		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
 		for (Node child = fieldNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
@@ -45,12 +46,14 @@ public class Field {
 		typeHistory = new TimeMap<FieldType>(fieldTypes.get(initTypeId));
 		x = x_c;
 		y = y_c;
+		this.map = map;
 	}
 	
 	TimeLine<FieldType> typeHistory;
 	TimeLine<Player> ownerHistory;
 	TimeLine<Army> armyHistory;
 	int x, y;
+	Map map;
 	
 	/**
 	 * Zaznamená změnu typu pole
@@ -104,8 +107,13 @@ public class Field {
 		return typeAt(time).getImg();
 	}
 	
-	public List<ImageIcon> imageForAt(Player player, int time) {
+	public List<ImageIcon> imageForAt(Player player, int time, boolean obeyVisibilityRules, Set<Field> visibility) {
 		ArrayList<ImageIcon> list = new ArrayList<ImageIcon>(); 
+		boolean visible = !obeyVisibilityRules || visibility.contains(this);
+		if (!visible && typeAt(time).reachability) {
+			list.add(Images.get(Images.F_INVISIBLE));
+			return list;
+		}
 		list.add(typeAt(time).getImg());
 		Army army = armyAt(time); 
 		Player owner = ownerAt(time);
@@ -113,6 +121,7 @@ public class Field {
 			if (player == owner) {
 				list.add(Images.get(Images.P_OWN));
 				if (player.getHq(time) == this) list.add(Images.get(Images.O_HQ));
+				if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY));
 			} else {
 				if (owner.type.icon != null) {
 					list.add(owner.type.icon);
@@ -131,7 +140,7 @@ public class Field {
 				}
 			}
 		}
-		if (army != null && army.count != 0) list.add(Images.get(Images.A_ARMY)); //ukazujeme armadu vsude
+		if (!obeyVisibilityRules && army != null && army.count != 0) list.add(Images.get(Images.A_ARMY)); //ukazujeme armadu vsude
 		return list;
 	}
 	
@@ -149,6 +158,32 @@ public class Field {
 		int dx = x - other.x;
 		int dy = y - other.y;
 		return Math.sqrt(dx*dx + dy*dy);
+	}
+	
+	public boolean visibleFromAt(Field other, int time) {
+		return other.canSeeAt(this, time);
+	}
+	
+	public int visibilityAt(int time) {
+		int visibility = typeAt(time).lookout;
+		Army army = armyAt(time);
+		if (army != null) {
+			visibility += army.unit.lookoutBonus;
+		}
+		return visibility;
+	}
+	
+	public boolean canSeeAt(Field other, int time) {//prima viditelnost 
+		return visibilityAt(time) >= distanceFrom(other);
+	}
+	
+
+	public Set<Field> visibleFieldsAt(int time) {
+		return map.squareOfFields(this, visibilityAt(time));
+	}
+
+	public Coords getCoords() {
+		return new Coords(x, y);
 	}
 
 }

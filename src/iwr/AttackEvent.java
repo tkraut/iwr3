@@ -13,7 +13,7 @@ public class AttackEvent extends Event {
 	Unit attType, defType;
 	iwr.Map map;
 	boolean result, hqDown = false;
-	Player formerOwner;
+	Player formerOwner, attacker;
 	public AttackEvent(Node attNode, Map<Integer, Unit> units, iwr.Map map, int t) {
 		this.map = map;
 		time = t;
@@ -44,6 +44,7 @@ public class AttackEvent extends Event {
 	@Override
 	void apply() {
 		formerOwner = dest.ownerAt(time-1);
+		attacker = src.ownerAt(time-1);
 		double distance = dest.distanceFrom(src);  // TODO
 		if (result) {
 			if (formerOwner != null && formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
@@ -55,10 +56,13 @@ public class AttackEvent extends Event {
 						f.changeArmyAt(null, time);
 					}
 				}
-				src.ownerAt(time).frag(time);
+				attacker.frag(time);
 			}
 			
-			dest.changeOwnerAt(src.ownerAt(time), time);
+			dest.changeOwnerAt(attacker, time);
+			attacker.addFieldAt(dest, time);
+			if (formerOwner != null) formerOwner.removeFieldAt(dest, time);
+			
 			dest.changeArmyAt(new Army(attType, survived), time);
 		} else {
 			if (dest.armyAt(time) != null) {

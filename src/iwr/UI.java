@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.SortedMap;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -37,7 +38,7 @@ public class UI implements Runnable {
 	JComboBox playersChooser;
 	PlayerPane playerInfo;
 	JTextField jumpCount;
-	
+	JCheckBox obeyVisibilityRules;
 	JLabel moves;
 	
 	MapPane mapPane;
@@ -60,7 +61,7 @@ public class UI implements Runnable {
 	public void repaint()
 	{
 		if (game == null) return;
-		setMap(game.map); //TODO efektivita
+		setGame(game); //TODO efektivita
 		mapPane.setTime(time);
 		totalTime = game.length;
 		moves.setText(time+"/"+totalTime+((time>0)?(":"+game.events.get(time-1)):""));
@@ -132,7 +133,7 @@ public class UI implements Runnable {
 	private JPanel getControls() {
 		JPanel pane = new JPanel(new GridLayout(1, 0));
 		
-		pane.add(new JButton("<<"));
+		//pane.add(new JButton("<<"));
 		JButton prev = new JButton("<");
 		prev.addActionListener(new ActionListener() {
 			
@@ -153,6 +154,18 @@ public class UI implements Runnable {
 		cb.addItem("dní");
 		cb.addItem("vyřazení");*/
 		pane.add(cb);
+		
+		obeyVisibilityRules = new JCheckBox("FOW");
+		obeyVisibilityRules.addItemListener(new ItemListener() {
+			
+			@Override
+			public void itemStateChanged(ItemEvent arg0) {
+				mapPane.setObeyVisibilityRules(arg0.getStateChange() == ItemEvent.SELECTED);
+				repaint();
+			}
+		});
+		
+		pane.add(obeyVisibilityRules);
 		JButton next = new JButton(">");
 		next.addActionListener(new ActionListener() {
 			
@@ -162,7 +175,7 @@ public class UI implements Runnable {
 			}
 		});
 		pane.add(next);
-		pane.add(new JButton(">>"));
+		//pane.add(new JButton(">>"));
 		
 		return pane;
 	}
@@ -182,7 +195,7 @@ public class UI implements Runnable {
 	protected void loadGame(File file) {
 		game = new Game(file);
 		setTime(0);
-		setMap(game.map);
+		setGame(game);
 		setPlayers(game.getPlayers());
 		mainFrame.pack();
 		repaint();
@@ -236,8 +249,8 @@ public class UI implements Runnable {
 	}
 
 
-	private void setMap(Map m) {
-		mapPane.setMap(m);	
+	private void setGame(Game g) {
+		mapPane.setGame(g);	
 	}
 	
 	private MapPane getField() {
@@ -256,7 +269,7 @@ public class UI implements Runnable {
 				
 			}
 		});
-		
+		mapPane.setObeyVisibilityRules(false);
 		return mapPane;
 	}
 	

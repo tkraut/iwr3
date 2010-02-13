@@ -1,6 +1,8 @@
 package iwr;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeMap;
 
 import org.w3c.dom.Node;
@@ -19,12 +21,14 @@ public class Player {
 			hqHistory = new TimeMap<Field>(null);
 			receivedNeqHistory= new TimeMap<Integer>(0);
 			destroyedHistory = new TimeMap<Integer>(0);
+			fieldsHistory = new TimeMap<Set<Field>>(new HashSet<Field>());
 		}
 		TimeLine<Integer> movesHistory;
 		TimeLine<Integer> nectarHistory;
 		TimeLine<Field> hqHistory;
 		TimeLine<Integer> receivedNeqHistory;
 		TimeLine<Integer> destroyedHistory;
+		TimeLine<Set<Field>> fieldsHistory;
 	}
 	
 	
@@ -54,6 +58,12 @@ public class Player {
 	
 	public void setHq(Field hq, int time) {
 		resources.hqHistory.changeLoadAt(hq, time);
+		addFieldAt(hq, time);
+	}
+	
+	public void removeHq(int time) {
+		resources.hqHistory.changeLoadAt(null, time);
+		removeAllFieldsAt(time);
 	}
 	
 	public Field getHq(int time) {
@@ -77,11 +87,6 @@ public class Player {
 		}
 		//<player><id>66</id><nick>asu</nick><type>2</type><ali></ali><regdate>2005-03-06 19:27:08</regdate></player>
 		
-	}
-	
-	public PlayerResources resourcesAt(int time) {
-		//TODO
-		return null;
 	}
 	
 	@Override
@@ -114,6 +119,7 @@ public class Player {
 		setHq(null, time);
 		resources.movesHistory.changeLoadAt(0, time);
 		resources.nectarHistory.changeLoadAt(0, time);
+		removeAllFieldsAt(time);
 	}
 
 	public void acceptNectarAt(int nectar, int time) { //jen info o prijeti, neprida nektar
@@ -141,6 +147,37 @@ public class Player {
 		resources.destroyedHistory.changeLoadAt(resources.destroyedHistory.loadAt(time)+1, time);
 	}
 	
+	public Set<Field> fieldsAt(int time) {
+		return resources.fieldsHistory.loadAt(time);
+	}
+	
+	public void removeAllFieldsAt(int time) {
+		resources.fieldsHistory.changeLoadAt(new HashSet<Field>(), time);
+	}
+	
+	public void addFieldAt(Field field, int time) {
+		Set<Field> expanded = new HashSet<Field>(resources.fieldsHistory.loadAt(time-1));
+		if (expanded.add(field)) {
+			resources.fieldsHistory.changeLoadAt(expanded, time);
+		}
+	}
+	
+	public void removeFieldAt(Field field, int time) {
+		Set<Field> shrinked = new HashSet<Field>(resources.fieldsHistory.loadAt(time-1));
+		if (shrinked.remove(field)) {
+			resources.fieldsHistory.changeLoadAt(shrinked, time);
+		}
+	}
+
+	public Set<Field> visibleFieldsAt(int time) {
+		
+		Set<Field> fields = fieldsAt(time);
+		Set<Field> visible = new HashSet<Field>(fields);
+		for (Field f:fields) {
+			visible.addAll(f.visibleFieldsAt(time));
+		}
+		return visible;
+	}
 	
 	
 }

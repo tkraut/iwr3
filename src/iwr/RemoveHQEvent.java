@@ -33,7 +33,7 @@ public class RemoveHQEvent extends Event {
 	@Override
 	void apply() {
 		field.changeOwnerAt(null, time);
-		player.setHq(null, time);
+		player.removeHq(time);
 	}
 	
 	@Override
