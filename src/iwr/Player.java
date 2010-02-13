@@ -116,7 +116,7 @@ public class Player {
 	}
 	
 	public void killed(int time) {
-		setHq(null, time);
+		removeHq(time);
 		resources.movesHistory.changeLoadAt(0, time);
 		resources.nectarHistory.changeLoadAt(0, time);
 		removeAllFieldsAt(time);

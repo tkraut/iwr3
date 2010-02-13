@@ -47,21 +47,23 @@ public class AttackEvent extends Event {
 		attacker = src.ownerAt(time-1);
 		double distance = dest.distanceFrom(src);  // TODO
 		if (result) {
-			if (formerOwner != null && formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
-				hqDown = true;
-				formerOwner.killed(time);
-				for(Field f:map.fields) {
-					if (f.ownerAt(time-1)==formerOwner) { //smaze vsechna pole puvodniho majitele
-						f.changeOwnerAt(null, time); 
-						f.changeArmyAt(null, time);
+			if (formerOwner != null) {
+				formerOwner.removeFieldAt(dest, time);
+				if (formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
+					hqDown = true;
+					formerOwner.killed(time);
+					for(Field f:map.fields) {
+						if (f.ownerAt(time-1)==formerOwner) { //smaze vsechna pole puvodniho majitele
+							f.changeOwnerAt(null, time); 
+							f.changeArmyAt(null, time);
+						}
 					}
+					attacker.frag(time);
 				}
-				attacker.frag(time);
 			}
 			
 			dest.changeOwnerAt(attacker, time);
 			attacker.addFieldAt(dest, time);
-			if (formerOwner != null) formerOwner.removeFieldAt(dest, time);
 			
 			dest.changeArmyAt(new Army(attType, survived), time);
 		} else {
