@@ -17,11 +17,16 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 
@@ -40,6 +45,7 @@ public class UI implements Runnable {
 	JTextField jumpCount;
 	JCheckBox obeyVisibilityRules;
 	JLabel moves;
+	JList moveList;
 	
 	MapPane mapPane;
 	
@@ -50,6 +56,8 @@ public class UI implements Runnable {
 	int totalTime;
 	
 	File load = null;
+
+	private int visibleRows = 5;
 	
 	public UI(String[] args) {
 		if (args.length > 0) {
@@ -64,7 +72,9 @@ public class UI implements Runnable {
 		setGame(game); //TODO efektivita
 		mapPane.setTime(time);
 		totalTime = game.length;
-		moves.setText(time+"/"+totalTime+((time>0)?(":"+game.events.get(time-1)):""));
+		moves.setText(time+"/"+totalTime/*+((time>0)?(":"+game.events.get(time-1)):"")*/);
+		moveList.setSelectedIndex(time-1);
+		moveList.ensureIndexIsVisible(time-1);
 		mainFrame.repaint();
 	}
 	
@@ -79,8 +89,20 @@ public class UI implements Runnable {
 		pane.add(/*new JScrollPane(*/getField()/*)*/, BorderLayout.CENTER);
 		pane.add(getControls(), BorderLayout.SOUTH);
 		
-		moves = new JLabel();
-		pane.add(moves, BorderLayout.NORTH);
+		moveList = new JList();
+		moveList.setLayoutOrientation(JList.VERTICAL);
+		moveList.setVisibleRowCount(visibleRows );
+		moveList.setAutoscrolls(true);
+		moveList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		moveList.addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				setTime(moveList.getSelectedIndex()+1);
+				repaint();
+			}
+		});
+		pane.add(new JScrollPane(moveList), BorderLayout.NORTH);
 		
 		createPlayers();
 		pane.add(players, BorderLayout.WEST);
@@ -154,7 +176,9 @@ public class UI implements Runnable {
 		cb.addItem("dní");
 		cb.addItem("vyřazení");*/
 		pane.add(cb);
-		
+		moves = new JLabel();
+		pane.add(moves, BorderLayout.EAST);
+
 		obeyVisibilityRules = new JCheckBox("FOW");
 		obeyVisibilityRules.addItemListener(new ItemListener() {
 			
@@ -196,6 +220,7 @@ public class UI implements Runnable {
 		game = new Game(file);
 		setTime(0);
 		setGame(game);
+		moveList.setListData(game.events.toArray());
 		setPlayers(game.getPlayers());
 		mainFrame.pack();
 		repaint();
