@@ -1,6 +1,6 @@
 package iwr;
 
-import java.util.SortedMap;
+import java.util.Map;
 
 import org.w3c.dom.Node;
 
@@ -9,7 +9,7 @@ public class TradeEvent extends Event {
 	Player donor, acceptor;
 	int count;
 	
-	public TradeEvent(Node trnNode, SortedMap<Integer, Player> players, int t) {
+	public TradeEvent(Node trnNode, Map<Integer, Player> players, int t) {
 		time = t;
 		for (Node child = trnNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();

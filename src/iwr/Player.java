@@ -2,8 +2,8 @@ package iwr;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.w3c.dom.Node;
 
@@ -56,6 +56,8 @@ public class Player {
 	
 	protected Resources resources;
 	
+	protected int death = 0;
+	
 	public void setHq(Field hq, int time) {
 		resources.hqHistory.changeLoadAt(hq, time);
 		addFieldAt(hq, time);
@@ -70,7 +72,7 @@ public class Player {
 		return resources.hqHistory.loadAt(time);
 	}
 	
-	public Player(Node playerNode, TreeMap<Integer, Type> playerTypes, GameMode mode) {
+	public Player(Node playerNode, Map<Integer,Type> playerTypes, GameMode mode) {
 		resources = new Resources(mode);
 		for (Node child = playerNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {
@@ -117,9 +119,14 @@ public class Player {
 	
 	public void killed(int time) {
 		removeHq(time);
+		death = time;
 		resources.movesHistory.changeLoadAt(0, time);
 		resources.nectarHistory.changeLoadAt(0, time);
 		removeAllFieldsAt(time);
+	}
+	
+	public int beforeDeath() {
+		return death-1;
 	}
 
 	public void acceptNectarAt(int nectar, int time) { //jen info o prijeti, neprida nektar

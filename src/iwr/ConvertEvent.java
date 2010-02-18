@@ -1,7 +1,6 @@
 package iwr;
 
 import java.util.Date;
-import java.util.TreeMap;
 
 import org.w3c.dom.Node;
 
@@ -12,7 +11,7 @@ public class ConvertEvent extends Event {
 	Field field;
 	FieldType type;
 	
-	public ConvertEvent(Node cfdNode, Map map, TreeMap<Integer, FieldType> fieldTypes, int t) {
+	public ConvertEvent(Node cfdNode, Map map, java.util.Map<Integer, FieldType> fieldTypes, int t) {
 		time = t;
 		for (Node child = cfdNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();

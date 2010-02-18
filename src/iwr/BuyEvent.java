@@ -1,6 +1,6 @@
 package iwr;
 
-import java.util.SortedMap;
+import java.util.Map;
 
 import org.w3c.dom.Node;
 
@@ -10,7 +10,7 @@ public class BuyEvent extends Event {
 	Player player;
 	Army army;
 	
-	public BuyEvent(Node buyNode, Map map, SortedMap<Integer, Player> players,
+	public BuyEvent(Node buyNode, iwr.Map map, Map<Integer, Player> players,
 			java.util.Map<Integer, Unit> unitTypes, int t) {
 		time = t;
 		Unit unit = null;

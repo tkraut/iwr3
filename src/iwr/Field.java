@@ -3,7 +3,6 @@ package iwr;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import javax.swing.ImageIcon;
 
@@ -17,7 +16,7 @@ import org.w3c.dom.Node;
  */
 public class Field {
 	
-	public Field(Node fieldNode, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, Map map, int x_c, int y_c) {
+	public Field(Node fieldNode, java.util.Map<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes, Map map, int x_c, int y_c) {
 		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
 		for (Node child = fieldNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();

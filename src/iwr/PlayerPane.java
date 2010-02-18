@@ -2,7 +2,10 @@ package iwr;
 
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -18,6 +21,8 @@ public class PlayerPane extends JPanel {
 	protected int time;
 	
 	protected JLabel neq, moves, hq, received, killed;
+
+	private JButton kill;
 	
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -32,12 +37,15 @@ public class PlayerPane extends JPanel {
 			} else {
 				hq.setText(player.getHq(time).toString());
 			}
+			kill.setEnabled(player.death != 0);
+		} else {
+			kill.setEnabled(false);
 		}
 		super.paintComponent(g);
 		
 	}
 	
-	public PlayerPane() {
+	public PlayerPane(final UI ui) {
 		setLayout(new GridLayout(0, 2));
 		add(new JLabel("Nektar: "));
 		neq = new JLabel();
@@ -54,6 +62,19 @@ public class PlayerPane extends JPanel {
 		add(new JLabel("Vyřadil protivníků: "));
 		killed = new JLabel();
 		add(killed);
+		add(new JLabel("Na vyřazení: "));
+		kill = new JButton(">>");
+		kill.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if (player != null && player.death != 0) {
+					ui.setTime(player.beforeDeath());
+					ui.repaint();
+				}
+			}
+		});
+		add(kill);
 	}
 	
 	public void setPlayer(Player p) {

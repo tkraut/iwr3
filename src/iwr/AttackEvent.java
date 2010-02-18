@@ -1,6 +1,8 @@
 package iwr;
 
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 import org.w3c.dom.Node;
 
@@ -13,7 +15,9 @@ public class AttackEvent extends Event {
 	Unit attType, defType;
 	iwr.Map map;
 	boolean result, hqDown = false;
-	Player formerOwner, attacker;
+	Player defender, attacker;
+	static NavigableMap<Integer, AttackEvent> kills = new TreeMap<Integer, AttackEvent>();
+	
 	public AttackEvent(Node attNode, Map<Integer, Unit> units, iwr.Map map, int t) {
 		this.map = map;
 		time = t;
@@ -43,22 +47,23 @@ public class AttackEvent extends Event {
 	
 	@Override
 	void apply() {
-		formerOwner = dest.ownerAt(time-1);
+		defender = dest.ownerAt(time-1);
 		attacker = src.ownerAt(time-1);
 		double distance = dest.distanceFrom(src);  // TODO
 		if (result) {
-			if (formerOwner != null) {
-				formerOwner.removeFieldAt(dest, time);
-				if (formerOwner.getHq(time-1) == dest) { //bylo dobyto veleni
+			if (defender != null) {
+				defender.removeFieldAt(dest, time);
+				if (defender.getHq(time-1) == dest) { //bylo dobyto veleni
 					hqDown = true;
-					formerOwner.killed(time);
+					defender.killed(time);
 					for(Field f:map.fields) {
-						if (f.ownerAt(time-1)==formerOwner) { //smaze vsechna pole puvodniho majitele
+						if (f.ownerAt(time-1)==defender) { //smaze vsechna pole puvodniho majitele
 							f.changeOwnerAt(null, time); 
 							f.changeArmyAt(null, time);
 						}
 					}
 					attacker.frag(time);
+					kills.put(time, this);
 				}
 			}
 			
@@ -82,8 +87,8 @@ public class AttackEvent extends Event {
 		String rest = ", z nichž přežilo " + survived;
 		String defense;
 		String hqd = "";
-		if (formerOwner != null) {
-			pl = "hráči " + formerOwner;
+		if (defender != null) {
+			pl = "hráči " + defender;
 		} else {
 			pl = "volné";
 		}

@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.SortedMap;
+import java.util.NavigableMap;
 import java.util.TreeMap;
 
 import javax.swing.JOptionPane;
@@ -26,14 +26,15 @@ import org.xml.sax.SAXException;
 public class Game {
 
 	GameMode mode;
-	SortedMap<Integer, Player> players;
-	SortedMap<Integer, Player> getPlayers() {
+	Map<Integer, Player> players;
+	Map<Integer, Player> getPlayers() {
 		return players;
 	}
 	ArrayList<Event> events;
-	TreeMap<Integer, FieldType> fieldTypes;
-	TreeMap<Integer, Type> playerTypes;
-	TreeMap<Integer, Unit> unitTypes;
+	NavigableMap<Integer, Event> kills;
+	Map<Integer, FieldType> fieldTypes;
+	Map<Integer, Type> playerTypes;
+	Map<Integer, Unit> unitTypes;
 	iwr.Map map;
 	int length, start = -1;
 	int width, height;
@@ -108,9 +109,13 @@ public class Game {
 			if (event.getNodeType() == Node.ELEMENT_NODE) {
 				Event newEvent = Event.parseNode(event, this);
 				if (newEvent != null) {
-					newEvent.apply();
-					events.add(newEvent);
-					++length;
+					try {
+						newEvent.apply();
+						events.add(newEvent);
+						++length;
+					} catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Chybny zaznam v case "+ length);
+					}
 				}
 			}
 		}

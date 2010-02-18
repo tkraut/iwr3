@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.w3c.dom.Node;
 
@@ -17,7 +16,7 @@ public class Map {
 	 * @param mapNode
 	 * @param unitTypes 
 	 */
-	public Map(Node mapNode, int w, int h, TreeMap<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes) {
+	public Map(Node mapNode, int w, int h, java.util.Map<Integer, FieldType> fieldTypes, java.util.Map<Integer, Unit> unitTypes) {
 		width = w;
 		height = h;
 		fields = new ArrayList<Field>();
