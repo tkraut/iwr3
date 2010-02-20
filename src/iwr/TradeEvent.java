@@ -34,7 +34,7 @@ public class TradeEvent extends Event {
 
 	@Override
 	public String toString() {
-		return "Hráč " + donor + " poslal hráči " + acceptor + " " + count + "ml nektaru";
+		return super.toString() + "Hráč " + donor + " poslal hráči " + acceptor + " " + count + "ml nektaru";
 	}
 	
 }

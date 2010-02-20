@@ -3,7 +3,6 @@
  */
 package iwr;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.w3c.dom.Node;
@@ -22,17 +21,13 @@ public class GameMode {
 			} else if (name.equals("name")) {
 				name = child.getFirstChild().getTextContent();
 			} else if (name.equals("peace")) {
-				try {
-					protection = new SimpleDateFormat().parse(child.getFirstChild().getTextContent());
-				} catch (Exception e) {
-					protection = null;
-				}
+				protection = NodeUtil.getTime(child);
 			} else if (name.equals("type")) {
 				type = NodeUtil.getString(child);
 			} else if (name.equals("timelimit")) {
-				timelimit = NodeUtil.getDate(child);
+				timelimit = NodeUtil.getTime(child); //neimplementovano
 			} else if (name.equals("mapvisafter")) {
-				mapDisclose = NodeUtil.getDate(child);
+				mapDisclose = NodeUtil.getDate(child); //neimplementovano
 			} else if (name.equals("speed")) {
 				speed = NodeUtil.getInt(child);
 			} else if (name.equals("prodef")) {

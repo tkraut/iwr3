@@ -40,6 +40,6 @@ public class BuyEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Hráč "+ player + "nakoupil na pole" + field + " " + army.count + "jednotek typu " + army.unit; 
+		return super.toString() + "Hráč "+ player + "nakoupil na pole" + field + " " + army.count + "jednotek typu " + army.unit; 
 	}
 }

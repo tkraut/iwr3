@@ -52,7 +52,7 @@ public class MapPane extends JPanel {
 	}
 
 	public boolean obeysVisibilityRules() {
-		return obeyVisibilityRules;
+		return obeyVisibilityRules && player != null;
 	}
 
 	protected void paintCell(Graphics2D g, int i, int j) {

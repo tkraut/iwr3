@@ -104,11 +104,11 @@ public class AttackEvent extends Event {
 		} else {
 			defense = "nebylo bráněné";
 		}
-		return "Hráč " + src.ownerAt(time) + " "
+		return super.toString() + "Hráč " + src.ownerAt(time) + " "
 			+ maybeNot + "dobyl " + pl + " pole " + dest
 			+ ", které " + defense 
 			+ hqd
-			+ ". Útok byl veden " + attCount + " jednotkami typu " + attType + (result?rest:"") + ".";
+			+ ". Útok byl veden z pole " + src + " " + attCount + " jednotkami typu " + attType + (result?rest:"") + ".";
 		
 	}
 	

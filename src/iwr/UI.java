@@ -91,7 +91,7 @@ public class UI implements Runnable {
 	{
 		mainFrame = new JFrame("IWReview");
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		mainFrame.setIconImage(Images.get(Images.I_YELLOW).getImage());
 		JPanel pane = new JPanel(new BorderLayout());
 		
 		pane.add(/*new JScrollPane(*/getField()/*)*/, BorderLayout.CENTER);
@@ -215,7 +215,19 @@ public class UI implements Runnable {
 		pane.add(what);
 		moves = new JLabel();
 		pane.add(moves, BorderLayout.EAST);
-
+		
+		JButton toEndOfProt = new JButton("Konec neút.");
+		toEndOfProt.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				setTime(game.protection);
+				repaint();
+				
+			}
+		});
+		pane.add(toEndOfProt);
+		
 		obeyVisibilityRules = new JCheckBox("FOW");
 		obeyVisibilityRules.addItemListener(new ItemListener() {
 			

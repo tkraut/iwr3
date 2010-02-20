@@ -1,12 +1,9 @@
 package iwr;
 
-import java.util.Date;
-
 import org.w3c.dom.Node;
 
 public class CreateHQEvent extends Event {
 
-	Date timestamp;
 	int time;
 	Field field;
 	Player player;
@@ -34,7 +31,7 @@ public class CreateHQEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Hráč " + player + "založil velení na pozici " + field;
+		return super.toString() + "Hráč " + player + "založil velení na pozici " + field;
 	}
 
 }

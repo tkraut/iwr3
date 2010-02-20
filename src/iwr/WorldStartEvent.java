@@ -5,9 +5,15 @@ import org.w3c.dom.Node;
 public class WorldStartEvent extends Event {
 	
 	Game game;
-	public WorldStartEvent(Node node, Game g, int t) {
+	public WorldStartEvent(Node wsNode, Game g, int t) {
 		time = t;
 		game = g;
+		for (Node child = wsNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+			String name = child.getNodeName();
+			if (name.equals("t")) {
+				timestamp = NodeUtil.getDate(child);
+			}
+		}
 	}
 
 	@Override
@@ -17,7 +23,7 @@ public class WorldStartEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Svět spuštěn";
+		return super.toString() + "Svět spuštěn";
 	}
 
 }

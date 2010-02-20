@@ -6,9 +6,16 @@ public class RecountEvent extends Event {
 
 	Game game;
 	
-	public RecountEvent(Node node, Game g, int t) {
+	public RecountEvent(Node rctNode, Game g, int t) {
 		time = t;
 		game = g;
+		for (Node child = rctNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+			String name = child.getNodeName();
+			if (name.equals("t")) {
+				timestamp = NodeUtil.getDate(child);
+			}
+		}
+
 	}
 
 	@Override
@@ -19,7 +26,7 @@ public class RecountEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Proběhl přepočet";
+		return super.toString() + "Proběhl přepočet";
 	}
 
 }

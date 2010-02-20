@@ -27,6 +27,7 @@ public class Images {
 
 	final public static String O_HQ = "hq.gif";
 	final public static String O_FLAG = "flag.gif";
+	final public static String I_YELLOW = "favicon.png";
 	
 	
 	static {

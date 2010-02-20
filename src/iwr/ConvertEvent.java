@@ -1,12 +1,9 @@
 package iwr;
 
-import java.util.Date;
-
 import org.w3c.dom.Node;
 
 public class ConvertEvent extends Event {
 
-	Date timestamp;
 	int time;
 	Field field;
 	FieldType type;
@@ -32,6 +29,6 @@ public class ConvertEvent extends Event {
 	}
 	@Override
 	public String toString() {
-		return "Hráč " + field.ownerAt(time)+ "změnil typ pole " + field + " z " + field.typeAt(time-1) + " na " + type;
+		return super.toString() + "Hráč " + field.ownerAt(time)+ "změnil typ pole " + field + " z " + field.typeAt(time-1) + " na " + type;
 	}
 }

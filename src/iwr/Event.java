@@ -1,6 +1,11 @@
 package iwr;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
+
+import javax.swing.JOptionPane;
 
 import org.w3c.dom.Node;
 
@@ -36,6 +41,16 @@ abstract public class Event {
 			newEvent = new AttackEvent(node, game.unitTypes, game.map, time);
 		} else if (eventName.equals("ws")) {
 			newEvent = new WorldStartEvent(node, game, time);
+			game.startTime = newEvent.timestamp;
+			if (game.mode.protection != null) {
+				Calendar cal =  new GregorianCalendar();
+				cal.setTime(game.startTime);
+				cal.add(Calendar.SECOND, (int) (game.mode.protection.getTime()/1000));
+				game.protectionEnds = cal.getTime();
+			} else {
+				game.protectionEnds = game.startTime;
+			}
+			
 		} else if (eventName.equals("trn")) {
 			newEvent = new TradeEvent(node, game.players, time);
 		} else if (eventName.equals("trb")) {
@@ -43,12 +58,25 @@ abstract public class Event {
 		} else if (eventName.equals("rct") && game.start != -1 && game.start < time &&
 				!node.isEqualNode(node.getPreviousSibling().getPreviousSibling())) { //TODO zrusit az v zaznamech nebudou duplicitni prepocty (nebo nerusit??)
 			newEvent = new RecountEvent(node, game, time);
+		} else {
+			//u duplicitnich a zbytecnych prepoctu a chybnych zaznamu neresime timestampy
+			return null;
+		}
+		if (newEvent.timestamp == null) {
+			JOptionPane.showMessageDialog(null, "Nenačten timestamp" + newEvent);
+		}
+		if (game.protection == -1 && game.protectionEnds != null && newEvent.timestamp.after(game.protectionEnds)) {
+			game.protection = newEvent.time;
 		}
 		return newEvent;
 	}
 	
 	public static int costOfAction(int basicCost, double distance) {
 		return (int) (basicCost*distance);
+	}
+	@Override
+	public String toString() {
+		return new SimpleDateFormat("dd. MM. HH:mm:ss → ").format(timestamp);
 	}
 	
 }

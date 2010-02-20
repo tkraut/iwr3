@@ -24,6 +24,8 @@ public class PlayerPane extends JPanel {
 
 	private JButton kill;
 	
+	private UI main;
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		if (player != null) {
@@ -46,6 +48,7 @@ public class PlayerPane extends JPanel {
 	}
 	
 	public PlayerPane(final UI ui) {
+		main = ui;
 		setLayout(new GridLayout(0, 2));
 		add(new JLabel("Nektar: "));
 		neq = new JLabel();
@@ -65,12 +68,11 @@ public class PlayerPane extends JPanel {
 		add(new JLabel("Na vyřazení: "));
 		kill = new JButton(">>");
 		kill.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if (player != null && player.death != 0) {
-					ui.setTime(player.beforeDeath());
-					ui.repaint();
+					main.setTime(player.beforeDeath());
+					main.repaint();
 				}
 			}
 		});
@@ -79,6 +81,11 @@ public class PlayerPane extends JPanel {
 	
 	public void setPlayer(Player p) {
 		player = p;
+		if (player == null) {
+			main.obeyVisibilityRules.setEnabled(false);
+		} else {
+			main.obeyVisibilityRules.setEnabled(true);
+		}
 	}
 
 	public void setTime(int t) {

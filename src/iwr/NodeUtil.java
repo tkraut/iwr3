@@ -1,12 +1,13 @@
 package iwr;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.w3c.dom.Node;
 
 public class NodeUtil {
-
+	static DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), time = new SimpleDateFormat("HH:mm:ss");
 	static int getInt(Node node) {
 		return Integer.parseInt(node.getFirstChild().getTextContent());
 	}
@@ -29,7 +30,16 @@ public class NodeUtil {
 	
 	static Date getDate(Node node) {
 		try {
-			return new SimpleDateFormat().parse(node.getFirstChild().getTextContent());
+			return date.parse(node.getFirstChild().getTextContent());
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	static Date getTime(Node node) {
+		try {
+			return time.parse(node.getFirstChild().getTextContent());
+			 
 		} catch (Exception e) {
 			return null;
 		}

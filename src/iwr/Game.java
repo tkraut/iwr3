@@ -3,6 +3,7 @@ package iwr;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NavigableMap;
@@ -36,7 +37,8 @@ public class Game {
 	Map<Integer, Type> playerTypes;
 	Map<Integer, Unit> unitTypes;
 	iwr.Map map;
-	int length, start = -1;
+	int length, protection = -1, start = -1;
+	Date startTime, protectionEnds;
 	int width, height;
 	
 	public void fromNode(Node gameNode){
@@ -119,7 +121,7 @@ public class Game {
 				}
 			}
 		}
-
+		assert protection > 0:"Není určena protekce";
 
 	}
 	

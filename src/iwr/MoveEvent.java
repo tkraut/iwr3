@@ -34,7 +34,7 @@ public class MoveEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return "Hráč " + src.ownerAt(time) + " přesunul " + count + " jednotek typu " + src.armyAt(time-1).unit + " z pole " + src + " na pole " + dest;
+		return super.toString() + "Hráč " + src.ownerAt(time) + " přesunul " + count + " jednotek typu " + src.armyAt(time-1).unit + " z pole " + src + " na pole " + dest;
 	}
 
 }
