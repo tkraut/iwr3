@@ -3,10 +3,9 @@
  */
 package iwr;
 
-
 /**
  * @author Tomáš
- *
+ * 
  */
 public class IWR {
 

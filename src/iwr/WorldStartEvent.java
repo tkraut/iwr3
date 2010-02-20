@@ -3,14 +3,16 @@ package iwr;
 import org.w3c.dom.Node;
 
 public class WorldStartEvent extends Event {
-	
+
 	Game game;
+
 	public WorldStartEvent(Node wsNode, Game g, int t) {
 		time = t;
 		game = g;
-		for (Node child = wsNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+		for (Node child = wsNode.getFirstChild(); child != null; child = child
+				.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) { 
+			if (name.equals("t")) {
 				timestamp = NodeUtil.getDate(child);
 			}
 		}
@@ -20,10 +22,11 @@ public class WorldStartEvent extends Event {
 	void apply() {
 		game.start = time;
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString() + Messages.getString("WorldStartEvent.WorldStarted"); //$NON-NLS-1$
+		return super.toString()
+				+ Messages.getString("WorldStartEvent.WorldStarted"); //$NON-NLS-1$
 	}
 
 }

@@ -15,17 +15,17 @@ public class PlayerPane extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 3857819570317137989L;
-	
+
 	protected Player player = null;
 
 	protected int time;
-	
+
 	protected JLabel neq, moves, hq, received, killed;
 
 	private JButton kill;
-	
+
 	private UI main;
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		if (player != null) {
@@ -44,9 +44,9 @@ public class PlayerPane extends JPanel {
 			kill.setEnabled(false);
 		}
 		super.paintComponent(g);
-		
+
 	}
-	
+
 	public PlayerPane(final UI ui) {
 		main = ui;
 		setLayout(new GridLayout(0, 2));
@@ -78,7 +78,7 @@ public class PlayerPane extends JPanel {
 		});
 		add(kill);
 	}
-	
+
 	public void setPlayer(Player p) {
 		player = p;
 		if (player == null) {
@@ -91,14 +91,11 @@ public class PlayerPane extends JPanel {
 	public void setTime(int t) {
 		time = t;
 	}
-	
-	/*@Override
-	public Dimension getPreferredSize() {
-		if (player != null) {
-			return new Dimension(super.getPreferredSize().width, neq.getPreferredSize().height*6);
-		}
-		return super.getPreferredSize();
-	}*/
 
-	
+	/*
+	 * @Override public Dimension getPreferredSize() { if (player != null) {
+	 * return new Dimension(super.getPreferredSize().width,
+	 * neq.getPreferredSize().height*6); } return super.getPreferredSize(); }
+	 */
+
 }

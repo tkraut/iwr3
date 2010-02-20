@@ -9,13 +9,15 @@ import org.w3c.dom.Node;
 
 /**
  * Pravidla hry
+ * 
  * @author Tomáš
  */
 public class GameMode {
 	public GameMode(Node gmNode) {
 		// TODO
-		for (Node child = gmNode.getFirstChild(); child != null; child = child.getNextSibling()) {
-			String name = child.getNodeName(); 
+		for (Node child = gmNode.getFirstChild(); child != null; child = child
+				.getNextSibling()) {
+			String name = child.getNodeName();
 			if (name.equals("id")) { //$NON-NLS-1$
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
 			} else if (name.equals("name")) { //$NON-NLS-1$
@@ -25,9 +27,9 @@ public class GameMode {
 			} else if (name.equals("type")) { //$NON-NLS-1$
 				type = NodeUtil.getString(child);
 			} else if (name.equals("timelimit")) { //$NON-NLS-1$
-				timelimit = NodeUtil.getTime(child); //neimplementovano
+				timelimit = NodeUtil.getTime(child); // neimplementovano
 			} else if (name.equals("mapvisafter")) { //$NON-NLS-1$
-				mapDisclose = NodeUtil.getDate(child); //neimplementovano
+				mapDisclose = NodeUtil.getDate(child); // neimplementovano
 			} else if (name.equals("speed")) { //$NON-NLS-1$
 				speed = NodeUtil.getInt(child);
 			} else if (name.equals("prodef")) { //$NON-NLS-1$
@@ -50,6 +52,7 @@ public class GameMode {
 		}
 
 	}
+
 	public int id;
 	public String name;
 	public Date protection;
@@ -66,6 +69,5 @@ public class GameMode {
 	public int speedbonus;
 	public boolean hasFriendArmy;
 	public boolean applyGlobalEvents;
-	
-	
+
 }

@@ -9,13 +9,14 @@ public class BuyEvent extends Event {
 	Field field;
 	Player player;
 	Army army;
-	
+
 	public BuyEvent(Node buyNode, iwr.Map map, Map<Integer, Player> players,
 			java.util.Map<Integer, Unit> unitTypes, int t) {
 		time = t;
 		Unit unit = null;
 		int count = 0;
-		for (Node child = buyNode.getFirstChild(); child != null; child = child.getNextSibling()) {
+		for (Node child = buyNode.getFirstChild(); child != null; child = child
+				.getNextSibling()) {
 			String name = child.getNodeName();
 			if (name.equals("t")) { //$NON-NLS-1$
 				timestamp = NodeUtil.getDate(child);
@@ -37,9 +38,10 @@ public class BuyEvent extends Event {
 		player.removeNectarAt(army.cost(), time);
 		field.addArmyAt(army, time);
 	}
-	
+
 	@Override
 	public String toString() {
-		return super.toString() + Messages.getString("BuyEvent.Player")+ player + Messages.getString("BuyEvent.boughtTo") + field + " " + army.count + Messages.getString("BuyEvent.unitsOfType") + army.unit;  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+		return super.toString()
+				+ Messages.getString("BuyEvent.Player") + player + Messages.getString("BuyEvent.boughtTo") + field + " " + army.count + Messages.getString("BuyEvent.unitsOfType") + army.unit; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 }

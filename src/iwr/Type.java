@@ -6,8 +6,9 @@ import org.w3c.dom.Node;
 
 /**
  * Typ hráče
+ * 
  * @author Tomáš
- *
+ * 
  */
 public class Type {
 	final static public String LOUKA = "louka"; //$NON-NLS-1$
@@ -15,8 +16,10 @@ public class Type {
 	int id;
 	String name;
 	ImageIcon icon;
+
 	public Type(Node typeNode) {
-		for (Node n = typeNode.getFirstChild(); n != null; n = n.getNextSibling()) {
+		for (Node n = typeNode.getFirstChild(); n != null; n = n
+				.getNextSibling()) {
 			if (n.getNodeName().equals("id")) { //$NON-NLS-1$
 				id = Integer.parseInt(n.getFirstChild().getNodeValue());
 			} else if (n.getNodeName().equals("name")) { //$NON-NLS-1$
@@ -26,6 +29,7 @@ public class Type {
 			}
 		}
 	}
+
 	@Override
 	public String toString() {
 		return name;
