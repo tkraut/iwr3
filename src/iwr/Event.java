@@ -25,21 +25,21 @@ abstract public class Event {
 		int time = game.length+1;
 		Event newEvent = null;
 		String eventName = node.getNodeName();
-		if (eventName.equals("cfd")) {
+		if (eventName.equals("cfd")) { //$NON-NLS-1$
 			newEvent = new ConvertEvent(node, game.map, game.fieldTypes, time);
-		} else if (eventName.equals("chq")) {
+		} else if (eventName.equals("chq")) { //$NON-NLS-1$
 			newEvent = new CreateHQEvent(node, game.map, game.players, time);
-		} else if (eventName.equals("rhq")) {
+		} else if (eventName.equals("rhq")) { //$NON-NLS-1$
 			newEvent = new RemoveHQEvent(node, game.map, game.players, time);
-		} else if (eventName.equals("buy")) {
+		} else if (eventName.equals("buy")) { //$NON-NLS-1$
 			newEvent = new BuyEvent(node, game.map, game.players, game.unitTypes, time);
-		} else if (eventName.equals("mov")) {
+		} else if (eventName.equals("mov")) { //$NON-NLS-1$
 			newEvent = new MoveEvent(node, game.map, time);
-		} else if (eventName.equals("ret")) {
+		} else if (eventName.equals("ret")) { //$NON-NLS-1$
 			newEvent = new RetreatEvent(node, game.map, time);
-		} else if (eventName.equals("att")) {
+		} else if (eventName.equals("att")) { //$NON-NLS-1$
 			newEvent = new AttackEvent(node, game.unitTypes, game.map, time);
-		} else if (eventName.equals("ws")) {
+		} else if (eventName.equals("ws")) { //$NON-NLS-1$
 			newEvent = new WorldStartEvent(node, game, time);
 			game.startTime = newEvent.timestamp;
 			if (game.mode.protection != null) {
@@ -51,11 +51,11 @@ abstract public class Event {
 				game.protectionEnds = game.startTime;
 			}
 			
-		} else if (eventName.equals("trn")) {
+		} else if (eventName.equals("trn")) { //$NON-NLS-1$
 			newEvent = new TradeEvent(node, game.players, time);
-		} else if (eventName.equals("trb")) {
+		} else if (eventName.equals("trb")) { //$NON-NLS-1$
 			newEvent = new TradeBuyEvent(node, game.players, game.unitTypes, time);
-		} else if (eventName.equals("rct") && game.start != -1 && game.start < time &&
+		} else if (eventName.equals("rct") && game.start != -1 && game.start < time && //$NON-NLS-1$
 				!node.isEqualNode(node.getPreviousSibling().getPreviousSibling())) { //TODO zrusit az v zaznamech nebudou duplicitni prepocty (nebo nerusit??)
 			newEvent = new RecountEvent(node, game, time);
 		} else {
@@ -63,7 +63,7 @@ abstract public class Event {
 			return null;
 		}
 		if (newEvent.timestamp == null) {
-			JOptionPane.showMessageDialog(null, "Nenačten timestamp" + newEvent);
+			JOptionPane.showMessageDialog(null, Messages.getString("Event.timestampNotLoaded") + newEvent); //$NON-NLS-1$
 		}
 		if (game.protection == -1 && game.protectionEnds != null && newEvent.timestamp.after(game.protectionEnds)) {
 			game.protection = newEvent.time;
@@ -76,7 +76,7 @@ abstract public class Event {
 	}
 	@Override
 	public String toString() {
-		return new SimpleDateFormat("dd. MM. HH:mm:ss → ").format(timestamp);
+		return new SimpleDateFormat(Messages.getString("Event.PrefixDateFormat")).format(timestamp); //$NON-NLS-1$
 	}
 	
 }

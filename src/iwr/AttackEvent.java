@@ -23,23 +23,23 @@ public class AttackEvent extends Event {
 		time = t;
 		for (Node child = attNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("p1")) {
+			} else if (name.equals("p1")) { 
 				src = map.fieldAt(NodeUtil.getString(child));
-			} else if (name.equals("p2")) {
+			} else if (name.equals("p2")) { 
 				dest = map.fieldAt(NodeUtil.getString(child));
-			} else if (name.equals("ca")) {
+			} else if (name.equals("ca")) { 
 				attCount = NodeUtil.getInt(child);
-			} else if (name.equals("ta")) {
+			} else if (name.equals("ta")) { 
 				attType = units.get(NodeUtil.getInt(child));
-			} else if (name.equals("cd")) {
+			} else if (name.equals("cd")) { 
 				defCount = NodeUtil.getInt(child);
-			} else if (name.equals("td")) {
+			} else if (name.equals("td")) { 
 				defType = units.get(NodeUtil.getMaybeInt(child));
-			} else if (name.equals("r")) {
+			} else if (name.equals("r")) { 
 				result = NodeUtil.getBool(child);
-			} else if (name.equals("s")) {
+			} else if (name.equals("s")) { 
 				survived = NodeUtil.getInt(child);
 			}
 		}
@@ -83,32 +83,32 @@ public class AttackEvent extends Event {
 	@Override
 	public String toString() {
 		String pl;
-		String maybeNot = "";
-		String rest = ", z nichž přežilo " + survived;
+		String maybeNot = ""; //$NON-NLS-1$
+		String rest = Messages.getString("AttackEvent.fromWhichSurvived") + survived; //$NON-NLS-1$
 		String defense;
-		String hqd = "";
+		String hqd = ""; //$NON-NLS-1$
 		if (defender != null) {
-			pl = "hráči " + defender;
+			pl = Messages.getString("AttackEvent.defender.DAT") + defender; //$NON-NLS-1$
 		} else {
-			pl = "volné";
+			pl = Messages.getString("AttackEvent.freeField"); //$NON-NLS-1$
 		}
 		if (result) {
 			if (hqDown) {
-				hqd = ", a tím ho vyřadil ze světa";
+				hqd = Messages.getString("AttackEvent.andScores"); //$NON-NLS-1$
 			}
 		} else {
-			maybeNot = "ne";
+			maybeNot = Messages.getString("AttackEvent.not"); //$NON-NLS-1$
 		}
 		if (defCount != 0) {
-			defense = "bránilo " + defCount + " jednotek typu " + defType + (result?"":rest);
+			defense = Messages.getString("AttackEvent.defended") + defCount + Messages.getString("AttackEvent.unitsOfType") + defType + (result?"":rest); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		} else {
-			defense = "nebylo bráněné";
+			defense = Messages.getString("AttackEvent.wasntDefended"); //$NON-NLS-1$
 		}
-		return super.toString() + "Hráč " + src.ownerAt(time) + " "
-			+ maybeNot + "dobyl " + pl + " pole " + dest
-			+ ", které " + defense 
+		return super.toString() + Messages.getString("AttackEvent.Player") + src.ownerAt(time) + " " //$NON-NLS-1$ //$NON-NLS-2$
+			+ maybeNot + Messages.getString("AttackEvent.conquered") + pl + Messages.getString("AttackEvent.field") + dest //$NON-NLS-1$ //$NON-NLS-2$
+			+ Messages.getString("AttackEvent.which") + defense  //$NON-NLS-1$
 			+ hqd
-			+ ". Útok byl veden z pole " + src + " " + attCount + " jednotkami typu " + attType + (result?rest:"") + ".";
+			+ Messages.getString("AttackEvent.attackWasDoneFrom") + src + " " + attCount + Messages.getString("AttackEvent.unitsOfType.INS") + attType + (result?rest:"") + "."; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 		
 	}
 	

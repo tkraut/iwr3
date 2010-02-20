@@ -7,7 +7,7 @@ import java.util.Date;
 import org.w3c.dom.Node;
 
 public class NodeUtil {
-	static DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), time = new SimpleDateFormat("HH:mm:ss");
+	static DateFormat date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"), time = new SimpleDateFormat("HH:mm:ss");  
 	static int getInt(Node node) {
 		return Integer.parseInt(node.getFirstChild().getTextContent());
 	}
@@ -21,7 +21,7 @@ public class NodeUtil {
 	}
 	
 	static boolean getBool(Node node) {
-		return node.getFirstChild().getTextContent().equals("1");
+		return node.getFirstChild().getTextContent().equals("1"); 
 	}
 	
 	static String getString(Node node) {

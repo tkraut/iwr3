@@ -20,13 +20,13 @@ public class Field {
 		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
 		for (Node child = fieldNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				typeNode = child;
-			} else if (name.equals("at")) {
+			} else if (name.equals("at")) { 
 				armyTypeNode = child;
-			} else if (name.equals("ac")) {
+			} else if (name.equals("ac")) { 
 				armyCountNode = child;
-			} else if (name.equals("flag")) {
+			} else if (name.equals("flag")) { 
 				//Do something with flags
 			}
 		}

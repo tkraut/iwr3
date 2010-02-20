@@ -12,15 +12,15 @@ public class RemoveHQEvent extends Event {
 		time = t;
 		for (Node child = chqNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("p")) {
+			} else if (name.equals("p")) { 
 				try {
 					field = map.fieldAt(NodeUtil.getString(child));
 				} catch (NullPointerException e) {
 					field = player.getHq(t);
 				}
-			} else if (name.equals("pl")) {
+			} else if (name.equals("pl")) { 
 				player = players.get(NodeUtil.getInt(child));
 			}
 		}
@@ -35,7 +35,7 @@ public class RemoveHQEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Hráč " + player + "odstranil velení z pozice " + field;
+		return super.toString() + Messages.getString("RemoveHQEvent.Player") + player + Messages.getString("RemoveHQEvent.removedHQFrom") + field; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

@@ -43,7 +43,7 @@ public class Coords {
 	
 	@Override
 	public String toString() {
-		return "(" + x + ";" + y + ")";
+		return "(" + x + ";" + y + ")"; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 	}
 	
 	/**
@@ -51,7 +51,7 @@ public class Coords {
 	 * @param sCoords vstupni retezec ve tvaru napr. "A5" (pismenna souradnice 1 ci 2 znakova)
 	 */
 	public Coords (String sCoords) {
-		Matcher match = Pattern.compile("([A-Z]+)(\\d+)", Pattern.CASE_INSENSITIVE).matcher(sCoords);
+		Matcher match = Pattern.compile("([A-Z]+)(\\d+)", Pattern.CASE_INSENSITIVE).matcher(sCoords); //$NON-NLS-1$
 		match.matches();
 		MatchResult result = match.toMatchResult();
 		String sx = result.group(1);

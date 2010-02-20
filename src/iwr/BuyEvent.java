@@ -17,14 +17,14 @@ public class BuyEvent extends Event {
 		int count = 0;
 		for (Node child = buyNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { //$NON-NLS-1$
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("p")) {
+			} else if (name.equals("p")) { //$NON-NLS-1$
 				field = map.fieldAt(NodeUtil.getString(child));
 				player = field.ownerAt(t);
-			} else if (name.equals("ut")) {
+			} else if (name.equals("ut")) { //$NON-NLS-1$
 				unit = unitTypes.get(NodeUtil.getInt(child));
-			} else if (name.equals("c")) {
+			} else if (name.equals("c")) { //$NON-NLS-1$
 				count = NodeUtil.getInt(child);
 			}
 		}
@@ -40,6 +40,6 @@ public class BuyEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Hráč "+ player + "nakoupil na pole" + field + " " + army.count + "jednotek typu " + army.unit; 
+		return super.toString() + Messages.getString("BuyEvent.Player")+ player + Messages.getString("BuyEvent.boughtTo") + field + " " + army.count + Messages.getString("BuyEvent.unitsOfType") + army.unit;  //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 }

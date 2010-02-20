@@ -75,15 +75,15 @@ public class Player {
 	public Player(Node playerNode, Map<Integer,Type> playerTypes, GameMode mode) {
 		resources = new Resources(mode);
 		for (Node child = playerNode.getFirstChild(); child != null; child = child.getNextSibling()) {
-			if (child.getNodeName().equals("id")) {
+			if (child.getNodeName().equals("id")) { 
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("nick")) {
+			} else if (child.getNodeName().equals("nick")) { 
 				nick = child.getFirstChild().getTextContent();
-			} else if (child.getNodeName().equals("type")) {
+			} else if (child.getNodeName().equals("type")) { 
 				type = playerTypes.get(Integer.parseInt(child.getFirstChild().getTextContent()));
-			} else if (child.getNodeName().equals("ali")) {
+			} else if (child.getNodeName().equals("ali")) { 
 				//ali = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("regdate")) {
+			} else if (child.getNodeName().equals("regdate")) { 
 				//regdate = new Date(child.getFirstChild().getTextContent());
 			}
 		}
@@ -93,7 +93,7 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		return nick+" ("+type+")";
+		return nick+" ("+type+")"; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 	public void recountAt(int nectar, int moves, int time) {

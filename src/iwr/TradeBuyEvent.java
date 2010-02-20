@@ -13,17 +13,17 @@ public class TradeBuyEvent extends Event {
 		time = t;
 		for (Node child = trbNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { //$NON-NLS-1$
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("pl1")) {
+			} else if (name.equals("pl1")) { //$NON-NLS-1$
 				donor = players.get(NodeUtil.getInt(child));
-			} else if (name.equals("pl2")) {
+			} else if (name.equals("pl2")) { //$NON-NLS-1$
 				acceptor = players.get(NodeUtil.getInt(child));
-			} else if (name.equals("cn")) {
+			} else if (name.equals("cn")) { //$NON-NLS-1$
 				nectar = NodeUtil.getInt(child);
-			} else if (name.equals("cu")) {
+			} else if (name.equals("cu")) { //$NON-NLS-1$
 				count = NodeUtil.getInt(child);
-			} else if (name.equals("ut")) {
+			} else if (name.equals("ut")) { //$NON-NLS-1$
 				unit = unitTypes.get(NodeUtil.getInt(child));
 			}
 		}
@@ -40,7 +40,7 @@ public class TradeBuyEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Hráč " + donor + " poslal hráči " + acceptor + " " + nectar + "ml nektaru. Ty byly přeměněny na " + count + " jednotek typu " + unit + "na jeho velení";
+		return super.toString() + Messages.getString("TradeBuyEvent.Player") + donor + Messages.getString("TradeBuyEvent.sendTo") + acceptor + " " + nectar + Messages.getString("TradeBuyEvent.mlOfNectar") + count + Messages.getString("TradeBuyEvent.unitsOfType") + unit + Messages.getString("TradeBuyEvent.onTheirHQ"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$ //$NON-NLS-6$
 	}
 
 }

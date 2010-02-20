@@ -68,18 +68,18 @@ public class MapPane extends JPanel {
 		int y = coords.y/fHeight;
 		if (x >= map.width || y >= map.height) {
 			activeField = null;
-			setToolTipText("");
+			setToolTipText(""); //$NON-NLS-1$
 		} else {
 			activeField = map.fieldAt(x, y);
-			String text = activeField.getSCoords() + ", " + activeField.typeAt(time);
+			String text = activeField.getSCoords() + ", " + activeField.typeAt(time); //$NON-NLS-1$
 			if (activeField.ownerAt(time) != null) {
-				text += ", " + activeField.ownerAt(time);
+				text += ", " + activeField.ownerAt(time); //$NON-NLS-1$
 				if (activeField.ownerAt(time).getHq(time) == activeField) {
-					text += ", velení";
+					text += ", " + Messages.getString("MapPane.hq"); //$NON-NLS-1$ //$NON-NLS-2$
 				}
 			}
 			if (activeField.armyAt(time) != null) {
-				text += ", " + activeField.armyAt(time);
+				text += ", " + activeField.armyAt(time); //$NON-NLS-1$
 			}
 			setToolTipText(text);
 		}

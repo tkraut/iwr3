@@ -6,23 +6,23 @@ public class Unit {
 	int id;
 	public Unit(Node unitNode) {
 		for (Node child = unitNode.getFirstChild(); child != null; child = child.getNextSibling()) {
-			if (child.getNodeName().equals("id")) {
+			if (child.getNodeName().equals("id")) { 
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("name")) {
+			} else if (child.getNodeName().equals("name")) { 
 				name = child.getFirstChild().getTextContent();
-			} else if (child.getNodeName().equals("desc")) {
+			} else if (child.getNodeName().equals("desc")) { 
 				description = child.getFirstChild().getTextContent();
-			} else if (child.getNodeName().equals("att")) {
+			} else if (child.getNodeName().equals("att")) { 
 				attack = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("def")) {
+			} else if (child.getNodeName().equals("def")) { 
 				defense = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("cost")) {
+			} else if (child.getNodeName().equals("cost")) { 
 				cost = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("turnsatt")) {
+			} else if (child.getNodeName().equals("turnsatt")) { 
 				turnsPerAttack = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("turnsmove")) {
+			} else if (child.getNodeName().equals("turnsmove")) { 
 				turnsPerMove = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (child.getNodeName().equals("lobonus")) {
+			} else if (child.getNodeName().equals("lobonus")) { 
 				lookoutBonus = Integer.parseInt(child.getFirstChild().getTextContent());
 			}
 		}

@@ -35,7 +35,7 @@ public class PlayerPane extends JPanel {
 			killed.setText(String.valueOf(player.fragsAt(time)));
 			Field f = player.getHq(time);
 			if (f == null) {
-				hq.setText("-");
+				hq.setText(Messages.getString("PlayerPane.-")); //$NON-NLS-1$
 			} else {
 				hq.setText(player.getHq(time).toString());
 			}
@@ -50,23 +50,23 @@ public class PlayerPane extends JPanel {
 	public PlayerPane(final UI ui) {
 		main = ui;
 		setLayout(new GridLayout(0, 2));
-		add(new JLabel("Nektar: "));
+		add(new JLabel(Messages.getString("PlayerPane.nectar"))); //$NON-NLS-1$
 		neq = new JLabel();
 		add(neq);
-		add(new JLabel("Tahy: "));
+		add(new JLabel(Messages.getString("PlayerPane.moves"))); //$NON-NLS-1$
 		moves = new JLabel();
 		add(moves);
-		add(new JLabel("Velení: "));
+		add(new JLabel(Messages.getString("PlayerPane.hq"))); //$NON-NLS-1$
 		hq = new JLabel();
 		add(hq);
-		add(new JLabel("Obdržel nektaru: "));
+		add(new JLabel(Messages.getString("PlayerPane.received"))); //$NON-NLS-1$
 		received = new JLabel();
 		add(received);
-		add(new JLabel("Vyřadil protivníků: "));
+		add(new JLabel(Messages.getString("PlayerPane.frags"))); //$NON-NLS-1$
 		killed = new JLabel();
 		add(killed);
-		add(new JLabel("Na vyřazení: "));
-		kill = new JButton(">>");
+		add(new JLabel(Messages.getString("PlayerPane.toDeath"))); //$NON-NLS-1$
+		kill = new JButton(Messages.getString("PlayerPane.>>")); //$NON-NLS-1$
 		kill.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

@@ -24,7 +24,7 @@ public class Army {
 	
 	@Override
 	public String toString() {
-		return count + " jednotek typu " + unit;
+		return count + Messages.getString("Army.unitsOfType") + unit; //$NON-NLS-1$
 	}
 	public int cost() {
 		return count * unit.cost;

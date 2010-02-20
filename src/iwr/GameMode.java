@@ -16,35 +16,35 @@ public class GameMode {
 		// TODO
 		for (Node child = gmNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName(); 
-			if (name.equals("id")) {
+			if (name.equals("id")) { //$NON-NLS-1$
 				id = Integer.parseInt(child.getFirstChild().getTextContent());
-			} else if (name.equals("name")) {
+			} else if (name.equals("name")) { //$NON-NLS-1$
 				name = child.getFirstChild().getTextContent();
-			} else if (name.equals("peace")) {
+			} else if (name.equals("peace")) { //$NON-NLS-1$
 				protection = NodeUtil.getTime(child);
-			} else if (name.equals("type")) {
+			} else if (name.equals("type")) { //$NON-NLS-1$
 				type = NodeUtil.getString(child);
-			} else if (name.equals("timelimit")) {
+			} else if (name.equals("timelimit")) { //$NON-NLS-1$
 				timelimit = NodeUtil.getTime(child); //neimplementovano
-			} else if (name.equals("mapvisafter")) {
+			} else if (name.equals("mapvisafter")) { //$NON-NLS-1$
 				mapDisclose = NodeUtil.getDate(child); //neimplementovano
-			} else if (name.equals("speed")) {
+			} else if (name.equals("speed")) { //$NON-NLS-1$
 				speed = NodeUtil.getInt(child);
-			} else if (name.equals("prodef")) {
+			} else if (name.equals("prodef")) { //$NON-NLS-1$
 				effectivity = NodeUtil.getDouble(child);
-			} else if (name.equals("startturns")) {
+			} else if (name.equals("startturns")) { //$NON-NLS-1$
 				initialMoves = NodeUtil.getInt(child);
-			} else if (name.equals("startnectar")) {
+			} else if (name.equals("startnectar")) { //$NON-NLS-1$
 				initialNectar = NodeUtil.getInt(child);
-			} else if (name.equals("rating")) {
+			} else if (name.equals("rating")) { //$NON-NLS-1$
 				rating = NodeUtil.getInt(child);
-			} else if (name.equals("jumping")) {
+			} else if (name.equals("jumping")) { //$NON-NLS-1$
 				canJump = NodeUtil.getBool(child);
-			} else if (name.equals("flags")) {
+			} else if (name.equals("flags")) { //$NON-NLS-1$
 				hasFlags = NodeUtil.getBool(child);
-			} else if (name.equals("unitspeedbonus")) {
+			} else if (name.equals("unitspeedbonus")) { //$NON-NLS-1$
 				speedbonus = NodeUtil.getInt(child);
-			} else if (name.equals("friendarmy")) {
+			} else if (name.equals("friendarmy")) { //$NON-NLS-1$
 				hasFriendArmy = NodeUtil.getBool(child);
 			}
 		}

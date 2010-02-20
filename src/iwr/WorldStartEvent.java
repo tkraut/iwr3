@@ -10,7 +10,7 @@ public class WorldStartEvent extends Event {
 		game = g;
 		for (Node child = wsNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
 			}
 		}
@@ -23,7 +23,7 @@ public class WorldStartEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Svět spuštěn";
+		return super.toString() + Messages.getString("WorldStartEvent.WorldStarted"); //$NON-NLS-1$
 	}
 
 }

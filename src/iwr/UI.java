@@ -80,7 +80,7 @@ public class UI implements Runnable {
 		setGame(game); //TODO efektivita
 		mapPane.setTime(time);
 		totalTime = game.length;
-		moves.setText(time+"/"+totalTime/*+((time>0)?(":"+game.events.get(time-1)):"")*/);
+		moves.setText(time+"/"+totalTime/*+((time>0)?(":"+game.events.get(time-1)):"")*/); 
 		moveList.setSelectedIndex(time-1);
 		moveList.ensureIndexIsVisible(time-1);
 		mainFrame.repaint();
@@ -89,7 +89,7 @@ public class UI implements Runnable {
 	
 	public void createAndShowUI()
 	{
-		mainFrame = new JFrame("IWReview");
+		mainFrame = new JFrame(Messages.getString("UI.IWReview")); //$NON-NLS-1$
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setIconImage(Images.get(Images.I_YELLOW).getImage());
 		JPanel pane = new JPanel(new BorderLayout());
@@ -193,7 +193,7 @@ public class UI implements Runnable {
 		JPanel pane = new JPanel(new GridLayout(1, 0));
 		
 		//pane.add(new JButton("<<"));
-		JButton prev = new JButton("<");
+		JButton prev = new JButton(Messages.getString("UI.Back")); //$NON-NLS-1$
 		prev.addActionListener(new ActionListener() {
 			
 			@Override
@@ -202,7 +202,7 @@ public class UI implements Runnable {
 			}
 		});
 		pane.add(prev);
-		jumpCount = new JTextField("1");
+		jumpCount = new JTextField("1"); 
 		pane.add(jumpCount);
 		
 		what = new JComboBox();
@@ -216,7 +216,7 @@ public class UI implements Runnable {
 		moves = new JLabel();
 		pane.add(moves, BorderLayout.EAST);
 		
-		JButton toEndOfProt = new JButton("Konec neút.");
+		JButton toEndOfProt = new JButton(Messages.getString("UI.EndPeace")); //$NON-NLS-1$
 		toEndOfProt.addActionListener(new ActionListener() {
 			
 			@Override
@@ -228,7 +228,7 @@ public class UI implements Runnable {
 		});
 		pane.add(toEndOfProt);
 		
-		obeyVisibilityRules = new JCheckBox("FOW");
+		obeyVisibilityRules = new JCheckBox(Messages.getString("UI.FOW")); //$NON-NLS-1$
 		obeyVisibilityRules.addItemListener(new ItemListener() {
 			
 			@Override
@@ -237,9 +237,9 @@ public class UI implements Runnable {
 				repaint();
 			}
 		});
-		
+		obeyVisibilityRules.setEnabled(false);
 		pane.add(obeyVisibilityRules);
-		JButton next = new JButton(">");
+		JButton next = new JButton(Messages.getString("UI.Fwd")); //$NON-NLS-1$
 		next.addActionListener(new ActionListener() {
 			
 			@Override
@@ -299,14 +299,14 @@ public class UI implements Runnable {
 	
 	private JMenuBar getMenu() {
 		JMenuBar bar = new JMenuBar();
-		JMenu file = new JMenu("Soubor");
-		JMenuItem open = new JMenuItem("Otevřít");
+		JMenu file = new JMenu(Messages.getString("UI.File")); //$NON-NLS-1$
+		JMenuItem open = new JMenuItem(Messages.getString("UI.Open")); //$NON-NLS-1$
 		open.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser(".");
-				chooser.setFileFilter(new FileNameExtensionFilter("IWR záznamy", "iwr", "xml"));
+				JFileChooser chooser = new JFileChooser("."); 
+				chooser.setFileFilter(new FileNameExtensionFilter(Messages.getString("UI.IWRRecords"), "iwr", "xml")); //$NON-NLS-1$  
 				int returnVal = chooser.showOpenDialog(null);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 						loadGame(chooser.getSelectedFile());
@@ -314,8 +314,8 @@ public class UI implements Runnable {
 			}
 		});
 		
-		JMenu game = new JMenu("Hra");
-		JMenuItem refresh = new JMenuItem("Obnovit");
+		JMenu game = new JMenu(Messages.getString("UI.Game")); //$NON-NLS-1$
+		JMenuItem refresh = new JMenuItem(Messages.getString("UI.Refresh")); //$NON-NLS-1$
 		refresh.addActionListener(new ActionListener() {
 			
 			@Override
@@ -323,7 +323,7 @@ public class UI implements Runnable {
 				repaint();
 			}
 		});
-		JMenu help = new JMenu("Nápověda");
+		JMenu help = new JMenu(Messages.getString("UI.Help")); //$NON-NLS-1$
 		
 		
 		bar.add(file);
@@ -349,7 +349,7 @@ public class UI implements Runnable {
 	
 	private MapPane getField() {
 		mapPane = new MapPane();
-		mapPane.setToolTipText("Mapa");
+		mapPane.setToolTipText(Messages.getString("UI.Map")); //$NON-NLS-1$
 		
 		mapPane.addMouseMotionListener(new MouseMotionListener() {
 			

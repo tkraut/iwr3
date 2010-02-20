@@ -10,13 +10,13 @@ public class MoveEvent extends Event {
 		time = t;
 		for (Node child = movNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("p1")) {
+			} else if (name.equals("p1")) { 
 				src = map.fieldAt(NodeUtil.getString(child));
-			} else if (name.equals("p2")) {
+			} else if (name.equals("p2")) { 
 				dest = map.fieldAt(NodeUtil.getString(child));
-			} else if (name.equals("c")) {
+			} else if (name.equals("c")) { 
 				count = NodeUtil.getInt(child);
 			}
 		}
@@ -34,7 +34,7 @@ public class MoveEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Hráč " + src.ownerAt(time) + " přesunul " + count + " jednotek typu " + src.armyAt(time-1).unit + " z pole " + src + " na pole " + dest;
+		return super.toString() + Messages.getString("MoveEvent.Player") + src.ownerAt(time) + Messages.getString("MoveEvent.moved") + count + Messages.getString("MoveEvent.unitsOfType") + src.armyAt(time-1).unit + Messages.getString("MoveEvent.from") + src + Messages.getString("MoveEvent.to") + dest; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$ //$NON-NLS-5$
 	}
 
 }

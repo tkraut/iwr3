@@ -9,25 +9,25 @@ import javax.swing.ImageIcon;
 
 public class Images {
 	protected static Map<String, ImageIcon> map = new HashMap<String, ImageIcon>();
-	final public static String F_NORMAL = "f_1.png"; 
-	final public static String F_SWAMP = "f_2.png"; 
-	final public static String F_ROCK= "f_3.png"; 
-	final public static String F_VOID = "f_4.png";
-	final public static String F_INVISIBLE = "inv.gif";
+	final public static String F_NORMAL = Messages.getString("Images.F_NORMAL");  //$NON-NLS-1$
+	final public static String F_SWAMP = Messages.getString("Images.F_SWAMP");  //$NON-NLS-1$
+	final public static String F_ROCK= Messages.getString("Images.F_ROCK");  //$NON-NLS-1$
+	final public static String F_VOID = Messages.getString("Images.F_VOID"); //$NON-NLS-1$
+	final public static String F_INVISIBLE = Messages.getString("Images.F_INVISIBLE"); //$NON-NLS-1$
 	
-	final public static String P_OWN = "my.png";
-	final public static String P_ALLY = "aly.png";
-	final public static String P_ENEMY = "ene.png";
+	final public static String P_OWN = Messages.getString("Images.P_OWN"); //$NON-NLS-1$
+	final public static String P_ALLY = Messages.getString("Images.P_ALLY"); //$NON-NLS-1$
+	final public static String P_ENEMY = Messages.getString("Images.P_ENEMY"); //$NON-NLS-1$
 	
-	final public static String T_LOUKA = "ut_1.gif";
-	final public static String T_LES = "ut_2.gif";
+	final public static String T_LOUKA = Messages.getString("Images.T_LOUKA"); //$NON-NLS-1$
+	final public static String T_LES = Messages.getString("Images.T_LES"); //$NON-NLS-1$
 	
-	final public static String A_ARMY = "a.gif";
-	final public static String A_FRIENDARMY = "fa.gif";
+	final public static String A_ARMY = Messages.getString("Images.A_ARMY"); //$NON-NLS-1$
+	final public static String A_FRIENDARMY = Messages.getString("Images.A_FRIENDARMY"); //$NON-NLS-1$
 
-	final public static String O_HQ = "hq.gif";
-	final public static String O_FLAG = "flag.gif";
-	final public static String I_YELLOW = "favicon.png";
+	final public static String O_HQ = Messages.getString("Images.O_HQ"); //$NON-NLS-1$
+	final public static String O_FLAG = Messages.getString("Images.O_FLAG"); //$NON-NLS-1$
+	final public static String I_YELLOW = Messages.getString("Images.I_FAVICON"); //$NON-NLS-1$
 	
 	
 	static {

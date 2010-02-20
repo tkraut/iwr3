@@ -1,7 +1,7 @@
 package iwr;
 
 public enum Shift {
-	MOVE("tahy"),KILL("vyřazení");
+	MOVE(Messages.getString("Shift.moves")),KILL(Messages.getString("Shift.kills")); //$NON-NLS-1$ //$NON-NLS-2$
 	Shift(String value) {
 		this.value = value;
 	}

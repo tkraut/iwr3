@@ -12,11 +12,11 @@ public class CreateHQEvent extends Event {
 		time = t;
 		for (Node child = chqNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
-			} else if (name.equals("p")) {
+			} else if (name.equals("p")) { 
 				field = map.fieldAt(NodeUtil.getString(child));
-			} else if (name.equals("pl")) {
+			} else if (name.equals("pl")) { 
 				player = players.get(NodeUtil.getInt(child));
 			}
 		}
@@ -31,7 +31,7 @@ public class CreateHQEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Hráč " + player + "založil velení na pozici " + field;
+		return super.toString() + Messages.getString("CreateHQEvent.Player") + player + Messages.getString("CreateHQEvent.settledHQOn") + field; //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
 }

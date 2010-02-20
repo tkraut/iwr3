@@ -22,7 +22,7 @@ public class Map {
 		fields = new ArrayList<Field>();
 		int i=0;
 		for (Node fieldNode = mapNode.getFirstChild(); fieldNode != null; fieldNode = fieldNode.getNextSibling()) {
-			if (fieldNode.getNodeName().equals("f")) {
+			if (fieldNode.getNodeName().equals("f")) { 
 				int x = getX(i);
 				int y = getY(i++);
 				fields.add(new Field(fieldNode, fieldTypes, unitTypes, this, x, y));
@@ -45,7 +45,7 @@ public class Map {
 	 * @return retezec reprezentujici dane souradnice
 	 */
 	public static String getSCoords(int x, int y) {
-		String sx = "";
+		String sx = ""; //$NON-NLS-1$
 		if (x>25) {
 			sx += (char) ('A'+x/26-1);
 		}

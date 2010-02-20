@@ -11,7 +11,7 @@ public class RecountEvent extends Event {
 		game = g;
 		for (Node child = rctNode.getFirstChild(); child != null; child = child.getNextSibling()) {
 			String name = child.getNodeName();
-			if (name.equals("t")) {
+			if (name.equals("t")) { 
 				timestamp = NodeUtil.getDate(child);
 			}
 		}
@@ -26,7 +26,7 @@ public class RecountEvent extends Event {
 	
 	@Override
 	public String toString() {
-		return super.toString() + "Proběhl přepočet";
+		return super.toString() + Messages.getString("RecountEvent.RecountDone"); //$NON-NLS-1$
 	}
 
 }
