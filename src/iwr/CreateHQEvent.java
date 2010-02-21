@@ -1,13 +1,28 @@
 package iwr;
 
 import org.w3c.dom.Node;
-
+/**
+ * Událost vytvoření velení.
+ * @author Tomáš Kraut
+ *
+ */
 public class CreateHQEvent extends Event {
-
-	int time;
+	/**
+	 * Pole, kde se velení vytváří
+	 */
 	Field field;
+	/**
+	 * Hráč, jenž vytváří velení
+	 */
 	Player player;
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param chqNode XML uzel
+	 * @param map Mapa
+	 * @param players Seznam hráčů
+	 * @param t Pořadí akce
+	 */
 	public CreateHQEvent(Node chqNode, Map map,
 			java.util.Map<Integer, Player> players, int t) {
 		time = t;

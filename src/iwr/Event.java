@@ -11,16 +11,30 @@ import org.w3c.dom.Node;
 
 /**
  * Událost hry
- * 
  * @author Tomáš
  * 
  */
 abstract public class Event {
+	/**
+	 * Čas akce
+	 */
 	Date timestamp;
+	/**
+	 * Pořadí akce
+	 */
 	int time;
 
+	/**
+	 * Zaznamenání změn ve hře, které tato akce vyvolala
+	 */
 	abstract void apply();
 
+	/**
+	 * Továrna na události, vytvářející je z XML uzlů
+	 * @param node ZML uzel
+	 * @param game Příslušná hra
+	 * @return Událost, obsažená v příslušném uzlu
+	 */
 	public static Event parseNode(Node node, Game game) {
 		int time = game.length + 1;
 		Event newEvent = null;
@@ -28,11 +42,11 @@ abstract public class Event {
 		if (eventName.equals("cfd")) { //$NON-NLS-1$
 			newEvent = new ConvertEvent(node, game.map, game.fieldTypes, time);
 		} else if (eventName.equals("chq")) { //$NON-NLS-1$
-			newEvent = new CreateHQEvent(node, game.map, game.players, time);
+			newEvent = new CreateHQEvent(node, game.map, game.getPlayers(), time);
 		} else if (eventName.equals("rhq")) { //$NON-NLS-1$
-			newEvent = new RemoveHQEvent(node, game.map, game.players, time);
+			newEvent = new RemoveHQEvent(node, game.map, game.getPlayers(), time);
 		} else if (eventName.equals("buy")) { //$NON-NLS-1$
-			newEvent = new BuyEvent(node, game.map, game.players,
+			newEvent = new BuyEvent(node, game.map, game.getPlayers(),
 					game.unitTypes, time);
 		} else if (eventName.equals("mov")) { //$NON-NLS-1$
 			newEvent = new MoveEvent(node, game.map, time);
@@ -54,9 +68,9 @@ abstract public class Event {
 			}
 
 		} else if (eventName.equals("trn")) { //$NON-NLS-1$
-			newEvent = new TradeEvent(node, game.players, time);
+			newEvent = new TradeEvent(node, game.getPlayers(), time);
 		} else if (eventName.equals("trb")) { //$NON-NLS-1$
-			newEvent = new TradeBuyEvent(node, game.players, game.unitTypes,
+			newEvent = new TradeBuyEvent(node, game.getPlayers(), game.unitTypes,
 					time);
 		} else if (eventName.equals("rct") && game.start != -1 && game.start < time && //$NON-NLS-1$
 				!node.isEqualNode(node.getPreviousSibling()
@@ -79,7 +93,12 @@ abstract public class Event {
 		}
 		return newEvent;
 	}
-
+	/**
+	 * Počítá počet tahů, který akce, závisející na vzdálenosti, stojí
+	 * @param basicCost Základní cena akce
+	 * @param distance Vzdálenost polí
+	 * @return Počet tahů, potřebných na akci 
+	 */
 	public static int costOfAction(int basicCost, double distance) {
 		return (int) (basicCost * distance);
 	}

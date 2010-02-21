@@ -11,10 +11,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class MapPane extends JPanel {
-
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = -83643453752262620L;
 	private static final int fHeight = 30;
 	private static final int fWidth = 30;
@@ -34,17 +31,17 @@ public class MapPane extends JPanel {
 		return fHeight * map.height;
 	}
 
-	public void setGame(Game g) {
-		game = g;
-		map = g.map;
+	public void setGame(Game game) {
+		this.game = game;
+		this.map = game.map;
 	}
 
-	public void setPlayer(Player p) {
-		player = p;
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
-	public void setTime(int t) {
-		time = t;
+	public void setTime(int time) {
+		this.time = time;
 	}
 
 	public void setObeyVisibilityRules(boolean obeyVisibilityRules) {
@@ -108,7 +105,7 @@ public class MapPane extends JPanel {
 
 	private void countVisibility() {
 		visibility = new HashSet<Field>();
-		for (Player p : game.players.values()) {
+		for (Player p : game.getPlayers().values()) {
 			if (p.type == player.type) {
 				visibility.addAll(p.visibleFieldsAt(time));
 			}

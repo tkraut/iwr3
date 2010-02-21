@@ -7,8 +7,17 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Pomocná třída pro snazší načítání obrázků
+ * @author Tomáš Kraut
+ *
+ */
 public class Images {
+	/**
+	 * Statické úložiště pro obrázky
+	 */
 	protected static Map<String, ImageIcon> map = new HashMap<String, ImageIcon>();
+	
 	final public static String F_NORMAL = Messages.getString("Images.F_NORMAL"); //$NON-NLS-1$
 	final public static String F_SWAMP = Messages.getString("Images.F_SWAMP"); //$NON-NLS-1$
 	final public static String F_ROCK = Messages.getString("Images.F_ROCK"); //$NON-NLS-1$

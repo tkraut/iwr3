@@ -1,16 +1,32 @@
 package iwr;
 
 import org.w3c.dom.Node;
-
+/**
+ * Událost odstranění velení.
+ * @author Tomáš Kraut
+ *
+ */
 public class RemoveHQEvent extends Event {
 
-	int time;
+	/**
+	 * Pole, na kterém se ruší velení
+	 */
 	Field field;
+	/**
+	 * Hráč, rušící velení
+	 */
 	Player player;
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param chqNode XML uzel
+	 * @param map Mapa
+	 * @param players Seznam hráčů
+	 * @param time Pořadí akce
+	 */
 	public RemoveHQEvent(Node chqNode, Map map,
-			java.util.Map<Integer, Player> players, int t) {
-		time = t;
+			java.util.Map<Integer, Player> players, int time) {
+		this.time = time;
 		for (Node child = chqNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			String name = child.getNodeName();
@@ -20,7 +36,7 @@ public class RemoveHQEvent extends Event {
 				try {
 					field = map.fieldAt(NodeUtil.getString(child));
 				} catch (NullPointerException e) {
-					field = player.getHq(t);
+					field = player.getHq(time);
 				}
 			} else if (name.equals("pl")) {
 				player = players.get(NodeUtil.getInt(child));

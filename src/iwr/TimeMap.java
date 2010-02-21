@@ -3,7 +3,7 @@ package iwr;
 import java.util.NavigableMap;
 import java.util.TreeMap;
 
-public class TimeMap<L> implements TimeLine<L> {
+public class TimeMap<L> implements TimeLine<L>{
 	NavigableMap<Integer, L> map;
 
 	public TimeMap(L initial) {

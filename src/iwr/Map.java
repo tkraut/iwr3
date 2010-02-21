@@ -84,10 +84,10 @@ public class Map {
 
 	public Set<Field> squareOfFields(Coords center, int size) {
 		Set<Field> fields = new HashSet<Field>();
-		for (int i = Math.max(0, center.x - size); i <= Math.min(width - 1,
-				center.x + size); ++i) {
-			for (int j = Math.max(0, center.y - size); j <= Math.min(
-					height - 1, center.y + size); ++j) {
+		for (int i = Math.max(0, center.getX() - size); i <= Math.min(width - 1,
+				center.getX() + size); ++i) {
+			for (int j = Math.max(0, center.getY() - size); j <= Math.min(
+					height - 1, center.getY() + size); ++j) {
 				fields.add(fieldAt(i, j));
 			}
 		}

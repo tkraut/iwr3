@@ -21,28 +21,115 @@ import org.xml.sax.SAXException;
 /**
  * Zaznamenaná hra
  * 
- * @author Tomáš
+ * @author Tomáš Kraut
  * 
  */
 public class Game {
-
-	GameMode mode;
-	Map<Integer, Player> players;
-
-	Map<Integer, Player> getPlayers() {
-		return players;
-	}
-
+	
+	/**
+	 * Mapování čas -> herní čas
+	 */
+	NavigableMap<Date, Integer> timeOfEvents;
+	/**
+	 * Seznam událostí
+	 */
 	ArrayList<Event> events;
-	NavigableMap<Integer, Event> kills;
+	/**
+	 * Seznam typů polí
+	 */
 	Map<Integer, FieldType> fieldTypes;
-	Map<Integer, Type> playerTypes;
-	Map<Integer, Unit> unitTypes;
+	/**
+	 * Výška mapy
+	 */
+	int height;
+	/**
+	 * Seznam vyřazení ze světa
+	 */
+	private NavigableMap<Integer, Event> kills;
+	/**
+	 * Počet událostí ve světě
+	 */
+	int length;
+	/**
+	 * Mapa světa
+	 */
 	iwr.Map map;
-	int length, protection = -1, start = -1;
-	Date startTime, protectionEnds;
-	int width, height;
-
+	/**
+	 * Mód hry
+	 */
+	GameMode mode;
+	/**
+	 * Seznam hráčů
+	 */
+	private Map<Integer, Player> players;
+	/**
+	 * Seznam typů hráčů
+	 */
+	Map<Integer, Type> playerTypes;
+	/**
+	 * Poslední akce pod protekcí
+	 */
+	int protection = -1;
+	/**
+	 * Čas konce protekce
+	 */
+	Date protectionEnds;
+	/**
+	 * Číslo akce spuštění světa
+	 */
+	int start = -1;
+	/**
+	 * Čas spuštění světa
+	 */
+	Date startTime;
+	/**
+	 * Seznam typů jednotek
+	 */
+	Map<Integer, Unit> unitTypes;
+	/**
+	 * Šířka mapy
+	 */
+	int width;
+	/**
+	 * Vytvoří nový svět načtením ze souboru
+	 * @param record Soubor, ze kterého má být načítáno
+	 */
+	public Game(File record) {
+		DocumentBuilder builder;
+		Document doc;
+		Node game;
+		try {
+			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			doc = builder.parse(record);
+			game = doc.getFirstChild();
+			fromNode(game);
+		} catch (ParserConfigurationException e) {
+			e.printStackTrace();
+		} catch (SAXException e) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Messages.getString("Game.errInRec") + e.getMessage(), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
+			// e.printStackTrace();
+		} catch (IOException e) {
+			JOptionPane
+					.showMessageDialog(
+							null,
+							Messages.getString("Game.errDuringLoading") + e.getMessage(), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
+			// e.printStackTrace();
+		}
+	}
+	/**
+	 * Vytvoří nový svět načtením z XML uzlu
+	 * @param gameNode XML uzel
+	 */
+	public Game(Node gameNode) {
+		fromNode(gameNode);
+	}
+	/**
+	 * Načte svět z XML uzlu
+	 * @param gameNode XML uzel
+	 */
 	public void fromNode(Node gameNode) {
 		Node mapNode = null, playersNode = null, unitsNode = null, fieldtypesNode = null;
 		Node worldNode = null, wmodNode = null, eventsNode = null, utypesNode = null;
@@ -115,6 +202,8 @@ public class Game {
 		map = new iwr.Map(mapNode, width, height, fieldTypes, unitTypes);
 
 		events = new ArrayList<Event>();
+		timeOfEvents = new TreeMap<Date, Integer>();
+		timeOfEvents.put(new Date(0), 0);
 		for (Node event = eventsNode.getFirstChild(); event != null; event = event
 				.getNextSibling()) {
 			if (event.getNodeType() == Node.ELEMENT_NODE) {
@@ -123,6 +212,7 @@ public class Game {
 					try {
 						newEvent.apply();
 						events.add(newEvent);
+						timeOfEvents.put(newEvent.timestamp, newEvent.time);
 						++length;
 					} catch (Exception e) {
 						JOptionPane.showMessageDialog(null, Messages
@@ -135,36 +225,26 @@ public class Game {
 
 	}
 
-	public Game(Node gameNode) {
-		fromNode(gameNode);
+	/**
+	 * Getter pro kills
+	 * @return Seznam vyřazení ze světa
+	 */
+	public NavigableMap<Integer, Event> getKills() {
+		return kills;
 	}
 
-	public Game(File record) {
-		DocumentBuilder builder;
-		Document doc;
-		Node game;
-		try {
-			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			doc = builder.parse(record);
-			game = doc.getFirstChild();
-			fromNode(game);
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							Messages.getString("Game.errInRec") + e.getMessage(), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-			// e.printStackTrace();
-		} catch (IOException e) {
-			JOptionPane
-					.showMessageDialog(
-							null,
-							Messages.getString("Game.errDuringLoading") + e.getMessage(), "", JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
-			// e.printStackTrace();
-		}
+	/**
+	 * Getter pro players
+	 * @return Seznam hráčů
+	 */
+	public Map<Integer, Player> getPlayers() {
+		return players;
 	}
-
+	
+	/**
+	 * Provedení přepočtu
+	 * @param time Pořadí akce
+	 */
 	public void recount(int time) {
 		Map<Player, Integer> production = new HashMap<Player, Integer>();
 		for (Player p : players.values()) {

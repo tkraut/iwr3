@@ -4,39 +4,83 @@ import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Třída pro převod písmenně-číselných souřadnic
+ * @author Tomáš Kraut
+ *
+ */
 public class Coords {
-	int x, y;
+	/**
+	 * X souřadnice (horizonvální) 
+	 */
+	private int x;
+	/**
+	 * Y souřadnice (vertikální)
+	 */
+	private int y;
 
+	/**
+	 * Vytvoří souřadnice (0,0)/A0
+	 */
 	public Coords() {
 		x = y = 0;
 	}
 
+	/**
+	 * Vytvoří souřadnice (X,Y)
+	 * @param x X
+	 * @param y Y
+	 */
 	public Coords(int x, int y) {
 		this.x = x;
 		this.y = y;
 	}
-
+	
+	/**
+	 * Vytvoří souřadnice (X,X)
+	 * @param both X (==Y)
+	 */
 	public Coords(int both) {
 		x = y = both;
 	}
 
+	/**
+	 * Zkopíruje jiné souřadnice
+	 * @param old Kopírované souřadnice
+	 */
 	public Coords(Coords old) {
 		x = old.x;
 		y = old.y;
 	}
 
+	/**
+	 * Getter pro X
+	 * @return X
+	 */
 	public int getX() {
 		return x;
 	}
-
+	
+	/**
+	 * Setter pro X
+	 * @param x X
+	 */
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/**
+	 * Getter pro Y
+	 * @return Y
+	 */
 	public int getY() {
 		return y;
 	}
 
+	/**
+	 * Setter pro Y
+	 * @param y
+	 */
 	public void setY(int y) {
 		this.y = y;
 	}
@@ -50,7 +94,7 @@ public class Coords {
 	 * Prevede souradnice ze stringu do dvojice intu
 	 * 
 	 * @param sCoords
-	 *            vstupni retezec ve tvaru napr. "A5" (pismenna souradnice 1 ci
+	 *            vstupni retezec ve tvaru napr. "<b>A5</b>" (pismenna souradnice 1 ci
 	 *            2 znakova)
 	 */
 	public Coords(String sCoords) {
@@ -78,11 +122,17 @@ public class Coords {
 		 */
 		this.y = Integer.parseInt(sy);
 	}
-
-	public static int pow(int a, int b) {
+	
+	/**
+	 * Pomocna funkce pro celočíselné umocňování
+	 * @param x Základ
+	 * @param a Exponent
+	 * @return X^A
+	 */
+	public static int pow(int x, int a) {
 		int res = 1;
-		while (b-- > 0) {
-			res *= a;
+		while (a-- > 0) {
+			res *= x;
 		}
 		return res;
 	}

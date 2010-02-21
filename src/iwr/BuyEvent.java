@@ -4,12 +4,34 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
+/**
+ * Nákup. Událost světa.
+ * @author Tomáš Kraut
+ *
+ */
 public class BuyEvent extends Event {
-
+	
+	/**
+	 * Pole, na které bylo nakupováno
+	 */
 	Field field;
+	/**
+	 * Majitel pole
+	 */
 	Player player;
+	/**
+	 * Nakupovaná armáda
+	 */
 	Army army;
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param buyNode XML uzel
+	 * @param map Mapa
+	 * @param players Seznam hráčů
+	 * @param unitTypes Seznam typů jednotek
+	 * @param t Pořadí události
+	 */
 	public BuyEvent(Node buyNode, iwr.Map map, Map<Integer, Player> players,
 			java.util.Map<Integer, Unit> unitTypes, int t) {
 		time = t;
@@ -42,6 +64,6 @@ public class BuyEvent extends Event {
 	@Override
 	public String toString() {
 		return super.toString()
-				+ Messages.getString("BuyEvent.Player") + player + Messages.getString("BuyEvent.boughtTo") + field + " " + army.count + Messages.getString("BuyEvent.unitsOfType") + army.unit; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
+				+ Messages.getString("BuyEvent.Player") + player + Messages.getString("BuyEvent.boughtTo") + field + " " + army.getCount() + Messages.getString("BuyEvent.unitsOfType") + army.getUnit(); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
 	}
 }

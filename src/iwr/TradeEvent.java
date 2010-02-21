@@ -4,13 +4,33 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
+/**
+ * Obchod (posílání nektaru)
+ * @author Tomáš Kraut
+ *
+ */
 public class TradeEvent extends Event {
-
-	Player donor, acceptor;
+	/**
+	 * Odesílatel
+	 */
+	Player donor;
+	/**
+	 * Příjemce
+	 */
+	Player acceptor;
+	/**
+	 * Počet odeslaného nektaru
+	 */
 	int count;
 
-	public TradeEvent(Node trnNode, Map<Integer, Player> players, int t) {
-		time = t;
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param trnNode XML uzel
+	 * @param players Seznam hráčů
+	 * @param time Pořadí události
+	 */
+	public TradeEvent(Node trnNode, Map<Integer, Player> players, int time) {
+		this.time = time;
 		for (Node child = trnNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			String name = child.getNodeName();

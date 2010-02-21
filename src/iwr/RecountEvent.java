@@ -2,13 +2,26 @@ package iwr;
 
 import org.w3c.dom.Node;
 
+/**
+ * Přepočet.
+ * @author Tomáš Kraut
+ *
+ */
 public class RecountEvent extends Event {
-
+	/**
+	 * Hra, které se přepočet týká
+	 */
 	Game game;
 
-	public RecountEvent(Node rctNode, Game g, int t) {
-		time = t;
-		game = g;
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param rctNode XML uzel
+	 * @param game Hra
+	 * @param time Pořadí akce
+	 */
+	public RecountEvent(Node rctNode, Game game, int time) {
+		this.time = time;
+		this.game = game;
 		for (Node child = rctNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			String name = child.getNodeName();

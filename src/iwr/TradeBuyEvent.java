@@ -2,15 +2,43 @@ package iwr;
 
 import org.w3c.dom.Node;
 
+/**
+ * Obchod s nákupem na velení
+ * @author Tomáš Kraut
+ *
+ */
 public class TradeBuyEvent extends Event {
-
-	Player donor, acceptor;
+	/**
+	 * Odesílatel
+	 */
+	Player donor;
+	/**
+	 * Příjemce
+	 */
+	Player acceptor;
+	/**
+	 * TYp jednotek
+	 */
 	Unit unit;
-	int nectar, count;
+	/**
+	 * Odeslaný nektar
+	 */
+	int nectar;
+	/**
+	 * Počet vytvořených jednotek
+	 */
+	int count;
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param trbNode XML uzel
+	 * @param players Seznam hráčů
+	 * @param unitTypes Seznam typů jednotek
+	 * @param time Pořadí události
+	 */
 	public TradeBuyEvent(Node trbNode, java.util.Map<Integer, Player> players,
-			java.util.Map<Integer, Unit> unitTypes, int t) {
-		time = t;
+			java.util.Map<Integer, Unit> unitTypes, int time) {
+		this.time = time;
 		for (Node child = trbNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			String name = child.getNodeName();

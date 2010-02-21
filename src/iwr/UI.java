@@ -13,6 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 
@@ -30,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.ToolTipManager;
 import javax.swing.TransferHandler;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -59,6 +63,7 @@ public class UI implements Runnable {
 	Player activePlayer;
 
 	int time;
+	Calendar timestamp = new GregorianCalendar();
 	int totalTime;
 
 	File load = null;
@@ -79,12 +84,16 @@ public class UI implements Runnable {
 		setGame(game); // TODO efektivita
 		mapPane.setTime(time);
 		totalTime = game.length;
-		moves.setText(time + "/" + totalTime/*
+		moves.setText(NodeUtil.date.format(timestamp.getTime()) + " ~ " + time + "/" + totalTime/*
 											 * +((time>0)?(":"+game.events.get(time
 											 * -1)):"")
 											 */);
-		moveList.setSelectedIndex(time - 1);
-		moveList.ensureIndexIsVisible(time - 1);
+		if (time > 0) { 
+			moveList.setSelectedIndex(time-1);
+			moveList.ensureIndexIsVisible(time-1);
+		} else {
+			moveList.setSelectedIndices(new int[0]);
+		}
 		mainFrame.repaint();
 	}
 
@@ -158,7 +167,8 @@ public class UI implements Runnable {
 				return false;
 			}
 		});
-
+		ToolTipManager.sharedInstance().setInitialDelay(0);
+		ToolTipManager.sharedInstance().setReshowDelay(0);
 	}
 
 	private void createPlayers() {
@@ -202,7 +212,7 @@ public class UI implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				prev();
+				prev(Integer.parseInt(jumpCount.getText()));
 			}
 		});
 		pane.add(prev);
@@ -210,12 +220,10 @@ public class UI implements Runnable {
 		pane.add(jumpCount);
 
 		what = new JComboBox();
-		what.addItem(Shift.MOVE);
-		/*
-		 * cb.addItem("s"); cb.addItem("min"); cb.addItem("h");
-		 * cb.addItem("dní");
-		 */
-		what.addItem(Shift.KILL);
+		for (Shift item: Shift.values()) {
+			what.addItem(item);
+		}
+		
 		pane.add(what);
 		moves = new JLabel();
 		pane.add(moves, BorderLayout.EAST);
@@ -249,7 +257,7 @@ public class UI implements Runnable {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				next();
+				next(Integer.parseInt(jumpCount.getText()));
 			}
 		});
 		pane.add(next);
@@ -258,12 +266,13 @@ public class UI implements Runnable {
 		return pane;
 	}
 
-	protected void next() {
+	protected void next(int amount) {
 		switch ((Shift) what.getSelectedItem()) {
 		case MOVE:
-			setTime(time + Integer.parseInt(jumpCount.getText()));
-			if (time > totalTime)
-				setTime(totalTime);
+			setTime(Math.min(
+				time + amount,
+				totalTime
+			));
 			break;
 		case KILL:
 			Integer newtime = AttackEvent.kills.higherKey(time + 1);
@@ -272,16 +281,29 @@ public class UI implements Runnable {
 			}
 			what.setSelectedItem(Shift.MOVE);
 			break;
+		case HOUR:
+			timestamp.add(Calendar.HOUR, amount);
+			jumpToTimestamp();
+			break;
+		case MINUTE:
+			timestamp.add(Calendar.MINUTE, amount);
+			jumpToTimestamp();
+			break;
+		case SECOND:
+			timestamp.add(Calendar.SECOND, amount);
+			jumpToTimestamp();
+			break;
 		}
 		repaint();
 	}
 
-	protected void prev() {
+	protected void prev(int amount) {
 		switch ((Shift) what.getSelectedItem()) {
 		case MOVE:
-			setTime(time - Integer.parseInt(jumpCount.getText()));
-			if (time < 0)
-				setTime(0);
+			setTime(Math.max(
+					time - amount,
+					0
+			));
 			break;
 		case KILL:
 			Integer newtime = AttackEvent.kills.floorKey(time);
@@ -290,13 +312,26 @@ public class UI implements Runnable {
 			}
 			what.setSelectedItem(Shift.MOVE);
 			break;
+		case HOUR:
+			timestamp.add(Calendar.HOUR, -amount);
+			jumpToTimestamp();
+			break;
+		case MINUTE:
+			timestamp.add(Calendar.MINUTE, -amount);
+			jumpToTimestamp();
+			break;
+		case SECOND:
+			timestamp.add(Calendar.SECOND, -amount);
+			jumpToTimestamp();
+			break;
+
 		}
 		repaint();
 	}
 
 	protected void loadGame(File file) {
 		game = new Game(file);
-		setTime(0);
+		setTime(1);
 		setGame(game);
 		moveList.setListData(game.events.toArray());
 		setPlayers(game.getPlayers());
@@ -343,10 +378,26 @@ public class UI implements Runnable {
 
 	}
 
-	protected void setTime(int t) {
-		time = t;
+	protected void setTime(int time) {
+		this.time = time;
+		try {
+			timestamp.setTime(game.events.get(time-1).timestamp);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			timestamp.setTime(game.timeOfEvents.firstKey());
+		}
 		mapPane.setTime(time);
 		playerInfo.setTime(time);
+	}
+	
+	private void jumpToTimestamp() {
+		this.time = game.timeOfEvents.floorEntry(timestamp.getTime()).getValue();
+		mapPane.setTime(time);
+		playerInfo.setTime(time);
+	}
+	
+	protected void setTimestamp(Date timestamp) {
+		this.timestamp.setTime(timestamp);
+		jumpToTimestamp();
 	}
 
 	private void setGame(Game g) {

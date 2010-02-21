@@ -2,13 +2,26 @@ package iwr;
 
 import org.w3c.dom.Node;
 
+/**
+ * Spuštění světa. (Po jeho naplnění)
+ * @author Tomáš Kraut
+ *
+ */
 public class WorldStartEvent extends Event {
-
+	/**
+	 * Hra
+	 */
 	Game game;
 
-	public WorldStartEvent(Node wsNode, Game g, int t) {
-		time = t;
-		game = g;
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param wsNode XML uzel
+	 * @param game Příslušná hra
+	 * @param time Pořadí události
+	 */
+	public WorldStartEvent(Node wsNode, Game game, int time) {
+		this.time = time;
+		this.game = game;
 		for (Node child = wsNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			String name = child.getNodeName();

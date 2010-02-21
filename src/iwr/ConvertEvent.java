@@ -2,12 +2,29 @@ package iwr;
 
 import org.w3c.dom.Node;
 
+/**
+ * Geologie. Událost světa.
+ * @author Tomáš Kraut
+ *
+ */
 public class ConvertEvent extends Event {
-
-	int time;
+	
+	/***
+	 * Pole, které je konvertováno
+	 */
 	Field field;
+	/**
+	 * Nový typ pole
+	 */
 	FieldType type;
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param cfdNode XML uzel
+	 * @param map Mapa
+	 * @param fieldTypes Seznam typů jednotek
+	 * @param t Pořadí akce
+	 */
 	public ConvertEvent(Node cfdNode, Map map,
 			java.util.Map<Integer, FieldType> fieldTypes, int t) {
 		time = t;

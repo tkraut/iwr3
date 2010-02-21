@@ -6,19 +6,77 @@ import java.util.TreeMap;
 
 import org.w3c.dom.Node;
 
+/**
+ * Útok, Událost světa.
+ * 
+ * @author Tomáš Kraut
+ * 
+ */
 public class AttackEvent extends Event {
 	// <!-- time, pos1, pos2, attcount, atttype, defcount, deftype, result,
 	// survive -->
 	// <!ELEMENT att (t, p1, p2, ca, ta, cd, td, r, s)>
-
-	Field src, dest;
-	int attCount, defCount, survived;
-	Unit attType, defType;
+	/**
+	 * Pole, ze kterého byl veden útok.
+	 */
+	Field src;
+	/**
+	 * Pole, na které byl veden útok
+	 */
+	Field dest;
+	/**
+	 * Počet útočících jednotek
+	 */
+	int attCount;
+	/**
+	 * Počet bránících jednotek
+	 */
+	int defCount;
+	/**
+	 * Počet přeživších jednotek
+	 */
+	int survived;
+	/**
+	 * Typ útočících jednotek
+	 */
+	Unit attType;
+	/**
+	 * Typ bránících jednotek
+	 */
+	Unit defType;
+	/**
+	 * Mapa, na které se akce odehrává
+	 */
 	iwr.Map map;
-	boolean result, hqDown = false;
-	Player defender, attacker;
+	/**
+	 * Útok byl úspěšný
+	 */
+	boolean result;
+	/**
+	 * Bylo dobyto velení
+	 */
+	boolean hqDown = false;
+	/**
+	 * Obránce
+	 */
+	Player defender;
+	/**
+	 * Útočník
+	 */
+	Player attacker;
+	
+	/**
+	 * Seznam útoků, které vedly k vyřazení hráče
+	 */
 	static NavigableMap<Integer, AttackEvent> kills = new TreeMap<Integer, AttackEvent>();
 
+	/**
+	 * Vytvoření události z XML uzlu
+	 * @param attNode XML uzel
+	 * @param units Typy jednotek
+	 * @param map Mapa, kde se hra odehrává
+	 * @param t Pořadí události
+	 */
 	public AttackEvent(Node attNode, Map<Integer, Unit> units, iwr.Map map,
 			int t) {
 		this.map = map;
@@ -61,9 +119,9 @@ public class AttackEvent extends Event {
 					defender.killed(time);
 					for (Field f : map.fields) {
 						if (f.ownerAt(time - 1) == defender) { // smaze vsechna
-																// pole
-																// puvodniho
-																// majitele
+							// pole
+							// puvodniho
+							// majitele
 							f.changeOwnerAt(null, time);
 							f.changeArmyAt(null, time);
 						}
@@ -85,7 +143,7 @@ public class AttackEvent extends Event {
 		src.removeArmyAt(attCount, time);
 		src.ownerAt(time)
 				.removeMovesAt(
-						costOfAction(src.armyAt(time - 1).unit.turnsPerAttack,
+						costOfAction(src.armyAt(time - 1).getUnit().turnsPerAttack,
 								distance), time);
 	}
 
