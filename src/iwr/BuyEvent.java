@@ -33,9 +33,9 @@ public class BuyEvent extends Event {
 	 * @param t Pořadí události
 	 */
 	public BuyEvent(Node buyNode, iwr.Map map, Map<Integer, Player> players,
-			java.util.Map<Integer, Unit> unitTypes, int t) {
+			java.util.Map<Integer, UnitType> unitTypes, int t) {
 		time = t;
-		Unit unit = null;
+		UnitType unit = null;
 		int count = 0;
 		for (Node child = buyNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {

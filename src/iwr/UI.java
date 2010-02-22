@@ -47,6 +47,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class UI implements Runnable {
 
+
 	JFrame mainFrame;
 
 	JPanel players;
@@ -63,7 +64,7 @@ public class UI implements Runnable {
 	Player activePlayer;
 
 	int time;
-	Calendar timestamp = new GregorianCalendar();
+	Calendar calendar = new GregorianCalendar();
 	int totalTime;
 
 	File load = null;
@@ -72,19 +73,30 @@ public class UI implements Runnable {
 
 	private JComboBox what;
 
+	private JPanel controls;
+
+	private JMenuBar menu;
+
+	/**
+	 * 
+	 * @param args Parametry předané programu
+	 */
 	public UI(String[] args) {
 		if (args.length > 0) {
 			load = new File(args[0]);
 		}
 	}
 
+	/**
+	 * Překreslí okno
+	 */
 	public void repaint() {
 		if (game == null)
 			return;
-		setGame(game); // TODO efektivita
+		//setGame(game); // nejspíš nepotřebné
 		mapPane.setTime(time);
 		totalTime = game.length;
-		moves.setText(NodeUtil.date.format(timestamp.getTime()) + " ~ " + time + "/" + totalTime/*
+		moves.setText(NodeUtil.date.format(calendar.getTime()) + " ~ " + time + "/" + totalTime/*
 											 * +((time>0)?(":"+game.events.get(time
 											 * -1)):"")
 											 */);
@@ -97,14 +109,20 @@ public class UI implements Runnable {
 		mainFrame.repaint();
 	}
 
+	/**
+	 * Vytvoření okna a podoken 
+	 */
 	public void createAndShowUI() {
 		mainFrame = new JFrame(Messages.getString("UI.IWReview")); //$NON-NLS-1$
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setIconImage(Images.get(Images.I_YELLOW).getImage());
 		JPanel pane = new JPanel(new BorderLayout());
 
-		pane.add(/* new JScrollPane( */getField()/* ) */, BorderLayout.CENTER);
-		pane.add(getControls(), BorderLayout.SOUTH);
+		createField();
+		pane.add(/* new JScrollPane( */mapPane/* ) */, BorderLayout.CENTER);
+		
+		createControls();
+		pane.add(controls, BorderLayout.SOUTH);
 
 		moveList = new JList();
 		moveList.setLayoutOrientation(JList.VERTICAL);
@@ -125,7 +143,8 @@ public class UI implements Runnable {
 		pane.add(players, BorderLayout.WEST);
 
 		mainFrame.add(pane);
-		mainFrame.setJMenuBar(getMenu());
+		createMenu();
+		mainFrame.setJMenuBar(menu);
 		mainFrame.pack();
 		// mainFrame.setSize(800, 600);
 		mainFrame.setVisible(true);
@@ -171,6 +190,9 @@ public class UI implements Runnable {
 		ToolTipManager.sharedInstance().setReshowDelay(0);
 	}
 
+	/**
+	 * Vytvoření panelu pro výběr hráčů a zobrazení jejich informací
+	 */
 	private void createPlayers() {
 		players = new JPanel();
 		players.setLayout(new BorderLayout());
@@ -196,6 +218,10 @@ public class UI implements Runnable {
 		// players.add(playerInfo);
 	}
 
+	/**
+	 * Nastaví seznam hráčů
+	 * @param map Seznam hráčů
+	 */
 	public void setPlayers(Map<Integer, Player> map) {
 		playersChooser.removeAll();
 		if (map == null)
@@ -203,8 +229,11 @@ public class UI implements Runnable {
 		playersChooser.setListData(map.values().toArray());
 	}
 
-	private JPanel getControls() {
-		JPanel pane = new JPanel(new GridLayout(1, 0));
+	/**
+	 * Vytvoření panelu pro ovládání
+	 */
+	private void createControls() {
+		controls = new JPanel(new GridLayout(1, 0));
 
 		// pane.add(new JButton("<<"));
 		JButton prev = new JButton(Messages.getString("UI.Back")); //$NON-NLS-1$
@@ -215,18 +244,18 @@ public class UI implements Runnable {
 				prev(Integer.parseInt(jumpCount.getText()));
 			}
 		});
-		pane.add(prev);
+		controls.add(prev);
 		jumpCount = new JTextField("1");
-		pane.add(jumpCount);
+		controls.add(jumpCount);
 
 		what = new JComboBox();
 		for (Shift item: Shift.values()) {
 			what.addItem(item);
 		}
 		
-		pane.add(what);
+		controls.add(what);
 		moves = new JLabel();
-		pane.add(moves, BorderLayout.EAST);
+		controls.add(moves, BorderLayout.EAST);
 
 		JButton toEndOfProt = new JButton(Messages.getString("UI.EndPeace")); //$NON-NLS-1$
 		toEndOfProt.addActionListener(new ActionListener() {
@@ -238,7 +267,7 @@ public class UI implements Runnable {
 
 			}
 		});
-		pane.add(toEndOfProt);
+		controls.add(toEndOfProt);
 
 		obeyVisibilityRules = new JCheckBox(Messages.getString("UI.FOW")); //$NON-NLS-1$
 		obeyVisibilityRules.addItemListener(new ItemListener() {
@@ -251,7 +280,7 @@ public class UI implements Runnable {
 			}
 		});
 		obeyVisibilityRules.setEnabled(false);
-		pane.add(obeyVisibilityRules);
+		controls.add(obeyVisibilityRules);
 		JButton next = new JButton(Messages.getString("UI.Fwd")); //$NON-NLS-1$
 		next.addActionListener(new ActionListener() {
 
@@ -260,12 +289,15 @@ public class UI implements Runnable {
 				next(Integer.parseInt(jumpCount.getText()));
 			}
 		});
-		pane.add(next);
+		controls.add(next);
 		// pane.add(new JButton(">>"));
 
-		return pane;
 	}
 
+	/**
+	 * Posune se ve hře dopředu
+	 * @param amount Počet akcí, o které se posouvá
+	 */
 	protected void next(int amount) {
 		switch ((Shift) what.getSelectedItem()) {
 		case MOVE:
@@ -282,21 +314,25 @@ public class UI implements Runnable {
 			what.setSelectedItem(Shift.MOVE);
 			break;
 		case HOUR:
-			timestamp.add(Calendar.HOUR, amount);
+			calendar.add(Calendar.HOUR, amount);
 			jumpToTimestamp();
 			break;
 		case MINUTE:
-			timestamp.add(Calendar.MINUTE, amount);
+			calendar.add(Calendar.MINUTE, amount);
 			jumpToTimestamp();
 			break;
 		case SECOND:
-			timestamp.add(Calendar.SECOND, amount);
+			calendar.add(Calendar.SECOND, amount);
 			jumpToTimestamp();
 			break;
 		}
 		repaint();
 	}
 
+	/**
+	 * Posune se ve hře dozadu
+	 * @param amount počet akcí, o které se posouvá
+	 */
 	protected void prev(int amount) {
 		switch ((Shift) what.getSelectedItem()) {
 		case MOVE:
@@ -313,15 +349,15 @@ public class UI implements Runnable {
 			what.setSelectedItem(Shift.MOVE);
 			break;
 		case HOUR:
-			timestamp.add(Calendar.HOUR, -amount);
+			calendar.add(Calendar.HOUR, -amount);
 			jumpToTimestamp();
 			break;
 		case MINUTE:
-			timestamp.add(Calendar.MINUTE, -amount);
+			calendar.add(Calendar.MINUTE, -amount);
 			jumpToTimestamp();
 			break;
 		case SECOND:
-			timestamp.add(Calendar.SECOND, -amount);
+			calendar.add(Calendar.SECOND, -amount);
 			jumpToTimestamp();
 			break;
 
@@ -329,6 +365,10 @@ public class UI implements Runnable {
 		repaint();
 	}
 
+	/**
+	 * Načte hru ze souboru
+	 * @param file Soubor se záznamem
+	 */
 	protected void loadGame(File file) {
 		game = new Game(file);
 		setTime(1);
@@ -339,8 +379,11 @@ public class UI implements Runnable {
 		repaint();
 	}
 
-	private JMenuBar getMenu() {
-		JMenuBar bar = new JMenuBar();
+	/**
+	 * Vytvoří menu
+	 */
+	private void createMenu() {
+		JMenuBar menu = new JMenuBar();
 		JMenu file = new JMenu(Messages.getString("UI.File")); //$NON-NLS-1$
 		JMenuItem open = new JMenuItem(Messages.getString("UI.Open")); //$NON-NLS-1$
 		open.addActionListener(new ActionListener() {
@@ -368,43 +411,58 @@ public class UI implements Runnable {
 		});
 		JMenu help = new JMenu(Messages.getString("UI.Help")); //$NON-NLS-1$
 
-		bar.add(file);
+		menu.add(file);
 		file.add(open);
-		bar.add(game);
+		menu.add(game);
 		game.add(refresh);
-		bar.add(help);
-
-		return bar;
-
+		menu.add(help);
 	}
 
+	/**
+	 * Nastaví herní čas
+	 * @param time Herní čas
+	 */
 	protected void setTime(int time) {
 		this.time = time;
 		try {
-			timestamp.setTime(game.events.get(time-1).timestamp);
+			calendar.setTime(game.events.get(time-1).timestamp);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			timestamp.setTime(game.timeOfEvents.firstKey());
+			calendar.setTime(game.timeOfEvents.firstKey());
 		}
 		mapPane.setTime(time);
 		playerInfo.setTime(time);
 	}
 	
+	/**
+	 * Skočí na tah, určený aktuálním nastaveným časem
+	 */
 	private void jumpToTimestamp() {
-		this.time = game.timeOfEvents.floorEntry(timestamp.getTime()).getValue();
+		this.time = game.timeOfEvents.floorEntry(calendar.getTime()).getValue();
 		mapPane.setTime(time);
 		playerInfo.setTime(time);
 	}
 	
+	/**
+	 * Nastaví skutečný čas
+	 * @param timestamp Čas
+	 */
 	protected void setTimestamp(Date timestamp) {
-		this.timestamp.setTime(timestamp);
+		this.calendar.setTime(timestamp);
 		jumpToTimestamp();
 	}
 
+	/**
+	 * Nastaví aktuální hru
+	 * @param g Hra
+	 */
 	private void setGame(Game g) {
 		mapPane.setGame(g);
 	}
 
-	private MapPane getField() {
+	/**
+	 * Vytvoří pole pro zobrazení mapy
+	 */
+	private void createField() {
 		mapPane = new MapPane();
 		mapPane.setToolTipText(Messages.getString("UI.Map")); //$NON-NLS-1$
 
@@ -421,7 +479,6 @@ public class UI implements Runnable {
 			}
 		});
 		mapPane.setObeyVisibilityRules(false);
-		return mapPane;
 	}
 
 	@Override

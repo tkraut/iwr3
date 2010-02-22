@@ -49,7 +49,7 @@ public class Field {
 	 * @param y Y souřadnice
 	 */
 	public Field(Node fieldNode, java.util.Map<Integer, FieldType> fieldTypes,
-			java.util.Map<Integer, Unit> unitTypes, Map map, int x, int y) {
+			java.util.Map<Integer, UnitType> unitTypes, Map map, int x, int y) {
 		Node typeNode = null, armyCountNode = null, armyTypeNode = null;
 		for (Node child = fieldNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
@@ -71,7 +71,7 @@ public class Field {
 		Army army = null;
 		if (armyCountNode != null && armyTypeNode != null) {
 			int armyCount = NodeUtil.getInt(armyCountNode);
-			Unit armyType = unitTypes.get(NodeUtil.getInt(armyTypeNode));
+			UnitType armyType = unitTypes.get(NodeUtil.getInt(armyTypeNode));
 			army = new Army(armyType, armyCount);
 		}
 		armyHistory = new TimeMap<Army>(army);
@@ -211,13 +211,13 @@ public class Field {
 			} else {
 				if (owner.type.icon != null) {
 					list.add(owner.type.icon);
-				} else if (owner.type.name.equals(Type.LOUKA)) { // zpetna
+				} else if (owner.type.name.equals(PlayerType.LOUKA)) { // zpetna
 																	// kompatibilita
 																	// se
 																	// starymi
 																	// zaznamy
 					list.add(Images.get(Images.T_LOUKA));
-				} else if (owner.type.name.equals(Type.LES)) {
+				} else if (owner.type.name.equals(PlayerType.LES)) {
 					list.add(Images.get(Images.T_LES));
 				}
 				if (player != null) {

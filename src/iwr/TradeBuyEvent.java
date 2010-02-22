@@ -19,7 +19,7 @@ public class TradeBuyEvent extends Event {
 	/**
 	 * TYp jednotek
 	 */
-	Unit unit;
+	UnitType unit;
 	/**
 	 * Odeslaný nektar
 	 */
@@ -37,7 +37,7 @@ public class TradeBuyEvent extends Event {
 	 * @param time Pořadí události
 	 */
 	public TradeBuyEvent(Node trbNode, java.util.Map<Integer, Player> players,
-			java.util.Map<Integer, Unit> unitTypes, int time) {
+			java.util.Map<Integer, UnitType> unitTypes, int time) {
 		this.time = time;
 		for (Node child = trbNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {

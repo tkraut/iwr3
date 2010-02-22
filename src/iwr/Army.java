@@ -10,7 +10,7 @@ public class Army {
 	/**
 	 * Typ jednotky
 	 */
-	private final Unit unit;
+	private final UnitType unit;
 	/**
 	 * Počet jednotek
 	 */
@@ -21,7 +21,7 @@ public class Army {
 	 * @param unit Typ jednotek
 	 * @param count Počet jednotek
 	 */
-	public Army(Unit unit, int count) {
+	public Army(UnitType unit, int count) {
 		this.unit = unit;
 		this.count = count;
 	}
@@ -77,7 +77,7 @@ public class Army {
 	 * Getter pro typ
 	 * @return Typ jednotek
 	 */
-	public Unit getUnit() {
+	public UnitType getUnit() {
 		return unit;
 	}
 

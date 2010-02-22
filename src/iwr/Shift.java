@@ -20,13 +20,6 @@ public enum Shift {
 	 */
 	private final String value;
 
-	/**
-	 * Získání řetězce
-	 * @return
-	 */
-	public String value() {
-		return value;
-	}
 
 	@Override
 	public String toString() {

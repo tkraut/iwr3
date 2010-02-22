@@ -65,7 +65,7 @@ public class Game {
 	/**
 	 * Seznam typů hráčů
 	 */
-	Map<Integer, Type> playerTypes;
+	Map<Integer, PlayerType> playerTypes;
 	/**
 	 * Poslední akce pod protekcí
 	 */
@@ -85,7 +85,7 @@ public class Game {
 	/**
 	 * Seznam typů jednotek
 	 */
-	Map<Integer, Unit> unitTypes;
+	Map<Integer, UnitType> unitTypes;
 	/**
 	 * Šířka mapy
 	 */
@@ -155,19 +155,19 @@ public class Game {
 			}
 		}
 
-		playerTypes = new TreeMap<Integer, Type>();
+		playerTypes = new TreeMap<Integer, PlayerType>();
 		for (Node type = utypesNode.getFirstChild(); type != null; type = type
 				.getNextSibling()) {
 			if (type.getNodeName().equals("usertype")) { //$NON-NLS-1$
-				Type newType = new Type(type);
+				PlayerType newType = new PlayerType(type);
 				playerTypes.put(newType.id, newType);
 			}
 		}
 
-		unitTypes = new TreeMap<Integer, Unit>();
+		unitTypes = new TreeMap<Integer, UnitType>();
 		for (Node unit = unitsNode.getFirstChild(); unit != null; unit = unit
 				.getNextSibling()) {
-			Unit newUnit = new Unit(unit);
+			UnitType newUnit = new UnitType(unit);
 			if (unit.getNodeName().equals("unit"))unitTypes.put(newUnit.getId(), newUnit); //$NON-NLS-1$
 		}
 

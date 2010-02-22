@@ -41,23 +41,13 @@ public class Images {
 	final public static String I_YELLOW = Messages
 			.getString("Images.I_FAVICON"); //$NON-NLS-1$
 
-	static {
 
-		/*
-		 * lazy nacitani obrazku put(F_NORMAL); put(F_SWAMP); put(F_ROCK);
-		 * put(F_VOID); put(F_INVISIBLE);
-		 * 
-		 * put(P_OWN); put(P_ALLY); put(P_ENEMY);
-		 * 
-		 * put(T_LES); put(T_LOUKA);
-		 * 
-		 * put(A_ARMY); put(A_FRIENDARMY);
-		 * 
-		 * put(O_HQ); put(O_FLAG);
-		 */
-	}
-
-	protected static ImageIcon create(String s) {
+	/**
+	 * Vytvoří obrázek buď načtením ze souboru nebo z resource
+	 * @param s Cesta k souboru nebo k resource
+	 * @return Načtený obrázek nebo null, pokud načtení selhalo
+	 */
+	private static ImageIcon create(String s) {
 		ImageIcon result = new ImageIcon(s);
 		if (result == null
 				|| result.getImageLoadStatus() != MediaTracker.COMPLETE) {
@@ -66,6 +56,11 @@ public class Images {
 		return result;
 	}
 
+	/**
+	 * Získání obrázku asociovaného s daným řetězcem, pokud neexistuje, pokusí se ho vytvořit.
+	 * @param s Řetězec - identifikátor obrázku
+	 * @return Uložený nebo vytvořený obrázek
+	 */
 	public static ImageIcon get(String s) {
 		ImageIcon result = map.get(s);
 		if (result == null) {
@@ -75,18 +70,37 @@ public class Images {
 		return result;
 	}
 
+	/**
+	 * Asociuje řetězec s obrázkem
+	 * @param s Klíčový řetězec
+	 * @param i Obrázek
+	 */
 	public static void put(String s, ImageIcon i) {
 		map.put(s, i);
 	}
 
+	/**
+	 * Načte obrázek z daného umístění a asociuje ho s cestou k umístění
+	 * @param s Umístění obrázku
+	 */
 	public static void put(String s) {
 		put(s, s);
 	}
 
+	/**
+	 * Načte obrázek z daného umístění a asociuje ho s řetězcem
+	 * @param s Klíčový řetězec
+	 * @param p Umístění obrázku
+	 */
 	public static void put(String s, String p) {
 		put(s, create(p));
 	}
 
+	/**
+	 * Pokusí se načíst obrázek z resource
+	 * @param pathName Identifikátor resource
+	 * @return Obrázek nebo null, pokud resource neexistuje, nebo nelze načíst
+	 */
 	private static ImageIcon getImage(String pathName) {
 		URL url = Images.class.getResource(pathName);
 		if (url == null)

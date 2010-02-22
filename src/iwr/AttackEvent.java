@@ -39,11 +39,11 @@ public class AttackEvent extends Event {
 	/**
 	 * Typ útočících jednotek
 	 */
-	Unit attType;
+	UnitType attType;
 	/**
 	 * Typ bránících jednotek
 	 */
-	Unit defType;
+	UnitType defType;
 	/**
 	 * Mapa, na které se akce odehrává
 	 */
@@ -77,7 +77,7 @@ public class AttackEvent extends Event {
 	 * @param map Mapa, kde se hra odehrává
 	 * @param t Pořadí události
 	 */
-	public AttackEvent(Node attNode, Map<Integer, Unit> units, iwr.Map map,
+	public AttackEvent(Node attNode, Map<Integer, UnitType> units, iwr.Map map,
 			int t) {
 		this.map = map;
 		time = t;

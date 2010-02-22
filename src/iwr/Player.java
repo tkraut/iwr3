@@ -69,7 +69,7 @@ public class Player {
 	/**
 	 * Typ <type>
 	 */
-	protected Type type;
+	protected PlayerType type;
 	/**
 	 * Aliance hrace <ali> Prozatim nevyuzite
 	 */
@@ -123,7 +123,7 @@ public class Player {
 	 * @param playerTypes Seznam typů hráčů
 	 * @param mode Pravidla hry
 	 */
-	public Player(Node playerNode, Map<Integer, Type> playerTypes, GameMode mode) {
+	public Player(Node playerNode, Map<Integer, PlayerType> playerTypes, GameMode mode) {
 		resources = new Resources(mode);
 		for (Node child = playerNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
