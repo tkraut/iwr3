@@ -143,7 +143,7 @@ public class AttackEvent extends Event {
 		src.removeArmyAt(attCount, time);
 		src.ownerAt(time)
 				.removeMovesAt(
-						costOfAction(src.armyAt(time - 1).getUnit().turnsPerAttack,
+						costOfAction(src.armyAt(time - 1).getUnit().getTurnsPerAttack(),
 								distance), time);
 	}
 

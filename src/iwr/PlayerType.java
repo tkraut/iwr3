@@ -11,12 +11,34 @@ import org.w3c.dom.Node;
  * 
  */
 public class PlayerType {
+	/**
+	 * Typ louka, pro zpětnou kompatibilitu
+	 * @deprecated
+	 */
 	final static public String LOUKA = "louka"; //$NON-NLS-1$
+	/**
+	 * Typ les, pro zpětnou kompatibilitu
+	 * @deprecated
+	 */
 	final static public String LES = "les"; //$NON-NLS-1$
+	/**
+	 * ID typu
+	 */
 	int id;
+	
+	/**
+	 * Název typu
+	 */
 	String name;
+	/**
+	 * Ikonka typu hráče
+	 */
 	ImageIcon icon;
 
+	/**
+	 * Vytvoří typ hráče z XML uzlu
+	 * @param typeNode XML uzel &lt;playertype&gt;
+	 */
 	public PlayerType(Node typeNode) {
 		for (Node n = typeNode.getFirstChild(); n != null; n = n
 				.getNextSibling()) {

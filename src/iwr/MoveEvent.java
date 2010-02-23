@@ -50,7 +50,7 @@ public class MoveEvent extends Event {
 		Army sa = src.armyAt(time);
 		double distance = dest.distanceFrom(src);
 		dest.ownerAt(time).removeMovesAt(
-				costOfAction(sa.getUnit().turnsPerMove, distance), count);
+				costOfAction(sa.getUnit().getTurnsPerMove(), distance), count);
 		dest.addArmyAt(new Army(sa.getUnit(), count), time);
 		src.removeArmyAt(count, time);
 	}

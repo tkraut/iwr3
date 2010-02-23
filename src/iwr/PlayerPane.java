@@ -9,6 +9,11 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Panel pro výběr hráčů a zobrazení jejich informací
+ * @author Tomáš Kraut
+ *
+ */
 public class PlayerPane extends JPanel {
 
 	/**
@@ -16,14 +21,29 @@ public class PlayerPane extends JPanel {
 	 */
 	private static final long serialVersionUID = 3857819570317137989L;
 
-	protected Player player = null;
+	/**
+	 * Aktivní hráč
+	 */
+	private Player player = null;
 
-	protected int time;
+	/**
+	 * Aktuální herní čas
+	 */
+	private int time;
 
-	protected JLabel neq, moves, hq, received, killed;
+	/**
+	 * Pole s informacemi o hráči
+	 */
+	private JLabel neq, moves, hq, received, killed;
 
+	/**
+	 * Skok na vyřazení akt. hráče
+	 */
 	private JButton kill;
 
+	/**
+	 * Odkaz na rodičovské UI
+	 */
 	private UI main;
 
 	@Override
@@ -47,6 +67,10 @@ public class PlayerPane extends JPanel {
 
 	}
 
+	/**
+	 * Vytvoření s nastavením rodičovského UI
+	 * @param ui Rodičovské UI
+	 */
 	public PlayerPane(final UI ui) {
 		main = ui;
 		setLayout(new GridLayout(0, 2));
@@ -79,6 +103,10 @@ public class PlayerPane extends JPanel {
 		add(kill);
 	}
 
+	/**
+	 * Nastaví aktivního hráče
+	 * @param p Hráč
+	 */
 	public void setPlayer(Player p) {
 		player = p;
 		if (player == null) {
@@ -88,6 +116,10 @@ public class PlayerPane extends JPanel {
 		}
 	}
 
+	/**
+	 * Nastaví herní čas
+	 * @param t Herní čas
+	 */
 	public void setTime(int t) {
 		time = t;
 	}

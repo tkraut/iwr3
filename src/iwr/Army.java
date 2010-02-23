@@ -70,7 +70,7 @@ public class Army {
 	 * @return Cena armády
 	 */
 	public int cost() {
-		return count * getUnit().cost;
+		return count * getUnit().getCost();
 	}
 
 	/**

@@ -383,7 +383,7 @@ public class UI implements Runnable {
 	 * Vytvoří menu
 	 */
 	private void createMenu() {
-		JMenuBar menu = new JMenuBar();
+		menu = new JMenuBar();
 		JMenu file = new JMenu(Messages.getString("UI.File")); //$NON-NLS-1$
 		JMenuItem open = new JMenuItem(Messages.getString("UI.Open")); //$NON-NLS-1$
 		open.addActionListener(new ActionListener() {

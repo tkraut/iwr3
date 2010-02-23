@@ -8,16 +8,47 @@ import org.w3c.dom.Node;
  *
  */
 public class UnitType {
-	int id;
-	String name;
-	String description;
-	int attack;
-	int defense;
-	int cost;
-	int turnsPerAttack;
-	int turnsPerMove;
-	int lookoutBonus;
+	/**
+	 * ID typu jednotky
+	 */
+	private int id;
+	/**
+	 * Jméno jednotky
+	 */
+	private String name;
+	/**
+	 * Popis jednotky
+	 */
+	private String description;
+	/**
+	 * Útočná síla jednotky 
+	 */
+	private int attack;
+	/**
+	 * Obranná síla jednotky
+	 */
+	private int defense;
+	/**
+	 * Cena jednotky
+	 */
+	private int cost;
+	/**
+	 * Potřebný počet tahů na útok jednotky
+	 */
+	private int turnsPerAttack;
+	/**
+	 * Potřebný počet tahů na přesun jednotky
+	 */
+	private int turnsPerMove;
+	/**
+	 * Lookout bonus - o kolik dál jednotka vidí, než je standardní výhled z políčka
+	 */
+	private int lookoutBonus;
 
+	/**
+	 * Vytvoří typ z XML uzlu
+	 * @param unitNode XML uzel &lt;unit&gt;
+	 */
 	public UnitType(Node unitNode) {
 		for (Node child = unitNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
@@ -44,8 +75,70 @@ public class UnitType {
 
 	}
 
+	
+	/**
+	 * @return id
+	 */
 	public int getId() {
 		return id;
+	}
+
+
+	/**
+	 * @return the cost
+	 */
+	public int getCost() {
+		return cost;
+	}
+
+
+
+	/**
+	 * @return the description
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	/**
+	 * @return the attack
+	 */
+	public int getAttack() {
+		return attack;
+	}
+
+
+	/**
+	 * @return the defense
+	 */
+	public int getDefense() {
+		return defense;
+	}
+
+
+	/**
+	 * @return the turnsPerAttack
+	 */
+	public int getTurnsPerAttack() {
+		return turnsPerAttack;
+	}
+
+
+	/**
+	 * @return the turnsPerMove
+	 */
+	public int getTurnsPerMove() {
+		return turnsPerMove;
+	}
+
+
+	/**
+	 * @return the lookoutBonus
+	 */
+	public int getLookoutBonus() {
+		return lookoutBonus;
 	}
 
 

@@ -190,6 +190,7 @@ public class Field {
 	 * @param visibility Pole, na která určený hráč vidí
 	 * @return Seznam obrázků, které se mají vykreslit
 	 */
+	@SuppressWarnings("deprecation") // kvůli zpětné kompatibilitě se starými záznamy, kde není obrázek typu
 	public List<ImageIcon> imageForAt(Player player, int time,
 			boolean obeyVisibilityRules, Set<Field> visibility) {
 		ArrayList<ImageIcon> list = new ArrayList<ImageIcon>();
@@ -281,7 +282,7 @@ public class Field {
 		int visibility = typeAt(time).lookout;
 		Army army = armyAt(time);
 		if (army != null) {
-			visibility += army.getUnit().lookoutBonus;
+			visibility += army.getUnit().getLookoutBonus();
 		}
 		return visibility;
 	}

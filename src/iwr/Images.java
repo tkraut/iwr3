@@ -18,26 +18,71 @@ public class Images {
 	 */
 	protected static Map<String, ImageIcon> map = new HashMap<String, ImageIcon>();
 	
+	/**
+	 * Normální pole
+	 */
 	final public static String F_NORMAL = Messages.getString("Images.F_NORMAL"); //$NON-NLS-1$
+	/**
+	 * Bažina
+	 */
 	final public static String F_SWAMP = Messages.getString("Images.F_SWAMP"); //$NON-NLS-1$
+	/**
+	 * Skála
+	 */
 	final public static String F_ROCK = Messages.getString("Images.F_ROCK"); //$NON-NLS-1$
+	/**
+	 * Nedostupné pole
+	 */
 	final public static String F_VOID = Messages.getString("Images.F_VOID"); //$NON-NLS-1$
+	/**
+	 * Neviditelné pole
+	 */
 	final public static String F_INVISIBLE = Messages
 			.getString("Images.F_INVISIBLE"); //$NON-NLS-1$
 
+	/**
+	 * Vlastní pole
+	 */
 	final public static String P_OWN = Messages.getString("Images.P_OWN"); //$NON-NLS-1$
+	/**
+	 * Pole, patřící spoluhráči
+	 */
 	final public static String P_ALLY = Messages.getString("Images.P_ALLY"); //$NON-NLS-1$
+	/**
+	 * Pole, patřící protihráči
+	 */
 	final public static String P_ENEMY = Messages.getString("Images.P_ENEMY"); //$NON-NLS-1$
 
+	/**
+	 * Pole, patřící louce
+	 */
 	final public static String T_LOUKA = Messages.getString("Images.T_LOUKA"); //$NON-NLS-1$
+	/**
+	 * Pole, patřící lesu
+	 */
 	final public static String T_LES = Messages.getString("Images.T_LES"); //$NON-NLS-1$
 
+	/**
+	 * Pole s armádou
+	 */
 	final public static String A_ARMY = Messages.getString("Images.A_ARMY"); //$NON-NLS-1$
+	/**
+	 * Pole s "friendarmy"
+	 */
 	final public static String A_FRIENDARMY = Messages
 			.getString("Images.A_FRIENDARMY"); //$NON-NLS-1$
 
+	/**
+	 * Pole s velením
+	 */
 	final public static String O_HQ = Messages.getString("Images.O_HQ"); //$NON-NLS-1$
+	/**
+	 * Pole s vlajkou
+	 */
 	final public static String O_FLAG = Messages.getString("Images.O_FLAG"); //$NON-NLS-1$
+	/**
+	 * Žlutá ikonka hmyzáka
+	 */
 	final public static String I_YELLOW = Messages
 			.getString("Images.I_FAVICON"); //$NON-NLS-1$
 
