@@ -32,9 +32,25 @@ public class PlayerPane extends JPanel {
 	private int time;
 
 	/**
-	 * Pole s informacemi o hráči
+	 * Pole s množstvím nektaru hráče
 	 */
-	private JLabel neq, moves, hq, received, killed;
+	private JLabel neq;
+	/**
+	 * Pole s počtem tahů hráče
+	 */
+	private JLabel moves;
+	/**
+	 * Pole s umístěním velení hráče
+	 */
+	private JLabel hq;
+	/**
+	 * Pole s množstvím přijatého nektaru za hru 
+	 */
+	private JLabel received;
+	/**
+	 * Pole s počtem vyřazenýc protivníků
+	 */
+	private JLabel killed;
 
 	/**
 	 * Skok na vyřazení akt. hráče
@@ -110,9 +126,9 @@ public class PlayerPane extends JPanel {
 	public void setPlayer(Player p) {
 		player = p;
 		if (player == null) {
-			main.obeyVisibilityRules.setEnabled(false);
+			main.getObeyVisibilityRules().setEnabled(false);
 		} else {
-			main.obeyVisibilityRules.setEnabled(true);
+			main.getObeyVisibilityRules().setEnabled(true);
 		}
 	}
 

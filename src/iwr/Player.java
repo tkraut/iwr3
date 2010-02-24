@@ -14,49 +14,6 @@ import org.w3c.dom.Node;
  * 
  */
 public class Player {
-	/**
-	 * Prostředky hráče
-	 * @author Tomáš Kraut
-	 *
-	 */
-	class Resources {
-		/**
-		 * Vytvoří prostředky pro nového hráče podle pravidel hry
-		 * @param mode Pravidla hry
-		 */
-		public Resources(GameMode mode) {
-			movesHistory = new TimeMap<Integer>(mode.initialMoves);
-			nectarHistory = new TimeMap<Integer>(mode.initialNectar);
-			hqHistory = new TimeMap<Field>(null);
-			receivedNeqHistory = new TimeMap<Integer>(0);
-			destroyedHistory = new TimeMap<Integer>(0);
-			fieldsHistory = new TimeMap<Set<Field>>(new HashSet<Field>());
-		}
-		/**
-		 * Průběh volnýh tahů
-		 */
-		TimeLine<Integer> movesHistory;
-		/**
-		 * Průběh volného nektaru
-		 */
-		TimeLine<Integer> nectarHistory;
-		/**
-		 * Průběh umístění velení
-		 */
-		TimeLine<Field> hqHistory;
-		/**
-		 * Průběh počtu přijatého nektaru
-		 */
-		TimeLine<Integer> receivedNeqHistory;
-		/**
-		 * Průběh počtu vyřazených protihráčů
-		 */
-		TimeLine<Integer> destroyedHistory;
-		/**
-		 * Průběh vlastnictví polí
-		 */
-		TimeLine<Set<Field>> fieldsHistory;
-	}
 
 	/**
 	 * Jmeno hrace <nick>
@@ -79,15 +36,34 @@ public class Player {
 	 */
 	protected Date regdate;
 
-	/***
-	 * Hráčovy prostředky
-	 */
-	protected Resources resources;
-
 	/**
 	 * Čas jeho vyřazení
 	 */
 	protected int death = 0;
+	/**
+	 * Průběh volnýh tahů
+	 */
+	TimeLine<Integer> movesHistory;
+	/**
+	 * Průběh volného nektaru
+	 */
+	TimeLine<Integer> nectarHistory;
+	/**
+	 * Průběh umístění velení
+	 */
+	TimeLine<Field> hqHistory;
+	/**
+	 * Průběh počtu přijatého nektaru
+	 */
+	TimeLine<Integer> receivedNeqHistory;
+	/**
+	 * Průběh počtu vyřazených protihráčů
+	 */
+	TimeLine<Integer> destroyedHistory;
+	/**
+	 * Průběh vlastnictví polí
+	 */
+	TimeLine<Set<Field>> fieldsHistory;
 
 	/**
 	 * Umístění velení
@@ -95,7 +71,7 @@ public class Player {
 	 * @param time Pořadí akce ve světě
 	 */
 	public void setHq(Field hq, int time) {
-		resources.hqHistory.changeLoadAt(hq, time);
+		hqHistory.changeLoadAt(hq, time);
 		addFieldAt(hq, time);
 	}
 
@@ -104,7 +80,7 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void removeHq(int time) {
-		resources.hqHistory.changeLoadAt(null, time);
+		hqHistory.changeLoadAt(null, time);
 		removeAllFieldsAt(time);
 	}
 
@@ -114,7 +90,7 @@ public class Player {
 	 * @return Pole, kde má hráč velení, případně null, pokud je vyřazen nebo velní odstranil před začátkem světa
 	 */
 	public Field getHq(int time) {
-		return resources.hqHistory.loadAt(time);
+		return hqHistory.loadAt(time);
 	}
 
 	/**
@@ -124,7 +100,12 @@ public class Player {
 	 * @param mode Pravidla hry
 	 */
 	public Player(Node playerNode, Map<Integer, PlayerType> playerTypes, GameMode mode) {
-		resources = new Resources(mode);
+		movesHistory = new TimeMap<Integer>(mode.initialMoves);
+		nectarHistory = new TimeMap<Integer>(mode.initialNectar);
+		hqHistory = new TimeMap<Field>(null);
+		receivedNeqHistory = new TimeMap<Integer>(0);
+		destroyedHistory = new TimeMap<Integer>(0);
+		fieldsHistory = new TimeMap<Set<Field>>(new HashSet<Field>());
 		for (Node child = playerNode.getFirstChild(); child != null; child = child
 				.getNextSibling()) {
 			if (child.getNodeName().equals("id")) {
@@ -168,7 +149,7 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void addNectarAt(int nectar, int time) {
-		resources.nectarHistory.changeLoadAt(resources.nectarHistory
+		nectarHistory.changeLoadAt(nectarHistory
 				.loadAt(time)
 				+ nectar, time);
 	}
@@ -188,7 +169,7 @@ public class Player {
 	 * @param time Herní čas 
 	 */
 	public void addMovesAt(int moves, int time) {
-		resources.movesHistory.changeLoadAt(resources.movesHistory.loadAt(time)
+		movesHistory.changeLoadAt(movesHistory.loadAt(time)
 				+ moves, time);
 	}
 
@@ -208,8 +189,8 @@ public class Player {
 	public void killed(int time) {
 		removeHq(time);
 		death = time;
-		resources.movesHistory.changeLoadAt(0, time);
-		resources.nectarHistory.changeLoadAt(0, time);
+		movesHistory.changeLoadAt(0, time);
+		nectarHistory.changeLoadAt(0, time);
 		removeAllFieldsAt(time);
 	}
 
@@ -228,7 +209,7 @@ public class Player {
 	 */
 	public void acceptNectarAt(int nectar, int time) { // jen info o prijeti,
 														// neprida nektar
-		resources.receivedNeqHistory.changeLoadAt(resources.receivedNeqHistory
+		receivedNeqHistory.changeLoadAt(receivedNeqHistory
 				.loadAt(time)
 				+ nectar, time);
 
@@ -241,7 +222,7 @@ public class Player {
 	 * @return Množství nektaru
 	 */
 	public int nectarAt(int time) {
-		return resources.nectarHistory.loadAt(time);
+		return nectarHistory.loadAt(time);
 	}
 
 	/**
@@ -250,7 +231,7 @@ public class Player {
 	 * @return Počet tahů
 	 */
 	public int movesAt(int time) {
-		return resources.movesHistory.loadAt(time);
+		return movesHistory.loadAt(time);
 	}
 
 	/**
@@ -259,7 +240,7 @@ public class Player {
 	 * @return Přijatý nektar od začátku do teď
 	 */
 	public int receivedAt(int time) {
-		return resources.receivedNeqHistory.loadAt(time);
+		return receivedNeqHistory.loadAt(time);
 	}
 
 	/**
@@ -268,7 +249,7 @@ public class Player {
 	 * @return Počet vyřazených protivníků
 	 */
 	public int fragsAt(int time) {
-		return resources.destroyedHistory.loadAt(time);
+		return destroyedHistory.loadAt(time);
 	}
 
 	/**
@@ -276,7 +257,7 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void frag(int time) {
-		resources.destroyedHistory.changeLoadAt(resources.destroyedHistory
+		destroyedHistory.changeLoadAt(destroyedHistory
 				.loadAt(time) + 1, time);
 	}
 
@@ -286,7 +267,7 @@ public class Player {
 	 * @return Mnořina polí
 	 */
 	public Set<Field> fieldsAt(int time) {
-		return resources.fieldsHistory.loadAt(time);
+		return fieldsHistory.loadAt(time);
 	}
 
 	/**
@@ -294,7 +275,7 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void removeAllFieldsAt(int time) {
-		resources.fieldsHistory.changeLoadAt(new HashSet<Field>(), time);
+		fieldsHistory.changeLoadAt(new HashSet<Field>(), time);
 	}
 
 	/**
@@ -303,10 +284,10 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void addFieldAt(Field field, int time) {
-		Set<Field> expanded = new HashSet<Field>(resources.fieldsHistory
+		Set<Field> expanded = new HashSet<Field>(fieldsHistory
 				.loadAt(time - 1));
 		if (expanded.add(field)) {
-			resources.fieldsHistory.changeLoadAt(expanded, time);
+			fieldsHistory.changeLoadAt(expanded, time);
 		}
 	}
 
@@ -316,10 +297,10 @@ public class Player {
 	 * @param time Herní čas
 	 */
 	public void removeFieldAt(Field field, int time) {
-		Set<Field> shrinked = new HashSet<Field>(resources.fieldsHistory
+		Set<Field> shrinked = new HashSet<Field>(fieldsHistory
 				.loadAt(time - 1));
 		if (shrinked.remove(field)) {
-			resources.fieldsHistory.changeLoadAt(shrinked, time);
+			fieldsHistory.changeLoadAt(shrinked, time);
 		}
 	}
 

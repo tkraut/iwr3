@@ -29,6 +29,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -48,33 +49,91 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class UI implements Runnable {
 
 
-	JFrame mainFrame;
+	/**
+	 * Hlavní okno
+	 */
+	private JFrame mainFrame;
 
-	JPanel players;
-	JList playersChooser;
-	PlayerPane playerInfo;
-	JTextField jumpCount;
-	JCheckBox obeyVisibilityRules;
-	JLabel moves;
-	JList moveList;
+	/**
+	 * Panel s hráči
+	 */
+	private JPanel players;
+	/**
+	 * Výběr hráčů
+	 */
+	private JList playersChooser;
+	/**
+	 * Informace o hráči
+	 */
+	private PlayerPane playerInfo;
+	/**
+	 * O kolik se má ve hře posouvat
+	 */
+	private JTextField jumpCount;
+	/**
+	 * Má se dodržovat viditelnost?
+	 */
+	private JCheckBox obeyVisibilityRules;
+	/**
+	 * Zobrazení počtu akcí a jejich času
+	 */
+	private JLabel moves;
+	/**
+	 * Seznam akcí
+	 */
+	private JList moveList;
 
-	MapPane mapPane;
+	/**
+	 * Zobrazení mapy
+	 */
+	private MapPane mapPane;
 
-	Game game;
-	Player activePlayer;
+	/**
+	 * Zaznamenaná hra
+	 */
+	private Game game;
+	/**
+	 * Aktivní hráč
+	 */
+	private Player activePlayer;
 
-	int time;
-	Calendar calendar = new GregorianCalendar();
-	int totalTime;
+	/**
+	 * Aktuální herní čas
+	 */
+	private int time;
+	
+	/**
+	 * Aktuální skutečný čas
+	 */
+	private Calendar calendar = new GregorianCalendar();
+	/**
+	 * Délka hry
+	 */
+	private int totalTime;
 
-	File load = null;
+	/**
+	 * Soubor, ze kterého se má po spuštění načíst hra
+	 */
+	private File load = null;
 
+	/**
+	 * Počet řádek, viditelných v seznamu akcí
+	 */
 	private int visibleRows = 5;
 
+	/**
+	 * Výběr způsobu pohybu ve hře
+	 */
 	private JComboBox what;
 
+	/**
+	 * Panel s ovládáním posunu ve hře
+	 */
 	private JPanel controls;
 
+	/**
+	 * Hlavní menu programu
+	 */
 	private JMenuBar menu;
 
 	/**
@@ -237,6 +296,7 @@ public class UI implements Runnable {
 
 		// pane.add(new JButton("<<"));
 		JButton prev = new JButton(Messages.getString("UI.Back")); //$NON-NLS-1$
+		prev.setEnabled(false);
 		prev.addActionListener(new ActionListener() {
 
 			@Override
@@ -258,12 +318,15 @@ public class UI implements Runnable {
 		controls.add(moves, BorderLayout.EAST);
 
 		JButton toEndOfProt = new JButton(Messages.getString("UI.EndPeace")); //$NON-NLS-1$
+		toEndOfProt.setEnabled(false);
 		toEndOfProt.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				setTime(game.protection);
-				repaint();
+				if (game != null) {
+					setTime(game.protection);
+					repaint();
+				}
 
 			}
 		});
@@ -282,6 +345,7 @@ public class UI implements Runnable {
 		obeyVisibilityRules.setEnabled(false);
 		controls.add(obeyVisibilityRules);
 		JButton next = new JButton(Messages.getString("UI.Fwd")); //$NON-NLS-1$
+		next.setEnabled(false);
 		next.addActionListener(new ActionListener() {
 
 			@Override
@@ -370,12 +434,16 @@ public class UI implements Runnable {
 	 * @param file Soubor se záznamem
 	 */
 	protected void loadGame(File file) {
-		game = new Game(file);
-		setTime(1);
-		setGame(game);
-		moveList.setListData(game.events.toArray());
-		setPlayers(game.getPlayers());
-		mainFrame.pack();
+		try {
+			game = new Game(file);
+			setTime(1);
+			setGame(game);
+			moveList.setListData(game.events.toArray());
+			setPlayers(game.getPlayers());
+			mainFrame.pack();
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Nepodařilo se načíst hru", null, JOptionPane.ERROR_MESSAGE);
+		}
 		repaint();
 	}
 
@@ -400,21 +468,21 @@ public class UI implements Runnable {
 			}
 		});
 
-		JMenu game = new JMenu(Messages.getString("UI.Game")); //$NON-NLS-1$
-		JMenuItem refresh = new JMenuItem(Messages.getString("UI.Refresh")); //$NON-NLS-1$
-		refresh.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				repaint();
-			}
-		});
+//		JMenu game = new JMenu(Messages.getString("UI.Game")); //$NON-NLS-1$
+//		JMenuItem refresh = new JMenuItem(Messages.getString("UI.Refresh")); //$NON-NLS-1$
+//		refresh.addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) {
+//				repaint();
+//			}
+//		});
 		JMenu help = new JMenu(Messages.getString("UI.Help")); //$NON-NLS-1$
 
 		menu.add(file);
 		file.add(open);
-		menu.add(game);
-		game.add(refresh);
+//		menu.add(game);
+//		game.add(refresh);
 		menu.add(help);
 	}
 
@@ -453,10 +521,10 @@ public class UI implements Runnable {
 
 	/**
 	 * Nastaví aktuální hru
-	 * @param g Hra
+	 * @param game Hra
 	 */
-	private void setGame(Game g) {
-		mapPane.setGame(g);
+	private void setGame(Game game) {
+		mapPane.setGame(game);
 	}
 
 	/**
@@ -479,6 +547,13 @@ public class UI implements Runnable {
 			}
 		});
 		mapPane.setObeyVisibilityRules(false);
+	}
+
+	/**
+	 * @return the obeyVisibilityRules
+	 */
+	public JCheckBox getObeyVisibilityRules() {
+		return obeyVisibilityRules;
 	}
 
 	@Override
