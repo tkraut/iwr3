@@ -137,6 +137,21 @@ public class UI implements Runnable {
 	private JMenuBar menu;
 
 	/**
+	 * Tlačítko posunu zpět
+	 */
+	private JButton prev;
+
+	/**
+	 * Tlačítko posunu vpřed
+	 */
+	private JButton next;
+	
+	/**
+	 * Tlačítko skoku na konec protekce
+	 */
+	private JButton toEndOfProt;
+
+	/**
 	 * 
 	 * @param args Parametry předané programu
 	 */
@@ -294,8 +309,7 @@ public class UI implements Runnable {
 	private void createControls() {
 		controls = new JPanel(new GridLayout(1, 0));
 
-		// pane.add(new JButton("<<"));
-		JButton prev = new JButton(Messages.getString("UI.Back")); //$NON-NLS-1$
+		prev = new JButton(Messages.getString("UI.Back"));
 		prev.setEnabled(false);
 		prev.addActionListener(new ActionListener() {
 
@@ -317,7 +331,7 @@ public class UI implements Runnable {
 		moves = new JLabel();
 		controls.add(moves, BorderLayout.EAST);
 
-		JButton toEndOfProt = new JButton(Messages.getString("UI.EndPeace")); //$NON-NLS-1$
+		toEndOfProt = new JButton(Messages.getString("UI.EndPeace"));
 		toEndOfProt.setEnabled(false);
 		toEndOfProt.addActionListener(new ActionListener() {
 
@@ -344,7 +358,7 @@ public class UI implements Runnable {
 		});
 		obeyVisibilityRules.setEnabled(false);
 		controls.add(obeyVisibilityRules);
-		JButton next = new JButton(Messages.getString("UI.Fwd")); //$NON-NLS-1$
+		next = new JButton(Messages.getString("UI.Fwd"));
 		next.setEnabled(false);
 		next.addActionListener(new ActionListener() {
 
@@ -354,6 +368,7 @@ public class UI implements Runnable {
 			}
 		});
 		controls.add(next);
+		controls.setEnabled(false);
 		// pane.add(new JButton(">>"));
 
 	}
@@ -441,6 +456,10 @@ public class UI implements Runnable {
 			moveList.setListData(game.events.toArray());
 			setPlayers(game.getPlayers());
 			mainFrame.pack();
+			controls.setEnabled(true);
+			next.setEnabled(true);
+			prev.setEnabled(true);
+			toEndOfProt.setEnabled(true);
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Nepodařilo se načíst hru", null, JOptionPane.ERROR_MESSAGE);
 		}

@@ -249,7 +249,7 @@ public class Field {
 	/**
 	 * Odebrání daného počtu jednotek v čase (předpoklad, že tam je nějaká armáda)
 	 * @param count Počet jednotek
-	 * @param time Čas
+	 * @param time Herní čas
 	 */
 	public void removeArmyAt(int count, int time) { // assuming there is army
 		if (armyAt(time) == null)
@@ -274,8 +274,8 @@ public class Field {
 	}
 
 	/**
-	 * Získání vzdálenosti, na kterou je z tohoto polev čase T vidět 
-	 * @param time Čas
+	 * Získání vzdálenosti, na kterou je z tohoto pole v čase T vidět 
+	 * @param time Herní čas
 	 * @return Vzdálenost, kam lze dohlédnout
 	 */
 	public int visibilityAt(int time) {
@@ -289,7 +289,7 @@ public class Field {
 
 	/**
 	 * Získání polí, na která je v čase T odsud vidět
-	 * @param time Čas
+	 * @param time Herní čas
 	 * @return Množina viditelných polí
 	 */
 	public Set<Field> visibleFieldsAt(int time) {
