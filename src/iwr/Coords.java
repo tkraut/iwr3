@@ -11,11 +11,11 @@ import java.util.regex.Pattern;
  */
 public class Coords {
 	/**
-	 * X souřadnice (horizonvální) 
+	 * X souřadnice (horizontální, písmenná)
 	 */
 	private int x;
 	/**
-	 * Y souřadnice (vertikální)
+	 * Y souřadnice (vertikální, číselná)
 	 */
 	private int y;
 
@@ -106,7 +106,7 @@ public class Coords {
 		String sy = result.group(2);
 		if (sx.length() == 1) {
 			this.x = Character.getNumericValue(sx.charAt(0)) - 10;
-		} else { // delsi, nez 2 neresim
+		} else { // delsi nez 2 neresim
 			this.x = (Character.getNumericValue(sx.charAt(0)) - 9) * 26
 					+ Character.getNumericValue(sx.charAt(1)) - 10;
 		}
