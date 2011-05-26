@@ -1,0 +1,34 @@
+IWreview3 - přehrávač záznamů ke hře Insect World 2
+===================================================
+
+Spuštění
+--------
+
+Po kompilaci příkazem
+
+    ant jar
+
+lze program spustit pomocí příkazu
+
+    java -jar IWReview.jar [map.iwr]
+
+kde map.iwr je volitelný parametr s názvem souboru s mapou.
+
+
+
+Načtení mapy
+------------
+
+Pokud byl zadán parametr při spuštění, načte se mapa ze zadaného souboru automaticky.
+Novou mapu lze načíst výběrem menu Soubor->Otevřít
+
+
+
+
+
+Zobrazení
+---------
+
+Po spuštění programu a načtení mapy se zobrazí následující obrazovka:
+    SCREEN
+

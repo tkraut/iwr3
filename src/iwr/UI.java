@@ -132,6 +132,16 @@ public class UI implements Runnable {
 	private JPanel controls;
 
 	/**
+	 * Seskupení ovládání a statusbaru
+	 */
+	private JPanel bottom;
+
+	/**
+	 * Zobrazení tahů a času
+	 */
+	private JPanel statusbar;
+
+	/**
 	 * Hlavní menu programu
 	 */
 	private JMenuBar menu;
@@ -195,8 +205,8 @@ public class UI implements Runnable {
 		createField();
 		pane.add(/* new JScrollPane( */mapPane/* ) */, BorderLayout.CENTER);
 		
-		createControls();
-		pane.add(controls, BorderLayout.SOUTH);
+		createBottom();
+		pane.add(bottom, BorderLayout.SOUTH);
 
 		moveList = new JList();
 		moveList.setLayoutOrientation(JList.VERTICAL);
@@ -304,6 +314,27 @@ public class UI implements Runnable {
 	}
 
 	/**
+	 * Vytvoření spodního panelu (statusbar + ovládání)
+	 */
+	private void createBottom() {
+		bottom = new JPanel(new GridLayout(0,1));
+		createStatusbar();
+		bottom.add(statusbar);
+		createControls();
+		bottom.add(controls);
+	}
+
+	/**
+	 * Vytvoření statusbaru - zobrazení času a tahů
+	 */
+	private void createStatusbar () {
+		statusbar = new JPanel();
+		moves = new JLabel();
+		statusbar.add(moves);
+
+	}
+
+	/**
 	 * Vytvoření panelu pro ovládání
 	 */
 	private void createControls() {
@@ -328,8 +359,6 @@ public class UI implements Runnable {
 		}
 		
 		controls.add(what);
-		moves = new JLabel();
-		controls.add(moves, BorderLayout.EAST);
 
 		toEndOfProt = new JButton(Messages.getString("UI.EndPeace"));
 		toEndOfProt.setEnabled(false);
