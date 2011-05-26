@@ -525,13 +525,13 @@ public class UI implements Runnable {
 //				repaint();
 //			}
 //		});
-		JMenu help = new JMenu(Messages.getString("UI.Help")); //$NON-NLS-1$
+//		JMenu help = new JMenu(Messages.getString("UI.Help")); //$NON-NLS-1$
 
 		menu.add(file);
 		file.add(open);
 //		menu.add(game);
 //		game.add(refresh);
-		menu.add(help);
+//		menu.add(help);
 	}
 
 	/**
