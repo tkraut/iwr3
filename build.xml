@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="us-ascii" ?>
+<project name="IWReview" default="jar" basedir=".">
+    <property name="src" location="src"/>
+    <property name="classes" location="classes"/>
+    <property name="jar" location="IWReview.jar"/>
+    <property name="doc" location="doc"/>
+    <target name="init">
+        <mkdir dir="${classes}"/>
+        <mkdir dir="${doc}"/>
+    </target>
+    <target name="compile" depends="init">
+        <javac destdir="${classes}" srcdir="${src}" includes="iwr/**"/>
+        <copy todir="${classes}">
+            <fileset dir="${src}">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="jar" depends="compile">
+        <jar destfile="IWReview.jar" basedir="${classes}">
+            <manifest>
+                <attribute name="Main-Class" value="iwr.IWR"/>
+            </manifest>
+        </jar>
+    </target>
+    <target name="javadoc" depends="init">
+        <javadoc destdir="${doc}" sourcepath="${src}" charset="utf-8"/>
+    </target>
+    <target name="run" depends="jar">
+        <java fork="true" jar="IWReview.jar"/>
+    </target>
+    <target name="clean">
+        <delete dir="${classes}"/>
+        <delete dir="${doc}"/>
+        <delete file="${jar}"/>
+    </target>
+</project>

@@ -1,18 +1,20 @@
 IWreview3 - přehrávač záznamů ke hře Insect World 2
 ===================================================
 
+Tento dokument je psán jako příručka pro hráče hry Insect World.
+Kdo hru nezná, může se dozvědět více na http://www.iw.cz/help.php .
+
+
 Spuštění
 --------
 
-Po kompilaci příkazem
-
-    ant jar
-
-lze program spustit pomocí příkazu
+Program se pouští příkazem
 
     java -jar IWReview.jar [map.iwr]
 
 kde map.iwr je volitelný parametr s názvem souboru s mapou.
+
+Příponu IWR lze asociovat s tímto příkazem v systému
 
 
 
@@ -20,15 +22,30 @@ Načtení mapy
 ------------
 
 Pokud byl zadán parametr při spuštění, načte se mapa ze zadaného souboru automaticky.
-Novou mapu lze načíst výběrem menu Soubor->Otevřít
+Novou mapu lze načíst výběrem menu Soubor->Otevřít a následně otevřením souboru se záznamem (Po registraci na iw.cz ke stažení na http://www.iw.cz/iwr.php)
+
+Pokud je záznam porušený (např. staré verze záznamů), všechny neplatné akce se přeskočí, což může mít za následek chybné zobrazení tahů ve světě.
 
 
 
-
-
-Zobrazení
----------
+Zobrazení ovládání
+------------------
 
 Po spuštění programu a načtení mapy se zobrazí následující obrazovka:
     SCREEN
 
+V levé části se zobrazuje seznam hráčů(A) spolu s typem, ke kterému patří. Kliknutím na konkrétního hráče se zobrazí jeho detaily v panelu pod seznamem.
+
+V detailech hráče(B) se zobrazuje aktuální stav nektaru, tahů, obdrženého nektaru a poloha velení, dále počet vyřazených protivníků a pokud hráč byl ve světě vyřazen, tak tlačítko, umožňující skok na akci předcházející jeho vyřazení.
+
+V horní části se zobrazuje seznam akcí ve světě(C), při kliknutí na položku seznamu se zobrazovaný svět přesune do stavu po provedení vybrané akce.
+
+Ve spodní části se zobrazuje ovládání a stavový řádek.
+Ovládá se tlačítky "<" a ">" které svět posunou o zadaný počet(D) vybranách akcí(E) zpět či vpřed. Možné akce jsou "tahy" a "vyřazení", kde tahem se myslí jedna akce světa (útok, nákup, přepočet apod.) a vyřazení přeskočí na akci předcházející vyřazení hráče. Dále je možno se posouvat po časových úsecích. (Daný počet hodin, minut či sekund.)
+Pokud je vybráno "vyřazení", po stisku tlačítek zpět či vpřed se výběr automaticky změní na "tahy".
+Tlačítko "Konec neút."(F) přesune svět do stavu těsně před první akcí, která proběhla již s povoleným útočením na protihráče.
+Checkboxem "FOW"(G) lze přepnout zakrytí políček, neviditelných pro vybraného hráče.
+
+Stavový řádek(H) ukazuje čas, aktuální akci a celkový počt akcí ve světě.
+
+Uprostřed se zobrazuje mapa světa(I) v aktuálním stavu. Po najetí kurzorem myši nad políčko se zobrazí informace o políčku (J,tak jako ve hře).
