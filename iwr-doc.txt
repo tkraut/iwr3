@@ -28,11 +28,11 @@ Pokud je záznam porušený (např. staré verze záznamů), všechny neplatné 
 
 
 
-Zobrazení ovládání
-------------------
+Zobrazení a ovládání
+--------------------
 
-Po spuštění programu a načtení mapy se zobrazí následující obrazovka:
-    SCREEN
+Po spuštění programu a načtení mapy se zobrazí následující obrazovka. Viz soubor screen.png.
+   
 
 V levé části se zobrazuje seznam hráčů(A) spolu s typem, ke kterému patří. Kliknutím na konkrétního hráče se zobrazí jeho detaily v panelu pod seznamem.
 

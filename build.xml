@@ -34,4 +34,9 @@
         <delete dir="${doc}"/>
         <delete file="${jar}"/>
     </target>
+    <target name="sample" depends="jar">
+        <java fork="true" jar="IWReview.jar">
+            <arg value="sample.iwr"/>
+        </java>
+    </target>
 </project>
